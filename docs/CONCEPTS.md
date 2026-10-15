@@ -1,10 +1,10 @@
-# Hiểu C++ từ những gì bạn đã biết trong Python
+# Understanding C++ through what you already know in Python
 
-Bạn không cần đọc hết trang này trước khi làm bài 01. **Hiện tại, chỉ đọc Stage 1 và thử các ví dụ của Stage 1.** Đến nhóm bài nào mới đọc tiếp phần đó.
+You do not need to finish this page before exercise 01. **For now, read only Stage 1 and try its examples.** Read later stages when you reach their exercises.
 
-Mỗi phần đi theo thứ tự: ý tưởng quen thuộc trong Python → cách viết trong C++ → ý nghĩa của ký hiệu → điều cần hiểu để làm bài. Ví dụ minh họa dùng bài toán nhỏ, không phải lời giải bài tập.
+Each section follows this order: a familiar Python idea → its C++ form → what the symbols mean → what you need for the exercises. The examples demonstrate concepts without giving away exercise solutions.
 
-## Trước hết: đọc một dòng C++ như thế nào?
+## First: how do you read a line of C++?
 
 Python:
 
@@ -20,25 +20,25 @@ std::vector<int> numbers{4, 7, 2};
 numbers.push_back(9);
 ```
 
-Đọc từng phần:
+Break the C++ into pieces:
 
-| Cú pháp | Ý nghĩa ở đây |
+| Syntax | Meaning here |
 | --- | --- |
-| `std::` | Tên đứng sau thuộc thư viện chuẩn C++ |
-| `vector` | Một dãy có thể thêm/bớt phần tử, gần với list ở cách sử dụng |
-| `<int>` | Các phần tử của dãy này có kiểu int |
-| `numbers` | Tên biến |
-| `{4, 7, 2}` | Các giá trị ban đầu |
-| `;` | Kết thúc câu lệnh |
-| `.push_back(9)` | Thêm 9 vào cuối dãy |
+| `std::` | The following name belongs to the C++ standard library |
+| `vector` | A sequence that can grow and shrink, somewhat like a list |
+| `<int>` | This sequence contains int elements |
+| `numbers` | The variable name |
+| `{4, 7, 2}` | The initial values |
+| `;` | The end of a statement |
+| `.push_back(9)` | Add 9 to the end |
 
-`vector<int>` không hoàn toàn giống list: nó chứa các phần tử cùng kiểu và có các quy tắc về bộ nhớ mà mình sẽ học sau. Lúc bắt đầu, hãy dùng nó như một dãy số nguyên.
+A vector is not identical to a Python list: its elements have one type, and it has memory rules you will learn later. To start, use vector<int> as a sequence of integers.
 
-Các đoạn ngắn bên dưới thường là **phần nằm trong một hàm**. Muốn chạy riêng, xem khung chương trình trong [CPP_BRIDGE.md](CPP_BRIDGE.md). Khi làm bài trong repo, không thêm main vì test đã có sẵn.
+Most short snippets below are **pieces of code inside a function**, not complete programs. See [CPP_BRIDGE.md](CPP_BRIDGE.md) for a complete program you can run. Do not add main to an exercise starter: the tests already provide it.
 
-## Stage 1 — Đủ để bắt đầu bài 01–04
+## Stage 1 — Enough to start exercises 01–04
 
-### 1. Kiểu dữ liệu: C++ muốn biết biến chứa loại gì
+### 1. Types: C++ wants to know what a variable holds
 
 Python:
 
@@ -54,29 +54,29 @@ int count = 3;
 double average = 2.5;
 ```
 
-- `int`: số nguyên, có thể âm.
-- `double`: số thực.
-- `bool`: true hoặc false.
-- `std::string`: chuỗi.
+- `int`: a whole number, which can be negative.
+- `double`: a floating-point number.
+- `bool`: true or false.
+- `std::string`: a string.
 
-Python cho phép một tên biến được gán sang object kiểu khác. Trong C++, kiểu của biến đã được xác định khi khai báo.
-
-```cpp
-auto count = 3;  // Compiler suy ra count là int.
-```
-
-`auto` chỉ giúp khỏi viết tên kiểu dài; count vẫn là int. Nó không biến C++ thành ngôn ngữ có kiểu động.
-
-Một khác biệt đáng chú ý:
+In Python, you can reassign a name to an object of a different type. In C++, a variable's type is determined when it is declared.
 
 ```cpp
-int a = 5 / 2;        // 2: chia hai số nguyên.
-double b = 5.0 / 2;   // 2.5: có toán hạng số thực.
+auto count = 3;  // The compiler infers that count is an int.
 ```
 
-Để lấy chiều dài vector, dùng `numbers.size()`. Kết quả có kiểu `std::size_t`, dùng cho kích thước và không biểu diễn số âm. Chưa cần nhớ hết quy tắc số học của nó; trước mắt, đừng trừ 1 khỏi kích thước 0 rồi dùng làm chỉ số.
+`auto` saves you from spelling out the type. count is still an int; it does not become dynamically typed.
 
-### 2. Duyệt vector giống for trong Python
+Another important difference:
+
+```cpp
+int a = 5 / 2;        // 2: both operands are integers.
+double b = 5.0 / 2;   // 2.5: one operand is floating-point.
+```
+
+Use `numbers.size()` to get a vector's length. It returns `std::size_t`, an unsigned integer type used for sizes. It cannot represent a negative number. You do not need all its arithmetic rules yet; for now, do not subtract 1 from a size of 0 and use the result as an index.
+
+### 2. Looping over a vector is similar to Python for
 
 Python:
 
@@ -96,7 +96,7 @@ for (int number : numbers) {
 }
 ```
 
-`int number : numbers` nghĩa là lần lượt lấy từng phần tử vào biến number. `{ ... }` gom các câu lệnh của vòng lặp hoặc nhánh if, thay cho vai trò của thụt lề trong Python. Bạn vẫn nên thụt lề để dễ đọc.
+`int number : numbers` takes each element in turn and puts a copy in number. Braces group the statements belonging to the loop or if, doing the grouping that indentation does in Python. You should still indent for readability.
 
 | Python | C++ |
 | --- | --- |
@@ -107,7 +107,7 @@ for (int number : numbers) {
 | `len(numbers)` | `numbers.size()` |
 | `numbers.append(x)` | `numbers.push_back(x)` |
 
-### 3. Đọc chữ ký hàm: kiểu trả về đứng trước tên
+### 3. Function signatures: the return type comes first
 
 Python:
 
@@ -124,11 +124,11 @@ bool is_positive(int number) {
 }
 ```
 
-Đọc từ trái sang phải: hàm trả về bool, tên là is_positive, nhận một int tên number. `void` ở vị trí kiểu trả về nghĩa là hàm không trả về giá trị.
+Read it left to right: the function returns bool, is named is_positive, and receives an int named number. A return type of void means the function does not return a value.
 
-### 4. Truyền vào bản sao hay sửa trực tiếp biến bên ngoài?
+### 4. Do you pass a copy or change the caller's object?
 
-Đây là khác biệt quan trọng; đừng cố quy tất cả về một quy tắc “Python truyền reference”. Trong Python, tham số được gắn với object được truyền vào: sửa object mutable và gán lại tên tham số là hai việc khác nhau.
+This difference matters. Avoid reducing Python's behavior to “everything is passed by reference.” A Python parameter is bound to the supplied object: modifying a mutable object and rebinding the parameter name are different operations.
 
 Python:
 
@@ -136,29 +136,29 @@ Python:
 a = [1, 2]
 b = a
 b.append(3)
-# a cũng thành [1, 2, 3]: a và b cùng trỏ đến một list.
+# a is also [1, 2, 3]: both names refer to the same list.
 ```
 
-C++ với vector:
+C++ with a vector:
 
 ```cpp
 std::vector<int> a{1, 2};
-std::vector<int> b = a;  // Tạo một vector riêng, sao chép các phần tử.
+std::vector<int> b = a;  // Create a separate vector by copying the elements.
 b.push_back(3);
-// a vẫn là {1, 2}.
+// a is still {1, 2}.
 ```
 
-Nếu muốn thêm một tên cho chính vector a, dùng reference:
+To give the same vector another name, use a reference:
 
 ```cpp
 std::vector<int>& b = a;
 b.push_back(3);
-// a thành {1, 2, 3}.
+// a is now {1, 2, 3}.
 ```
 
-Ở dòng khai báo, `&` nói rằng b là **tên khác của chính a**, không phải vector mới. Reference đã gắn với một object thì không đổi sang gắn với object khác.
+In this declaration, `&` makes b **another name for a**, rather than a new vector. Once a reference is bound to an object, it cannot be rebound to a different object.
 
-Trong tham số hàm:
+Now look at function parameters:
 
 ```cpp
 void change_copy(int x) {
@@ -170,60 +170,60 @@ void change_original(int& x) {
 }
 
 int value = 5;
-change_copy(value);      // value vẫn là 5.
-change_original(value);  // value thành 99.
+change_copy(value);      // value is still 5.
+change_original(value);  // value becomes 99.
 ```
 
-| Tham số | Cách hiểu |
+| Parameter | How to understand it |
 | --- | --- |
-| `int x` | Hàm có một bản sao của số được truyền vào |
-| `int& x` | Hàm truy cập trực tiếp số bên ngoài qua tên x |
-| `std::vector<int> values` | Hàm nhận vector theo giá trị; truyền một vector có sẵn như biến a thường tạo bản sao |
-| `std::vector<int>& values` | Hàm có thể sửa vector bên ngoài |
-| `const std::vector<int>& values` | Hàm dùng vector có sẵn, không tạo bản sao chỉ để nhận tham số, và không được sửa qua values |
+| `int x` | The function gets a copy of the supplied integer |
+| `int& x` | x gives the function direct access to the caller's integer |
+| `std::vector<int> values` | A vector passed by value; passing an existing vector variable normally copies it |
+| `std::vector<int>& values` | The function can modify the caller's vector |
+| `const std::vector<int>& values` | Use the existing vector without copying it into the parameter, and do not modify it through values |
 
-Tách `const std::vector<int>& values` thành ba mảnh:
+Split `const std::vector<int>& values` into three ideas:
 
-1. `std::vector<int>`: một dãy int.
-2. `&`: dùng trực tiếp object được truyền vào.
-3. `const`: chỉ đọc qua tên này.
+1. `std::vector<int>`: a sequence of integers.
+2. `&`: use the supplied object directly.
+3. `const`: read-only access through this name.
 
-const ở đây không làm object bên ngoài bất biến vĩnh viễn. Người gọi vẫn có thể sửa một vector không const sau khi hàm kết thúc.
+const here does not permanently freeze the caller's object. The caller can still modify a non-const vector after the function returns.
 
-### 5. optional: gần với “int hoặc None”
+### 5. optional: roughly “an int or None”
 
-Giả sử một hàm tìm một số thỏa điều kiện. Có lúc nó không tìm thấy gì. Trong Python, bạn có thể trả về None. Trong C++, một hàm trả về int không thể dùng None như vậy.
+Suppose a function searches for a number. Sometimes it finds nothing. Python can return None, but a C++ function returning int cannot use None that way.
 
 ```cpp
-std::optional<int> answer;   // Chưa có giá trị.
-answer = 12;                 // Bây giờ có giá trị 12.
-answer = std::nullopt;        // Trở về trạng thái không có giá trị.
+std::optional<int> answer;   // No value yet.
+answer = 12;                 // Now contains the value 12.
+answer = std::nullopt;        // Back to having no value.
 ```
 
-`optional<int>` có **hai trạng thái**, không phải một số có giá trị mặc định đặc biệt.
+An optional<int> has **two states**: it contains an int, or it does not. It is not an int with a special default number.
 
-| C++ | Cách hiểu tương ứng trong Python |
+| C++ | Similar Python meaning |
 | --- | --- |
 | `std::optional<int> answer;` | `answer = None` |
-| `answer = 0;` | `answer = 0` — có giá trị, dù giá trị đó là 0 |
+| `answer = 0;` | `answer = 0`: a value exists, even though it is zero |
 | `answer = std::nullopt;` | `answer = None` |
-| `if (answer)` | Gần với `if answer is not None`, không phải `if answer` |
-| `*answer` | Lấy int nằm bên trong, sau khi đã biết nó tồn tại |
+| `if (answer)` | Similar to `if answer is not None`, not Python's `if answer` |
+| `*answer` | Retrieve the contained int after checking that it exists |
 
 ```cpp
 std::optional<int> answer = 0;
 if (answer) {
-    std::cout << *answer << '\n';  // In ra 0; nhánh này vẫn chạy.
+    std::cout << *answer << '\n';  // Prints 0: this branch still runs.
 }
 ```
 
-**Không dùng số 0 để biểu diễn “chưa có” nếu 0 là dữ liệu hợp lệ.** Số âm cũng có thể là dữ liệu hợp lệ. Với bài 01, đó là lý do starter dùng optional.
+**Do not use 0 to mean “not found yet” when 0 is valid input.** Negative numbers can be valid input too. This is why exercise 01 uses optional.
 
-Chỉ dùng `*answer` khi answer đang có giá trị. Ở đây `*` lấy giá trị bên trong optional; đến Stage 4 bạn sẽ thấy cùng ký hiệu được dùng với pointer.
+Only use `*answer` when it contains a value. Here, `*` accesses the value inside an optional. In Stage 4, you will meet the same symbol used with pointers.
 
-### 6. struct: đặt tên cho từng phần của kết quả
+### 6. struct: name the parts of a result
 
-Python có thể dùng tuple, dict hoặc dataclass để chứa dữ liệu liên quan. Một struct đơn giản trong C++ có các trường được đặt tên:
+In Python, you might use a tuple, dict or dataclass to group related data. A simple C++ struct gives fields names:
 
 ```cpp
 struct Point {
@@ -235,63 +235,63 @@ Point p{2, 5};
 std::cout << p.x << '\n';  // 2
 ```
 
-Point là kiểu mới, p là một object của kiểu đó, còn x và y là các trường. Chưa cần inheritance hay constructor phức tạp để làm bài 02 và 04.
+Point is a new type, p is an object of that type, and x and y are its fields. You do not need inheritance or complicated constructors for exercises 02 and 04.
 
-### Trước khi làm bài 01
+### Before attempting exercise 01
 
-Bạn chỉ cần trả lời được:
+You only need to explain:
 
-- vector chứa gì và duyệt nó thế nào?
-- `const ...&` trong tham số có nghĩa gì?
-- “chưa có giá trị” khác với số 0 như thế nào?
-- `if (answer)` và `*answer` làm hai việc gì khác nhau?
+- What does a vector contain, and how do you loop over it?
+- What does `const ...&` mean in a parameter?
+- How is “no value yet” different from zero?
+- What different jobs do `if (answer)` and `*answer` perform?
 
-Không cần học pointer, template nâng cao hay RAII trước bài 01. Khi gặp từ **contract**, hiểu là quy định đầu vào/đầu ra của bài. **Invariant** là điều bạn muốn luôn đúng sau mỗi bước, ví dụ “biến count là số phần tử đã thỏa điều kiện trong phần vừa duyệt”.
+You do not need pointers, advanced templates or RAII yet. A **contract** is the exercise's input/output requirements. An **invariant** is something you keep true after each step, such as “count is the number of matching elements in the part examined so far.”
 
-## Stage 2 — Chuỗi và vector (05–08)
+## Stage 2 — Strings and vectors (05–08)
 
-### string sở hữu dữ liệu, string_view chỉ nhìn dữ liệu có sẵn
+### string owns its data; string_view looks at existing data
 
 ```cpp
 std::string text = "hello";
 std::string_view view = text;
 ```
 
-text giữ các ký tự của nó. view chỉ là một cách nhìn vào các ký tự đó; nó không tạo một chuỗi độc lập.
+text manages its characters. view refers to those characters without creating an independent string.
 
-Đọc **borrow/mượn** là “dùng dữ liệu có sẵn, không chịu trách nhiệm giữ dữ liệu đó tồn tại”. Đọc **own/sở hữu** là “object này quản lý dữ liệu và việc giải phóng dữ liệu đó”. Đây không phải từ khóa C++.
+**Borrowing** means using existing data without taking responsibility for keeping it alive. **Ownership** means managing data or a resource and its cleanup. These are descriptions of behavior, not C++ keywords.
 
-Nếu text bị hủy hoặc bộ nhớ chứa ký tự của nó bị thay thế, view có thể không còn hợp lệ. Khi muốn trả về một chuỗi độc lập, dùng string. Không cần tự dùng string_view trong mọi bài chỉ để tránh copy.
+If text is destroyed or its character storage is replaced, view may no longer be valid. Return a string when you need an independent result. You do not need to force string_view into every exercise to avoid copies.
 
-### size và capacity là hai con số khác nhau
+### Size and capacity are different
 
 ```cpp
 std::vector<int> values;
 values.reserve(10);
-// values.size() vẫn là 0: chưa có phần tử nào.
+// values.size() is still 0: no elements exist yet.
 values.push_back(7);
-// Bây giờ size là 1; values[0] là 7.
+// Now size is 1, and values[0] is 7.
 ```
 
-reserve chuẩn bị chỗ chứa; nó không thêm phần tử. `values.at(i)` kiểm tra chỉ số và ném exception khi ngoài phạm vi. `values[i]` đòi hỏi bạn tự bảo đảm chỉ số hợp lệ; truy cập ngoài phạm vi không được bảo đảm sẽ báo lỗi dễ đọc.
+reserve prepares storage; it does not add elements. `values.at(i)` checks the index and throws an exception if it is outside the vector. `values[i]` requires you to ensure the index is valid; an invalid index is not guaranteed to produce a readable error.
 
-### iterator: một vị trí để đi qua container
+### An iterator is a position used to traverse a container
 
-Python thường che phần này trong for. C++ cho phép truyền vị trí bắt đầu/kết thúc vào thuật toán:
+Python usually hides this inside for. C++ lets you pass start/end positions to an algorithm:
 
 ```cpp
 std::reverse(values.begin(), values.end());
 ```
 
-begin là vị trí đầu; end là vị trí **ngay sau phần tử cuối**. Thuật toán xử lý từ begin đến trước end. Đây là khoảng `[begin, end)`. Không đọc `*values.end()`.
+begin is the first position; end is **just after the last element**. The algorithm processes begin up to, but not including, end. This is the range `[begin, end)`. Do not read `*values.end()`.
 
-Khi push_back khiến vector cần vùng nhớ mới, iterator/reference/pointer vào vùng nhớ cũ không còn dùng được. Lúc đầu, cách đơn giản là đừng giữ chúng qua một thao tác có thể thêm phần tử.
+If push_back makes a vector allocate new storage, pointers, references and iterators into the old storage become invalid. To start, avoid keeping them across operations that may add elements.
 
-**Tự kiểm tra:** reserve có thêm phần tử không? end có phải phần tử cuối không? Kết quả string có còn dùng được sau khi input bị hủy không?
+**Check yourself:** Does reserve add elements? Is end the last element? Does a returned string remain usable after its input is destroyed?
 
-## Stage 3 — Dùng container để giải bài (09–12)
+## Stage 3 — Using containers to solve problems (09–12)
 
-### unordered_map gần với dict
+### unordered_map is similar to dict
 
 Python:
 
@@ -312,61 +312,62 @@ if (it != positions.end()) {
 }
 ```
 
-- find trả về vị trí tìm thấy, hoặc end nếu không có.
-- `it->first` là key; `it->second` là value.
-- Trong C++, `positions["missing"]` có thể **thêm** key mới với value int bằng 0. Python dict thông thường báo KeyError khi đọc key không tồn tại. Vì vậy dùng find khi chỉ muốn kiểm tra/tìm.
+- find returns the position of the entry, or end if it is absent.
+- `it->first` is the key; `it->second` is the value.
+- C++ `positions["missing"]` can **insert** a new key with an int value of 0. Reading a missing key from an ordinary Python dict raises KeyError. Use find for lookup without insertion.
+- `(void)index;` only suppresses an unused-variable warning in this short example.
 
-### Đọc độ phức tạp bằng lượng công việc
+### Understand complexity as the amount of work
 
-| Ký hiệu | Cách hình dung |
+| Notation | A way to picture it |
 | --- | --- |
-| O(n) | Đi qua n phần tử với lượng việc cố định ở mỗi bước |
-| O(n²) | Chẳng hạn thử mọi cặp phần tử |
-| O(log n) | Chẳng hạn mỗi bước loại bỏ khoảng một nửa vùng tìm kiếm |
+| O(n) | Visit n elements with a fixed amount of work at each step |
+| O(n²) | For example, try every pair of elements |
+| O(log n) | For example, discard about half the remaining search area each step |
 
-unordered_map thường có lookup trung bình O(1), nhưng đó không phải bảo đảm cho mọi trường hợp. Bài 09 giúp bạn so sánh việc thử mọi cặp với việc nhớ các giá trị đã đi qua.
+unordered_map normally has average O(1) lookup, but this is not guaranteed for every case. Exercise 09 compares trying every pair against remembering previously seen values.
 
-Binary search cần dữ liệu có thứ tự. Sliding window theo dõi một đoạn liên tiếp đang xét, thay vì tính lại từ đầu cho mọi đoạn. Hãy đọc contract và trace ví dụ trước khi chọn pattern.
+Binary search needs ordered input. A sliding window tracks a contiguous section rather than recalculating everything for every section. Read the contract and trace an example before choosing a pattern.
 
-Một chi tiết cho bài 10/12: char có thể mang giá trị âm trên một số hệ thống. Khi dùng một byte làm chỉ số bảng 256 phần tử, dùng `static_cast<unsigned char>(c)` để có chỉ số 0–255. Các bài xử lý byte, chưa xử lý đầy đủ ký tự Unicode.
+For exercises 10/12, char may be signed on some systems. Use `static_cast<unsigned char>(c)` when using a byte to index a 256-entry table. These exercises process bytes, not complete Unicode characters.
 
-**Tự kiểm tra:** find không thấy thì trả gì? Vì sao [] có thể làm thay đổi map? Mỗi vòng của binary search thu hẹp vùng tìm ở đâu?
+**Check yourself:** What does find return when absent? Why might [] modify a map? Where does each binary-search iteration shrink the search area?
 
-## Stage 4 — Pointer, lifetime, ownership và đệ quy (13–16)
+## Stage 4 — Pointers, lifetime, ownership and recursion (13–16)
 
-### Pointer chứa địa chỉ; reference là tên khác của object
+### A pointer holds an address; a reference is another name for an object
 
 ```cpp
 int value = 10;
 int* pointer = &value;
 *pointer = 25;
-// value bây giờ là 25.
+// value is now 25.
 ```
 
-Đọc từng dòng:
+Read it line by line:
 
-1. Tạo số nguyên value bằng 10.
-2. `int*` là kiểu pointer đến int; `&value` lấy địa chỉ của value.
-3. `*pointer` truy cập object tại địa chỉ đó; gán 25 làm value đổi thành 25.
+1. Create an integer named value containing 10.
+2. `int*` means pointer to int; `&value` obtains value's address.
+3. `*pointer` accesses the object at that address; assigning 25 changes value.
 
-Ký hiệu & có hai vai trò tùy vị trí: trong `int& alias = value`, nó khai báo reference; trong biểu thức `&value`, nó lấy địa chỉ. Tương tự, `int*` là tên kiểu pointer, còn `*pointer` là thao tác truy cập qua pointer.
+The meaning of & depends on its position: `int& alias = value` declares a reference; the expression `&value` obtains an address. Likewise, `int*` names a pointer type, while `*pointer` accesses an object through a pointer.
 
-Pointer có thể bằng nullptr để nói rằng nó không trỏ đến object nào. Không dùng `*pointer` khi nó là nullptr. Pointer không tự mang chiều dài mảng; vì vậy bài 13 nhận cả data và n.
+A pointer can be nullptr, meaning it points to no object. Do not use `*pointer` when it is nullptr. A pointer does not carry an array's length, so exercise 13 takes both data and n.
 
-`const int*` cho phép đọc int nhưng không sửa nó **qua pointer này**. Bài 16 có hai overload: cùng tên hàm, nhưng một bản nhận int* để có thể sửa kết quả, một bản nhận const int* để chỉ đọc.
+`const int*` allows reading the int but not changing it **through this pointer**. Exercise 16 has two overloads: functions with the same name but different parameter types. One accepts int* for mutable access; one accepts const int* for read-only access.
 
-### Lifetime: object còn tồn tại đến khi nào?
+### Lifetime: how long does the object exist?
 
 ```cpp
 int* bad_example() {
     int local = 5;
-    return &local;  // Sai: local bị hủy khi hàm kết thúc.
+    return &local;  // Wrong: local is destroyed when the function returns.
 }
 ```
 
-Đây là ví dụ sai có chủ đích: đừng chạy hoặc dùng nó làm mẫu. Địa chỉ được trả về không giữ local tồn tại. **Dangling pointer/reference/view** là một cách truy cập đang nhắc đến object/vùng nhớ không còn hợp lệ. Một địa chỉ không null vẫn có thể dangling.
+This is an intentionally incorrect example: do not run or copy it as a solution. Returning an address does not keep local alive. A **dangling pointer/reference/view** refers to an object or storage that is no longer valid. A non-null address can still be dangling.
 
-### unique_ptr: giao trách nhiệm giữ và giải phóng object cho một owner
+### unique_ptr gives one owner responsibility for cleanup
 
 ```cpp
 auto owner = std::make_unique<int>(7);
@@ -374,25 +375,25 @@ int* observer = owner.get();
 auto new_owner = std::move(owner);
 ```
 
-- make_unique tạo object và trả về unique_ptr quản lý nó.
-- get cho một pointer để quan sát; observer không chịu trách nhiệm giải phóng object.
-- Dòng cuối chuyển quyền quản lý sang new_owner. Với unique_ptr, owner cũ trở thành rỗng.
-- Object int vẫn ở chỗ cũ, nên observer còn hợp lệ **chừng nào object đó vẫn tồn tại**.
-- Khi owner cuối này bị hủy hoặc reset, object được giải phóng; không dùng observer nữa.
+- make_unique creates an object and returns a unique_ptr managing it.
+- get provides an observing pointer; observer does not manage cleanup.
+- The last line transfers ownership to new_owner. For unique_ptr, the old owner becomes empty.
+- The int object stays in the same place, so observer remains valid **while that object exists**.
+- When the remaining owner is destroyed or reset, the object is released. Do not use observer afterward.
 
-unique_ptr không cho copy để tránh hai owner cùng nhận trách nhiệm độc quyền. std::move cho phép dùng thao tác move; nó không có nghĩa là mọi kiểu đều bị xóa/rỗng sau move. Quy tắc phụ thuộc kiểu; bài 20 sẽ yêu cầu bạn tự định nghĩa trạng thái của class sau move.
+unique_ptr prohibits copying because ownership is exclusive. std::move enables move operations; it does not mean every type is erased or emptied after a move. The behavior depends on the type. Exercise 20 asks you to define your class's moved-from state.
 
-### Đệ quy và backtracking
+### Recursion and backtracking
 
-Đệ quy là hàm gọi lại chính nó, với một điều kiện dừng. Backtracking thường có ba bước: thêm lựa chọn → gọi tiếp → bỏ lựa chọn để thử nhánh khác.
+Recursion means a function calls itself, with a stopping condition. Backtracking often follows three steps: add a choice → explore it recursively → undo the choice before another branch.
 
-Python `result.append(current)` giữ tham chiếu đến cùng list; thường cần `current.copy()`. C++ `result.push_back(current)` với vector<vector<int>> sẽ copy vector current thành một phần tử độc lập. Đây là khác biệt hữu ích cho bài 15.
+Python `result.append(current)` keeps a reference to the same list, so you often need `current.copy()`. With a C++ vector<vector<int>>, `result.push_back(current)` copies the current vector into an independent element. This difference matters in exercise 15.
 
-**Tự kiểm tra:** ai sở hữu node trong bài 14? Pointer trả về ở bài 16 cần input tồn tại đến khi nào? Vì sao phải undo lựa chọn sau một nhánh đệ quy?
+**Check yourself:** Who owns each node in exercise 14? How long must the input stay alive for exercise 16's returned pointer? Why undo a choice after a recursive branch?
 
-## Stage 5 — Class, copy/move và đa hình (17–20)
+## Stage 5 — Classes, copy/move and polymorphism (17–20)
 
-### Một class đơn giản giống Python ở đâu?
+### How does a simple class compare with Python?
 
 Python:
 
@@ -417,41 +418,41 @@ public:
 };
 ```
 
-- Counter(int start) là constructor, gần với vai trò khởi tạo của __init__.
-- `: value_(start)` khởi tạo member value_ bằng start.
-- Dữ liệu trước public mặc định là private: code bên ngoài không truy cập trực tiếp.
-- Trong member function, bạn dùng value_ trực tiếp; không cần viết self.value.
-- const ở cuối value() cho biết method này không sửa trạng thái thông thường của object.
-- explicit ngăn một số chuyển đổi ngầm không mong muốn; chưa cần thành thạo quy tắc đó để đọc ví dụ.
+- Counter(int start) is a constructor, with an initialization role similar to __init__.
+- `: value_(start)` initializes the member value_ using start.
+- Members before public are private by default: outside code cannot access them directly.
+- Inside a member function, use value_ directly; you do not need self.value.
+- const after value() says this method does not modify the object's ordinary state.
+- explicit prevents some unintended implicit conversions. You do not need its full rules to read this example.
 
-**Class invariant** là điều class phải duy trì, ví dụ “số hàng trong kho không âm”. Constructor thiết lập điều đó; các method phải giữ nó đúng sau mỗi thao tác hợp lệ.
+A **class invariant** is something the class must maintain, such as “stock is never negative.” The constructor establishes it; methods must preserve it after valid operations.
 
-### Copy khác Python assignment
+### Copying differs from Python assignment
 
-Với một class chứa vector/map/string thông thường, `auto b = a` copy các member đó, nên b có dữ liệu riêng. Trong Python, `b = a` chỉ gắn thêm tên vào cùng instance.
+For a typical class containing vector/map/string values, `auto b = a` copies those members, giving b separate data. Python `b = a` binds another name to the same instance.
 
-Có class cố ý không cho copy, ví dụ class sở hữu độc quyền tài nguyên. Bài 20 dạy bạn cấm copy và cho move. Hãy phân biệt:
+Some classes intentionally forbid copying, for example when they own a resource exclusively. Exercise 20 teaches a move-only class. Distinguish these operations:
 
-| C++ | Đang làm gì? |
+| C++ | What is happening? |
 | --- | --- |
-| `Thing b = a;` | Tạo b từ a: copy construction |
-| `b = a;` khi b đã có | Thay giá trị b: copy assignment |
-| `Thing b = std::move(a);` | Tạo b qua move nếu có move constructor phù hợp |
-| `b = std::move(a);` | Move assignment nếu có overload phù hợp |
+| `Thing b = a;` | Create b from a: copy construction |
+| `b = a;` when b already exists | Replace b's value: copy assignment |
+| `Thing b = std::move(a);` | Create b using a suitable move constructor if available |
+| `b = std::move(a);` | Use a suitable move-assignment overload if available |
 
-**Rule of Zero** chỉ là lời khuyên: khi container/smart pointer đã lo tài nguyên, đừng tự viết destructor/copy/move nếu không cần. Bài 20 là trường hợp có yêu cầu riêng về moved-from state nên phải xử lý thêm.
+The **Rule of Zero** is a design guideline: when containers/smart pointers already manage resources, avoid custom destruction/copy/move operations unless needed. Exercise 20 has an extra moved-from-state requirement, so it needs additional handling.
 
-### virtual và override
+### virtual and override
 
-Python thường chọn method từ object lúc chạy. C++ cần khai báo virtual khi bạn muốn gọi qua pointer/reference đến base mà vẫn chạy method của derived.
+Python commonly chooses methods from the actual object at runtime. In C++, declare a method virtual when calling through a base pointer/reference should use derived behavior.
 
-Bài 19 cung cấp interface Shape. area là virtual; Rectangle và Square viết override. clone tạo một object mới có đúng kiểu thực tế. Đừng copy một derived object vào một base object theo giá trị: phần dữ liệu/đặc tính derived có thể bị mất, gọi là **slicing**. Khi hủy derived qua pointer đến base, base cần virtual destructor; interface đã cung cấp sẵn.
+Exercise 19 supplies the Shape interface. area is virtual; Rectangle and Square use override. clone creates a new object of the same actual type. Copying a derived object into a base object by value can lose the derived part: this is **slicing**. Destroying a derived object through a base pointer requires a virtual base destructor; the supplied interface includes one.
 
-**Tự kiểm tra:** điều gì luôn đúng về Fraction? Inventory copy có độc lập không? Bài 20 phải giữ size của object sau move thế nào?
+**Check yourself:** What must always be true about Fraction? Are Inventory copies independent? What must happen to size after moving from exercise 20's buffer?
 
-## Stage 6 — STL, lambda, template và iterator (21–24)
+## Stage 6 — STL, lambdas, templates and iterators (21–24)
 
-### Lambda là một hàm nhỏ viết ngay tại nơi sử dụng
+### A lambda is a small function written where you need it
 
 Python:
 
@@ -466,9 +467,9 @@ auto twice = [](int x) { return x * 2; };
 int result = twice(5);  // 10
 ```
 
-`[]` là phần capture: ví dụ `[offset]` giữ bản copy của biến ngoài, `[&offset]` dùng chính biến ngoài. Capture bằng reference không kéo dài lifetime của biến đó.
+The brackets describe captures: `[offset]` keeps a copy of an outside variable; `[&offset]` refers to the outside variable itself. Reference capture does not extend that variable's lifetime.
 
-### Template giúp một cách xử lý dùng được với nhiều kiểu
+### A template lets one implementation work with multiple types
 
 ```cpp
 template<class T>
@@ -477,20 +478,20 @@ T identity(T value) {
 }
 ```
 
-Gọi với int thì T được suy ra là int; gọi với string thì T là string. Compiler tạo phiên bản phù hợp. Kiểu vẫn được kiểm tra khi compile, không phải chọn động như Python.
+Call it with an int and T is inferred as int; with a string, T is string. The compiler instantiates a suitable version. Types are still checked during compilation, unlike Python's runtime typing.
 
-Bài 21 đổi kiểu phần tử đầu ra theo callable. Đến bài đó mới cần đọc các mảnh sau:
+Exercise 21 determines its output element type from a callable. Only when you reach it, learn these pieces:
 
-| Mảnh cú pháp | Cách hiểu để làm bài |
+| Syntax | How to understand it for the exercise |
 | --- | --- |
-| `decltype(expression)` | Hỏi compiler kiểu của expression, không chạy expression |
-| `std::declval<const T&>()` | Dùng để mô tả một đầu vào const T& trong phép hỏi kiểu; không gọi khi chương trình chạy |
-| `std::decay_t<...>` | Bỏ reference/const cần thiết để có một kiểu giá trị có thể lưu trong vector |
-| `typename std::iterator_traits<It>::value_type` | Kiểu phần tử mà iterator It truy cập; typename báo đây là tên kiểu |
+| `decltype(expression)` | Ask the compiler for an expression's type without executing it |
+| `std::declval<const T&>()` | Describe a const T& input in an unevaluated type query; do not call it at runtime |
+| `std::decay_t<...>` | Remove references and relevant const qualifications to obtain a value type that can be stored in a vector |
+| `typename std::iterator_traits<It>::value_type` | The type of element accessed by iterator It; typename identifies this as a type name |
 
-Không cần thuộc các tên dài trước bài 01. Khi đến đây, tách từng mảnh thay vì đọc cả dòng như một khối.
+You do not need to memorize these long names before exercise 01. When you reach them, read the pieces separately.
 
-### STL algorithm và comparator
+### Standard algorithms and comparators
 
 ```cpp
 std::sort(values.begin(), values.end(), [](int a, int b) {
@@ -498,15 +499,15 @@ std::sort(values.begin(), values.end(), [](int a, int b) {
 });
 ```
 
-Comparator trả true nếu a cần đứng trước b. Dùng > để xếp giảm dần; không dùng >=, vì hai phần tử bằng nhau không được đồng thời được xem là đứng trước nhau. stable_sort giữ thứ tự đầu vào của các phần tử bằng nhau theo comparator.
+The comparator returns true when a should come before b. Use > for descending order, not >=: equal elements must not both be considered strictly before each other. stable_sort preserves input order for elements equivalent according to the comparator.
 
-Bài 24 dùng iterator để làm việc với cả vector và list. Không giả sử mọi iterator đều hỗ trợ trừ hai vị trí hay dùng chỉ số; list iterator chỉ cần đi tiếp bằng ++ cho bài này.
+Exercise 24 uses iterators to work with both vector and list. Do not assume every iterator supports subtraction or indexing; list iterators can advance with ++ for this exercise.
 
-**Tự kiểm tra:** template khác kiểu động của Python ở đâu? Vì sao dùng >= trong comparator sai? Vì sao test bằng list lại giúp phát hiện lỗi thiết kế?
+**Check yourself:** How is a template different from Python's dynamic typing? Why is >= wrong in a sorting comparator? Why does testing with list reveal interface mistakes?
 
-## Stage 7 — Parse, stream, exception và RAII (25–28)
+## Stage 7 — Parsing, streams, exceptions and RAII (25–28)
 
-### Stream: đọc cùng một thuật toán từ chuỗi hoặc file
+### Streams let one algorithm read from strings or files
 
 ```cpp
 std::istringstream input("12 34");
@@ -516,7 +517,7 @@ while (input >> number) {
 }
 ```
 
-`input >> number` thử đọc và chuyển dữ liệu vào number; điều kiện vòng lặp chỉ đúng khi đọc thành công. istringstream đọc từ chuỗi; ifstream đọc từ file. Hàm nhận istream& có thể dùng với cả hai.
+`input >> number` tries to read and convert data into number. The loop continues only when extraction succeeds. istringstream reads a string; ifstream reads a file. A function taking istream& can work with both.
 
 ```cpp
 std::ifstream input("numbers.txt");
@@ -525,36 +526,36 @@ if (!input) {
 }
 ```
 
-Include <fstream> khi dùng file. Không dùng `while (!input.eof())` để quyết định có một lần đọc thành công nữa hay không. Hãy thử đọc rồi kiểm tra kết quả.
+Include <fstream> for file streams. Do not use `while (!input.eof())` to predict whether another read will succeed. Try the read and check its result.
 
-Vòng đọc int đơn giản chưa đủ cho bài 25: chuỗi "3x" có thể bị đọc một phần thành 3. Bài yêu cầu parse toàn token, nên dùng from_chars và kiểm tra cả mã lỗi lẫn vị trí đọc dừng.
+Simple integer extraction is not enough for exercise 25: "3x" can be partially read as 3. The exercise requires checking an entire token, so use from_chars and check both its error code and stopping position.
 
-### optional hay exception?
+### optional or an exception?
 
-- optional: API cho phép “không có kết quả” như một kết quả thông thường.
-- exception: API báo thao tác không thực hiện được theo cách đó.
+- optional: the API allows “no result” as an ordinary outcome.
+- exception: the API reports that the operation could not be completed as requested.
 
-Python dùng raise; C++ dùng throw. Python dùng try/except; C++ dùng try/catch. Trong bài tập, làm đúng cách báo lỗi được ghi trong contract, không tự đổi giữa hai cách.
+Python uses raise; C++ uses throw. Python uses try/except; C++ uses try/catch. Follow the error behavior specified in each exercise rather than switching between these mechanisms yourself.
 
-variant<int,bool,string> chứa một trong ba kiểu. holds_alternative kiểm tra kiểu hiện tại; get lấy giá trị đúng kiểu. optional<variant<...>> thêm trường hợp parse thất bại, tách biệt với int 0, bool false hay string rỗng.
+variant<int,bool,string> holds one of those three types. holds_alternative checks the active type; get retrieves the corresponding value. optional<variant<...>> adds parse failure as a separate state, different from int 0, bool false or an empty string.
 
-### RAII: object tự dọn khi ra khỏi scope
+### RAII: an object cleans up when it leaves scope
 
-Python thường dùng `with open(...) as file:` để đóng file kể cả khi có exception. C++ dùng object có destructor thực hiện dọn dẹp khi object kết thúc lifetime.
+Python often uses `with open(...) as file:` to close a file even when an exception occurs. C++ uses objects whose destructors perform cleanup when their lifetime ends.
 
 ```cpp
 {
     std::ifstream file("notes.txt");
-    // Dùng file ở đây.
-} // file bị hủy; tài nguyên file được đóng tự động.
+    // Use file here.
+} // file is destroyed, closing its file resource automatically.
 ```
 
-Destructor viết dưới dạng ~ClassName(). Nó cũng được gọi khi exception làm chương trình thoát khỏi scope đó. RAII là tên cho cách gắn trách nhiệm dọn tài nguyên/khôi phục trạng thái với lifetime của object.
+A destructor is written ~ClassName(). It also runs when an exception causes execution to leave that object's scope. RAII names the practice of tying resource cleanup or state restoration to object lifetime.
 
-Bài 28 áp dụng ý tưởng này để lưu và khôi phục định dạng stream. Guard không sở hữu stream: stream phải còn tồn tại khi destructor của guard chạy. Destructor dọn dẹp không nên ném exception.
+Exercise 28 applies this idea to saving/restoring stream formatting. The guard borrows the stream: the stream must remain alive until the guard's destructor finishes. Cleanup destructors should not throw exceptions.
 
-**Tự kiểm tra:** đọc từ file và từ chuỗi có thể dùng chung hàm nào? Parse sai khác EOF ở đâu? Vì sao guard vẫn khôi phục trạng thái khi có exception?
+**Check yourself:** Which function can accept both file and string input? How is invalid content different from EOF? Why does a guard restore state even when an exception occurs?
 
-## Khi một dòng vẫn khó đọc
+## If a line is still hard to read
 
-Đừng cố nhớ mọi thuật ngữ cùng lúc. Với dòng đang gặp, xác định: kiểu dữ liệu là gì, tên nào là biến, hàm nào được gọi, dữ liệu bị copy hay dùng trực tiếp, và object nào cần còn tồn tại. Có thể hỏi giải thích đúng dòng đó trước khi học phần tiếp theo.
+Do not memorize every term at once. For the line you are reading, identify the types, variable names and function calls. Then ask whether data is copied or accessed directly, and which objects must stay alive. Work through that line before moving to the next topic.

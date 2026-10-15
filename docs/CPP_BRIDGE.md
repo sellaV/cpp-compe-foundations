@@ -1,8 +1,8 @@
-# Bắt đầu C++ khi đã biết Python
+# Getting started with C++ when you know Python
 
-**Đọc trang này để biết cách thử code; đọc [Stage 1 của CONCEPTS.md](CONCEPTS.md) để hiểu từng khái niệm.** Chưa cần học cả bảy stage.
+**Use this page to learn how to try code. Read [Stage 1 of CONCEPTS.md](CONCEPTS.md) to understand the concepts.** You do not need all seven stages yet.
 
-## 1. Một chương trình C++ chạy riêng có hình dạng gì?
+## 1. What does a complete C++ program look like?
 
 ```cpp
 #include <iostream>
@@ -14,19 +14,19 @@ int main() {
 }
 ```
 
-- include cho phép dùng thành phần thư viện tương ứng; iostream cung cấp cout.
-- main là nơi chương trình bắt đầu chạy.
-- int đứng trước tên biến để khai báo số nguyên.
-- cout gửi dữ liệu ra terminal; '\n' là ký tự xuống dòng.
-- return 0 từ main báo chương trình kết thúc thành công.
+- include makes the relevant library declarations available; iostream provides cout.
+- main is where execution starts.
+- int before a variable name declares an integer.
+- cout sends output to the terminal; '\n' is a newline character.
+- Returning 0 from main reports successful completion.
 
-Trong Python bạn thường chạy file .py trực tiếp bằng Python. Với C++, trước hết compiler dịch code thành executable, rồi bạn chạy executable đó.
+In Python, you normally run a .py file with Python. In C++, first compile the source into an executable, then run that executable.
 
-## 2. Thử ví dụ đã có sẵn trong repo
+## 2. Try the example supplied in this repo
 
-Mở [python_bridge.cpp](examples/python_bridge.cpp). Chương trình này minh họa copy, reference và optional; nó không phải lời giải bài 01.
+Open [python_bridge.cpp](examples/python_bridge.cpp). It demonstrates copies, references and optional; it is not the solution to exercise 01.
 
-Từ thư mục gốc repo, trong terminal WSL:
+From the repository root, in your WSL terminal:
 
 ```bash
 mkdir -p build
@@ -34,7 +34,7 @@ g++ -std=c++17 -Wall -Wextra -Wpedantic docs/examples/python_bridge.cpp -o build
 ./build/python_bridge
 ```
 
-Kết quả:
+Expected output:
 
 ```text
 After copy: 5
@@ -43,44 +43,44 @@ First negative: -2
 Optional contains: 0
 ```
 
-Đọc cùng Stage 1 của CONCEPTS.md, rồi thử tự thay đổi input:
+Read it alongside Stage 1 of CONCEPTS.md, then try changing the inputs:
 
-- Đổi vector thành {4, 2, 0}: nhánh nào chạy khi không có số âm?
-- Đổi number ban đầu thành 10: hai dòng đầu sẽ in gì?
-- Vì sao optional chứa số 0 vẫn chạy vào if?
+- Change the vector to {4, 2, 0}. Which branch runs when there is no negative number?
+- Change the initial number to 10. What will the first two lines print?
+- Why does an optional containing zero still enter the if branch?
 
-Nếu sửa code, cần compile lại trước khi chạy để executable chứa phiên bản mới.
+After editing C++ source, compile again before running so the executable includes your changes.
 
-## 3. Làm bài trong repo thì khác gì?
+## 3. How are exercises different?
 
-Mỗi bài có bốn file:
+Each exercise has four files:
 
-| File | Việc của bạn |
+| File | What to do |
 | --- | --- |
-| README.md | Đọc yêu cầu, ví dụ và hint khi cần |
-| starter.hpp | Viết hàm/class của bạn |
-| test.cpp | Đọc các tình huống kiểm tra, có thể thêm case |
-| solution.hpp | Chỉ mở sau khi đã thử hoặc cần đối chiếu |
+| README.md | Read the requirements, examples and hints when needed |
+| starter.hpp | Implement your function or class |
+| test.cpp | Read the checks and add cases of your own |
+| solution.hpp | Open after attempting the problem or when you need a comparison |
 
-starter đã có include và chữ ký hàm. Bạn điền phần thân hàm; **không thêm main vào starter**, vì test.cpp đã có main. Runner compile và chạy test cho bạn:
+The starter already supplies includes and the function signature. Fill in the function body. **Do not add main to the starter:** test.cpp already provides it. The runner compiles and runs the tests:
 
 ```bash
 python3 tools/run.py 01
 ```
 
-Ban đầu, TODO có chủ đích ném exception để báo bạn chưa triển khai. Đó không phải lỗi cài đặt.
+Initially, TODO deliberately throws an exception to indicate that implementation is missing. This is not a setup failure.
 
-## 4. Đọc thông báo lỗi theo loại
+## 4. Read errors by category
 
-| Tình huống | Ý nghĩa |
+| Situation | Meaning |
 | --- | --- |
-| Compiler báo error | Code chưa dịch được: kiểm tra cú pháp, dấu chấm phẩy, tên biến và kiểu |
-| Compile được nhưng CHECK fail | Chương trình chạy nhưng kết quả sai với case được kiểm tra |
-| Uncaught exception: TODO | Bạn chưa thay phần placeholder, hoặc còn gọi đến placeholder |
-| Chạy binary vẫn ra kết quả cũ | Có thể bạn chưa compile lại sau khi sửa |
+| Compiler reports an error | The source cannot be compiled: check syntax, semicolons, names and types |
+| Compilation succeeds but a CHECK fails | The program ran but violated a tested requirement |
+| Uncaught exception: TODO | A placeholder is still present or your code calls one |
+| Running the executable shows old behavior | You may not have recompiled after editing |
 
-Nếu chữ ký dài làm bạn khó đọc, đừng cố hiểu cả dòng một lượt. Tách kiểu trả về → tên hàm → từng tham số; Stage 1 giải thích cách làm này.
+If a long function signature is difficult, split it into return type → function name → individual parameters. Stage 1 demonstrates this approach.
 
-## Tiếp theo
+## Next
 
-Sau khi hiểu copy/reference/optional ở Stage 1, thử bài 01. Đến Stage 2 mới đọc thêm string_view và iterator; đến Stage 4 mới học pointer/ownership. Không cần thuộc trước toàn bộ thuật ngữ C++ mới bắt đầu giải bài.
+Once you understand copies, references and optional in Stage 1, attempt exercise 01. Read string_view and iterators at Stage 2, then pointers/ownership at Stage 4. You do not need to memorize all C++ terminology before solving your first problem.

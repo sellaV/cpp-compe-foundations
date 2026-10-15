@@ -17,7 +17,7 @@ Solving an algorithm without understanding how values are copied or borrowed is 
 
 Follow [SETUP.md](docs/SETUP.md) for a GCC/Clang C++17 compiler and Python 3.9+. No external C++ libraries or Python packages are needed.
 
-1. Read the [Python-to-C++ bridge](docs/CPP_BRIDGE.md) and Stage 1 in [CONCEPTS.md](docs/CONCEPTS.md). These beginner notes are in Vietnamese, with Python/C++ comparisons; read later stages only when needed.
+1. Read the [Python-to-C++ bridge](docs/CPP_BRIDGE.md) and Stage 1 in [CONCEPTS.md](docs/CONCEPTS.md). These beginner notes explain each symbol with Python/C++ comparisons; read later stages only when needed.
 2. Open [01 — Second distinct largest value](problems/01_second_largest/README.md).
 3. Implement its function in `starter.hpp`.
 4. Run from the repository root:
