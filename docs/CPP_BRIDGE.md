@@ -1,87 +1,86 @@
-# C++ bridge for someone who knows Python
+# Bắt đầu C++ khi đã biết Python
 
-You do not need weeks of syntax drills before problem 01. Read the first four sections, attempt 01–02, then revisit this page as later problems introduce concepts.
+**Đọc trang này để biết cách thử code; đọc [Stage 1 của CONCEPTS.md](CONCEPTS.md) để hiểu từng khái niệm.** Chưa cần học cả bảy stage.
 
-## Types, loops and vectors
+## 1. Một chương trình C++ chạy riêng có hình dạng gì?
 
 ```cpp
-std::vector<int> samples{3, 7, -1};
-int threshold = 5;
-std::size_t count = 0;
-for (int value : samples) {
-    if (value > threshold) {
-        ++count;
-    }
+#include <iostream>
+
+int main() {
+    int number = 5;
+    std::cout << number << '\n';
+    return 0;
 }
 ```
 
-`std::vector<int>` is a dynamic sequence of integers. Unlike a Python list, its element type is fixed. `.size()` reports its length; `.push_back(value)` appends. `std::size_t` is an unsigned type for sizes and indices: avoid subtracting one from zero. Use signed coordinates for grid neighbors that may temporarily be negative.
+- include cho phép dùng thành phần thư viện tương ứng; iostream cung cấp cout.
+- main là nơi chương trình bắt đầu chạy.
+- int đứng trước tên biến để khai báo số nguyên.
+- cout gửi dữ liệu ra terminal; '\n' là ký tự xuống dòng.
+- return 0 từ main báo chương trình kết thúc thành công.
 
-## Functions and references
+Trong Python bạn thường chạy file .py trực tiếp bằng Python. Với C++, trước hết compiler dịch code thành executable, rồi bạn chạy executable đó.
 
-```cpp
-std::vector<int> keep_positive(const std::vector<int>& input) {
-    std::vector<int> result;
-    for (int value : input) {
-        if (value > 0) result.push_back(value);
-    }
-    return result;
-}
+## 2. Thử ví dụ đã có sẵn trong repo
+
+Mở [python_bridge.cpp](examples/python_bridge.cpp). Chương trình này minh họa copy, reference và optional; nó không phải lời giải bài 01.
+
+Từ thư mục gốc repo, trong terminal WSL:
+
+```bash
+mkdir -p build
+g++ -std=c++17 -Wall -Wextra -Wpedantic docs/examples/python_bridge.cpp -o build/python_bridge
+./build/python_bridge
 ```
 
-`const std::vector<int>&` borrows the caller's vector without copying it and prohibits mutation through that reference. `std::vector<int>` passed by value gives you a separate vector. Returning a new vector by value is safe; returning a reference to a local vector is not, because the local object dies when the function returns.
+Kết quả:
 
-## Conditions and numeric operations
-
-Use `&&` for and, `||` for or, and `!` for not. `==` compares; `=` assigns. Curly braces group statements. `5 / 2` is integer division and returns `2`; `5.0 / 2` returns `2.5`. A `double` accumulator and a floating-point divisor matter for means and probabilities.
-
-Signed overflow is undefined behavior. Choosing a wider integer before addition/subtraction is better than hoping an overflowing int will wrap.
-
-## Compile errors versus failed tests
-
-- A compile error means C++ cannot produce the program: missing semicolon, wrong type, unknown name, or invalid syntax.
-- A test failure means the program compiled but returned behavior that violates a checked contract.
-- An exception means code rejected an input or hit an intentional unfinished `TODO`. `throw std::invalid_argument("range")` is how these exercises signal a specified invalid argument.
-
-Read `starter.hpp`, `test.cpp`, and the problem contract together. Do not put a `main()` inside the starter; tests already supply it.
-
-## Missing results, pairs and structs
-
-`std::optional<int>` either owns an int or is `std::nullopt`. Check `if (result)` before reading `*result`; never dereference an empty optional. A pair holds two values; `auto [a,b] = pair;` gives names using structured bindings. A struct groups named fields such as a bounding box's coordinates.
-
-## Maps, queues and heaps
-
-`unordered_map` supports lookup by key. `.find(key)` returns an iterator; compare it to `.end()` before using `it->second`. `map[key]` can INSERT a default value when absent, so use `find` for a pure existence check.
-
-`queue` is FIFO: inspect `.front()`, then `.pop()`. `priority_queue` is a max-heap by default; `std::greater<T>` makes it a min-heap. Check `.empty()` before accessing either.
-
-## Classes and ownership
-
-```cpp
-class Counter {
-    int value_ = 0;  // private by default
-public:
-    void increment() { ++value_; }
-    int value() const { return value_; }
-};
+```text
+After copy: 5
+After reference: 6
+First negative: -2
+Optional contains: 0
 ```
 
-A constructor initializes an object. Private state helps enforce invariants. A `const` method promises not to modify the object's ordinary members. A scoped `enum class` represents a finite set of states without treating them like arbitrary integers.
+Đọc cùng Stage 1 của CONCEPTS.md, rồi thử tự thay đổi input:
 
-`std::unique_ptr<T>` owns one object; destruction releases it. It cannot be copied. `std::move(ptr)` enables ownership transfer; the old pointer normally becomes empty after transfer. `.get()` returns a non-owning pointer. A borrowed pointer must not outlive its owner. Prefer standard containers and smart pointers over manual `new`/`delete`.
+- Đổi vector thành {4, 2, 0}: nhánh nào chạy khi không có số âm?
+- Đổi number ban đầu thành 10: hai dòng đầu sẽ in gì?
+- Vì sao optional chứa số 0 vẫn chạy vào if?
 
-RAII means resource cleanup follows object lifetime. It applies to memory, file handles, locks and device resources, not just pointers. Problem 11 introduces ownership, but does not teach every aspect of resource management.
+Nếu sửa code, cần compile lại trước khi chạy để executable chứa phiên bản mới.
 
-## Templates and lambdas
+## 3. Làm bài trong repo thì khác gì?
 
-`template<class T>` lets a class or function work with multiple types. `auto` asks the compiler to infer a type; it is not Python-style dynamic typing. A lambda is an inline callable:
+Mỗi bài có bốn file:
 
-```cpp
-auto twice = [](int x) { return 2*x; };
+| File | Việc của bạn |
+| --- | --- |
+| README.md | Đọc yêu cầu, ví dụ và hint khi cần |
+| starter.hpp | Viết hàm/class của bạn |
+| test.cpp | Đọc các tình huống kiểm tra, có thể thêm case |
+| solution.hpp | Chỉ mở sau khi đã thử hoặc cần đối chiếu |
+
+starter đã có include và chữ ký hàm. Bạn điền phần thân hàm; **không thêm main vào starter**, vì test.cpp đã có main. Runner compile và chạy test cho bạn:
+
+```bash
+python3 tools/run.py 01
 ```
 
-`[&]` captures surrounding variables by reference; the callable must not outlive those variables. `decltype(expression)` inspects an expression's type without executing it. You can solve early problems without templates and learn them in 09 and 12.
+Ban đầu, TODO có chủ đích ném exception để báo bạn chưa triển khai. Đó không phải lỗi cài đặt.
 
-## What comes later
+## 4. Đọc thông báo lỗi theo loại
 
-Multiple source files, linkage, inheritance and virtual dispatch, move semantics in custom resource-owning classes, iterators in depth, concurrency, atomics, and hardware I/O need additional study. This track deliberately focuses first on logic, safe data handling and the standard library patterns you can apply immediately.
+| Tình huống | Ý nghĩa |
+| --- | --- |
+| Compiler báo error | Code chưa dịch được: kiểm tra cú pháp, dấu chấm phẩy, tên biến và kiểu |
+| Compile được nhưng CHECK fail | Chương trình chạy nhưng kết quả sai với case được kiểm tra |
+| Uncaught exception: TODO | Bạn chưa thay phần placeholder, hoặc còn gọi đến placeholder |
+| Chạy binary vẫn ra kết quả cũ | Có thể bạn chưa compile lại sau khi sửa |
+
+Nếu chữ ký dài làm bạn khó đọc, đừng cố hiểu cả dòng một lượt. Tách kiểu trả về → tên hàm → từng tham số; Stage 1 giải thích cách làm này.
+
+## Tiếp theo
+
+Sau khi hiểu copy/reference/optional ở Stage 1, thử bài 01. Đến Stage 2 mới đọc thêm string_view và iterator; đến Stage 4 mới học pointer/ownership. Không cần thuộc trước toàn bộ thuật ngữ C++ mới bắt đầu giải bài.
