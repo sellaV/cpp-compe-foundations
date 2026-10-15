@@ -1,39 +1,43 @@
-# Learning log
+# General C++ learning log
 
-Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Replace the marker manually. Revisit is more valuable than a streak.
+Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Add a revisit date after consulting a solution.
 
-| Status | ID | Challenge | Date | One lesson / bug | Time & space | Revisit |
+| Status | ID | Challenge | Date | C++ concept learned | Complexity | Revisit |
 | --- | --- | --- | --- | --- | --- | --- |
-| [ ] | 01 | Filter valid sensor samples | | | | |
-| [ ] | 02 | Longest consecutive alarm | | | | |
-| [ ] | 03 | Pair of complementary measurements | | | | |
-| [ ] | 04 | Parse a telemetry command | | | | |
-| [ ] | 05 | Moving average without repeated sums | | | | |
-| [ ] | 06 | First sample at or above a target | | | | |
-| [ ] | 07 | Merge motor reservation intervals | | | | |
-| [ ] | 08 | Modify a hardware status register | | | | |
-| [ ] | 09 | Fixed-capacity telemetry buffer | | | | |
-| [ ] | 10 | Latched emergency-stop state machine | | | | |
-| [ ] | 11 | Traverse an owned command chain | | | | |
-| [ ] | 12 | Transform data with a callable | | | | |
-| [ ] | 13 | Shortest path in an occupancy grid | | | | |
-| [ ] | 14 | Minimum-cost route through a robot graph | | | | |
-| [ ] | 15 | Dependency order for automation tasks | | | | |
-| [ ] | 16 | A bounded discrete PID controller | | | | |
-| [ ] | 17 | Crop a flattened grayscale image | | | | |
-| [ ] | 18 | 3x3 box blur with explicit border behavior | | | | |
-| [ ] | 19 | Intersection over union of boxes | | | | |
-| [ ] | 20 | Greedy non-maximum suppression | | | | |
-| [ ] | 21 | Stable softmax for classifier logits | | | | |
-| [ ] | 22 | Quantize floating-point samples to int8 | | | | |
-| [ ] | 23 | Multiply row-major matrices | | | | |
-| [ ] | 24 | Convert HWC pixels to normalized CHW tensor | | | | |
+| [ ] | 01 | Second distinct largest value | | | | |
+| [ ] | 02 | Normalize fraction data | | | | |
+| [ ] | 03 | Rotate three caller-owned values | | | | |
+| [ ] | 04 | Encode consecutive character runs | | | | |
+| [ ] | 05 | Normalize whitespace between words | | | | |
+| [ ] | 06 | Rotate a vector in place | | | | |
+| [ ] | 07 | Merge two sorted sequences | | | | |
+| [ ] | 08 | Validate nested brackets | | | | |
+| [ ] | 09 | Two sum with deterministic indices | | | | |
+| [ ] | 10 | First nonrepeating byte | | | | |
+| [ ] | 11 | Find the first qualifying index | | | | |
+| [ ] | 12 | Longest substring without repeated bytes | | | | |
+| [ ] | 13 | Reverse a borrowed array range | | | | |
+| [ ] | 14 | Insert into a uniquely owned linked list | | | | |
+| [ ] | 15 | Generate a power set recursively | | | | |
+| [ ] | 16 | Return a pointer to the first maximum | | | | |
+| [ ] | 17 | A normalized fraction value class | | | | |
+| [ ] | 18 | An inventory with checked updates | | | | |
+| [ ] | 19 | Clone polymorphic objects | | | | |
+| [ ] | 20 | Implement move-only resource ownership | | | | |
+| [ ] | 21 | Map values using any callable | | | | |
+| [ ] | 22 | Group words by a canonical key | | | | |
+| [ ] | 23 | Rank records without losing tie order | | | | |
+| [ ] | 24 | Count generic values from iterators | | | | |
+| [ ] | 25 | Parse whitespace-separated integers strictly | | | | |
+| [ ] | 26 | Summarize text through stream interfaces | | | | |
+| [ ] | 27 | Parse a typed configuration value | | | | |
+| [ ] | 28 | Restore stream formatting with RAII | | | | |
 
-## Reflection template
+## Reflection per task
 
-- My first approach:
-- The invariant / reason it works:
-- An edge case I missed:
-- A C++ concept I can now explain:
-- A new test I added:
-- What I would change for a real embedded/robotics system:
+- My approach and invariant:
+- A boundary/failure case I initially missed:
+- What is owned, borrowed, copied, moved or mutated:
+- One C++ syntax/API choice I can explain:
+- A test I added:
+- What changed when I rewrote the solution without looking:

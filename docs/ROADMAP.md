@@ -1,53 +1,48 @@
-# Roadmap and pacing
+# General C++ roadmap
 
-Use this as an 8–12 week track alongside college, at roughly three focused sessions per week. This is a starting pace, not a deadline: repeat a problem when you cannot yet explain the invariant. Warm-ups can take 20–40 minutes; Core tasks often need 45–90 minutes; Stretch tasks may take several sessions.
+Start with the general track even if your long-term goal is robotics, games, backend, or AI. None of these 28 tasks requires domain knowledge. Read [CONCEPTS.md](CONCEPTS.md) alongside the exercises.
 
-## Recommended order
+Use 8–12 weeks as an initial pace, not a deadline: 2–4 problems per week with additional sessions for classes and ownership. Early tasks are logical warm-ups; later language-design tasks may take several sessions.
 
-Follow the IDs. Read the C++ bridge as concepts appear. Problems 01–04 introduce the API style; 05–08 strengthen algorithmic reasoning; 09–12 shift toward C++ design. Finish 13–16 before a robotics capstone and 17–24 before a vision/edge AI capstone.
-
-Problem 20 directly includes problem 19. Other problems compile independently, even though earlier concepts remain useful.
-
-| ID | Challenge | Level | Main C++ / reasoning skills |
+| ID | Challenge | Stage | C++ concepts |
 | --- | --- | --- | --- |
-| 01 | [Filter valid sensor samples](../problems/01_stable_compaction/README.md) | Warm-up | const references, range-based loops, vector, return by value |
-| 02 | [Longest consecutive alarm](../problems/02_longest_alarm/README.md) | Warm-up | size_t, counters, loop invariants |
-| 03 | [Pair of complementary measurements](../problems/03_two_sum/README.md) | Core | unordered_map, optional, pair, iterators, int64_t |
-| 04 | [Parse a telemetry command](../problems/04_packet_parser/README.md) | Core | string_view, from_chars, optional, error codes |
-| 05 | [Moving average without repeated sums](../problems/05_moving_average/README.md) | Core | indexing, vector<double>, explicit casts, exceptions |
-| 06 | [First sample at or above a target](../problems/06_lower_bound/README.md) | Core | half-open intervals, unsigned indices, binary search |
-| 07 | [Merge motor reservation intervals](../problems/07_merge_intervals/README.md) | Core | struct, sort comparator, value parameters, back() |
-| 08 | [Modify a hardware status register](../problems/08_register_bits/README.md) | Core | uint32_t, bitwise OR/AND/NOT, shifts, unsigned literals |
-| 09 | [Fixed-capacity telemetry buffer](../problems/09_ring_buffer/README.md) | Stretch | class, constructor, private state, template, optional, circular indexing |
-| 10 | [Latched emergency-stop state machine](../problems/10_robot_state/README.md) | Core | enum class, class encapsulation, switch, methods |
-| 11 | [Traverse an owned command chain](../problems/11_owned_chain/README.md) | Core | unique_ptr, raw observing pointers, nullptr, make_unique, ownership |
-| 12 | [Transform data with a callable](../problems/12_generic_transform/README.md) | Stretch | function templates, callable parameters, lambdas, decltype, type_traits |
-| 13 | [Shortest path in an occupancy grid](../problems/13_grid_bfs/README.md) | Core | queue, pair, vector of vectors, structured bindings, BFS |
-| 14 | [Minimum-cost route through a robot graph](../problems/14_weighted_path/README.md) | Stretch | priority_queue, greater, adjacency lists, int64_t distances |
-| 15 | [Dependency order for automation tasks](../problems/15_task_order/README.md) | Stretch | indegree counts, topological sorting, optional, min-heap |
-| 16 | [A bounded discrete PID controller](../problems/16_pid_step/README.md) | Stretch | stateful classes, floating point, constructor validation, clamp |
-| 17 | [Crop a flattened grayscale image](../problems/17_image_crop/README.md) | Core | row-major storage, nested loops, bounds checking |
-| 18 | [3x3 box blur with explicit border behavior](../problems/18_box_blur/README.md) | Core | nested loops, accumulation, casts, numeric output |
-| 19 | [Intersection over union of boxes](../problems/19_iou/README.md) | Core | struct, const reference, geometry, floating point |
-| 20 | [Greedy non-maximum suppression](../problems/20_nms/README.md) | Stretch | sorting index vectors, tie-breaking, nested comparisons, reuse of helpers |
-| 21 | [Stable softmax for classifier logits](../problems/21_stable_softmax/README.md) | Core | exp, max_element, accumulate, floating point stability |
-| 22 | [Quantize floating-point samples to int8](../problems/22_quantize/README.md) | Core | round, clamp, int8_t, numeric limits, narrowing conversions |
-| 23 | [Multiply row-major matrices](../problems/23_matrix_multiply/README.md) | Stretch | flat tensors, triple loops, index arithmetic, shape contracts |
-| 24 | [Convert HWC pixels to normalized CHW tensor](../problems/24_tensor_layout/README.md) | Stretch | uint8_t, float, tensor indexing, explicit casts, layout conversion |
+| 01 | [Second distinct largest value](../problems/01_second_largest/README.md) | 1 · Functions, types and references | const reference, vector, optional, branching |
+| 02 | [Normalize fraction data](../problems/02_fraction_parts/README.md) | 1 · Functions, types and references | struct, int64_t, gcd, exceptions, return by value |
+| 03 | [Rotate three caller-owned values](../problems/03_rotate_references/README.md) | 1 · Functions, types and references | reference parameters, temporaries, aliasing |
+| 04 | [Encode consecutive character runs](../problems/04_run_encoding/README.md) | 1 · Functions, types and references | string, struct, vector, size_t, range loops |
+| 05 | [Normalize whitespace between words](../problems/05_normalize_spaces/README.md) | 2 · Strings, vectors and invariants | string_view, ASCII predicates, string building |
+| 06 | [Rotate a vector in place](../problems/06_rotate_vector/README.md) | 2 · Strings, vectors and invariants | mutable reference, iterators, reverse, modulo |
+| 07 | [Merge two sorted sequences](../problems/07_merge_sorted/README.md) | 2 · Strings, vectors and invariants | two pointers, bounds, const references |
+| 08 | [Validate nested brackets](../problems/08_balanced_brackets/README.md) | 2 · Strings, vectors and invariants | stack pattern with vector, char branching |
+| 09 | [Two sum with deterministic indices](../problems/09_two_sum/README.md) | 3 · General problem-solving patterns | unordered_map, optional, pair, iterators, int64_t |
+| 10 | [First nonrepeating byte](../problems/10_first_unique/README.md) | 3 · General problem-solving patterns | array, unsigned char conversion, two passes |
+| 11 | [Find the first qualifying index](../problems/11_binary_search/README.md) | 3 · General problem-solving patterns | half-open intervals, unsigned indices, binary search |
+| 12 | [Longest substring without repeated bytes](../problems/12_unique_window/README.md) | 3 · General problem-solving patterns | sliding window, array, index invariants |
+| 13 | [Reverse a borrowed array range](../problems/13_pointer_range/README.md) | 4 · Pointers, ownership and recursion | raw observing pointers, pointer arithmetic, nullptr |
+| 14 | [Insert into a uniquely owned linked list](../problems/14_owned_list/README.md) | 4 · Pointers, ownership and recursion | unique_ptr, move, pointer-to-owner, make_unique |
+| 15 | [Generate a power set recursively](../problems/15_subsets/README.md) | 4 · Pointers, ownership and recursion | recursion, backtracking, vector copying versus references |
+| 16 | [Return a pointer to the first maximum](../problems/16_borrowed_result/README.md) | 4 · Pointers, ownership and recursion | const and mutable overloads, pointer return, lifetime |
+| 17 | [A normalized fraction value class](../problems/17_value_class/README.md) | 5 · Classes, value semantics and polymorphism | constructors, private invariants, const methods, operator overloading |
+| 18 | [An inventory with checked updates](../problems/18_inventory/README.md) | 5 · Classes, value semantics and polymorphism | encapsulation, map, exceptions, transactional updates |
+| 19 | [Clone polymorphic objects](../problems/19_polymorphic_copy/README.md) | 5 · Classes, value semantics and polymorphism | abstract base, virtual destructor, override, unique_ptr, dynamic dispatch |
+| 20 | [Implement move-only resource ownership](../problems/20_move_only_buffer/README.md) | 5 · Classes, value semantics and polymorphism | RAII, unique_ptr<T[]>, deleted copy, noexcept move, self-move |
+| 21 | [Map values using any callable](../problems/21_generic_transform/README.md) | 6 · STL, callables, templates and iterators | function templates, callable parameters, lambdas, decltype, type_traits |
+| 22 | [Group words by a canonical key](../problems/22_group_anagrams/README.md) | 6 · STL, callables, templates and iterators | unordered_map, sorting, map key/value separation |
+| 23 | [Rank records without losing tie order](../problems/23_stable_ranking/README.md) | 6 · STL, callables, templates and iterators | struct, stable_sort, strict weak ordering, iterators |
+| 24 | [Count generic values from iterators](../problems/24_generic_frequencies/README.md) | 6 · STL, callables, templates and iterators | function templates, iterator_traits, map, iterator ranges |
+| 25 | [Parse whitespace-separated integers strictly](../problems/25_checked_parsing/README.md) | 7 · Parsing, streams, errors and RAII | istream, string tokens, from_chars, exception reporting |
+| 26 | [Summarize text through stream interfaces](../problems/26_line_statistics/README.md) | 7 · Parsing, streams, errors and RAII | getline, istream/ostream, EOF, reusable I/O |
+| 27 | [Parse a typed configuration value](../problems/27_variant_value/README.md) | 7 · Parsing, streams, errors and RAII | variant, optional, string_view, get, holds_alternative |
+| 28 | [Restore stream formatting with RAII](../problems/28_scope_guard/README.md) | 7 · Parsing, streams, errors and RAII | destructor, references, deleted special members, exception unwinding |
 
 ## Milestones
 
-- After 04: write a function with a precise input/output contract, explain references and optional results, and handle malformed telemetry.
-- After 08: distinguish O(n), O(log n) and O(n log n); explain a binary-search invariant and safely set register bits.
-- After 12: design a small class with private state, explain ownership versus observation, and instantiate a template with more than one type.
-- After 16: explain why BFS uses a queue, why Dijkstra needs nonnegative costs, and what state persists between PID samples.
-- After 20: trace row-major image indices, state border behavior, and explain why NMS suppresses boxes rather than merging them.
-- After 24: avoid softmax overflow, explain int8 saturation, and track matrix/tensor dimensions precisely.
+- After 04: write a function with a precise contract, distinguish by-value/by-reference behavior, and represent a missing answer.
+- After 08: manipulate sequences without invalid indexing; explain iterator ranges and loop invariants.
+- After 12: justify hash-table, binary-search and sliding-window approaches and their complexity.
+- After 16: explain owner/observer relationships, borrowed pointer lifetime, recursive base cases and backtracking.
+- After 20: design class invariants, independent copies, virtual cloning and move-only ownership.
+- After 24: use generic callables, sorting comparators and non-random-access iterator interfaces.
+- After 28: distinguish parse errors from I/O failure and use RAII for exception-safe cleanup.
 
-## A session that builds understanding
-
-Spend a few minutes on the contract and one manual example, then code and test. Reserve the last ten minutes for a short learning note. Return 2–3 days later and explain the approach without looking. If you needed the solution, rewrite it from memory rather than marking it complete immediately.
-
-## Beyond this repository
-
-Your next C++ learning should include translation units and CMake, deeper move semantics and RAII, standard algorithms and iterators, concurrency and synchronization, and profiling. Pair that with discrete math, linear algebra, signals, controls and embedded systems coursework. The algorithm track is one part of preparation for robotics and edge AI; deployment also involves latency, memory, hardware I/O and system integration.
+Every general exercise compiles independently. Once you can explain its code rather than reproduce it, choose a general project in [CAPSTONES.md](CAPSTONES.md). The optional engineering curriculum has its own [roadmap](../applied/docs/ROADMAP.md).

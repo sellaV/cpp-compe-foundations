@@ -1,170 +1,198 @@
 [
   {
-    "slug": "01_stable_compaction",
-    "title": "Filter valid sensor samples",
-    "module": "1 \u00b7 Core logic and C++ syntax",
-    "level": "Warm-up",
-    "syntax": "const references, range-based loops, vector, return by value"
+    "slug": "01_second_largest",
+    "title": "Second distinct largest value",
+    "module": "1 \u00b7 Functions, types and references",
+    "syntax": "const reference, vector, optional, branching",
+    "level": "Core"
   },
   {
-    "slug": "02_longest_alarm",
-    "title": "Longest consecutive alarm",
-    "module": "1 \u00b7 Core logic and C++ syntax",
-    "level": "Warm-up",
-    "syntax": "size_t, counters, loop invariants"
+    "slug": "02_fraction_parts",
+    "title": "Normalize fraction data",
+    "module": "1 \u00b7 Functions, types and references",
+    "syntax": "struct, int64_t, gcd, exceptions, return by value",
+    "level": "Core"
   },
   {
-    "slug": "03_two_sum",
-    "title": "Pair of complementary measurements",
-    "module": "1 \u00b7 Core logic and C++ syntax",
-    "level": "Core",
-    "syntax": "unordered_map, optional, pair, iterators, int64_t"
+    "slug": "03_rotate_references",
+    "title": "Rotate three caller-owned values",
+    "module": "1 \u00b7 Functions, types and references",
+    "syntax": "reference parameters, temporaries, aliasing",
+    "level": "Core"
   },
   {
-    "slug": "04_packet_parser",
-    "title": "Parse a telemetry command",
-    "module": "1 \u00b7 Core logic and C++ syntax",
-    "level": "Core",
-    "syntax": "string_view, from_chars, optional, error codes"
+    "slug": "04_run_encoding",
+    "title": "Encode consecutive character runs",
+    "module": "1 \u00b7 Functions, types and references",
+    "syntax": "string, struct, vector, size_t, range loops",
+    "level": "Core"
   },
   {
-    "slug": "05_moving_average",
-    "title": "Moving average without repeated sums",
-    "module": "2 \u00b7 Arrays, algorithms and bit logic",
-    "level": "Core",
-    "syntax": "indexing, vector<double>, explicit casts, exceptions"
+    "slug": "05_normalize_spaces",
+    "title": "Normalize whitespace between words",
+    "module": "2 \u00b7 Strings, vectors and invariants",
+    "syntax": "string_view, ASCII predicates, string building",
+    "level": "Core"
   },
   {
-    "slug": "06_lower_bound",
-    "title": "First sample at or above a target",
-    "module": "2 \u00b7 Arrays, algorithms and bit logic",
-    "level": "Core",
-    "syntax": "half-open intervals, unsigned indices, binary search"
+    "slug": "06_rotate_vector",
+    "title": "Rotate a vector in place",
+    "module": "2 \u00b7 Strings, vectors and invariants",
+    "syntax": "mutable reference, iterators, reverse, modulo",
+    "level": "Core"
   },
   {
-    "slug": "07_merge_intervals",
-    "title": "Merge motor reservation intervals",
-    "module": "2 \u00b7 Arrays, algorithms and bit logic",
-    "level": "Core",
-    "syntax": "struct, sort comparator, value parameters, back()"
+    "slug": "07_merge_sorted",
+    "title": "Merge two sorted sequences",
+    "module": "2 \u00b7 Strings, vectors and invariants",
+    "syntax": "two pointers, bounds, const references",
+    "level": "Core"
   },
   {
-    "slug": "08_register_bits",
-    "title": "Modify a hardware status register",
-    "module": "2 \u00b7 Arrays, algorithms and bit logic",
-    "level": "Core",
-    "syntax": "uint32_t, bitwise OR/AND/NOT, shifts, unsigned literals"
+    "slug": "08_balanced_brackets",
+    "title": "Validate nested brackets",
+    "module": "2 \u00b7 Strings, vectors and invariants",
+    "syntax": "stack pattern with vector, char branching",
+    "level": "Core"
   },
   {
-    "slug": "09_ring_buffer",
-    "title": "Fixed-capacity telemetry buffer",
-    "module": "3 \u00b7 Classes, lifetimes and generic C++",
-    "level": "Stretch",
-    "syntax": "class, constructor, private state, template, optional, circular indexing"
+    "slug": "09_two_sum",
+    "title": "Two sum with deterministic indices",
+    "module": "3 \u00b7 General problem-solving patterns",
+    "syntax": "unordered_map, optional, pair, iterators, int64_t",
+    "level": "Core"
   },
   {
-    "slug": "10_robot_state",
-    "title": "Latched emergency-stop state machine",
-    "module": "3 \u00b7 Classes, lifetimes and generic C++",
-    "level": "Core",
-    "syntax": "enum class, class encapsulation, switch, methods"
+    "slug": "10_first_unique",
+    "title": "First nonrepeating byte",
+    "module": "3 \u00b7 General problem-solving patterns",
+    "syntax": "array, unsigned char conversion, two passes",
+    "level": "Core"
   },
   {
-    "slug": "11_owned_chain",
-    "title": "Traverse an owned command chain",
-    "module": "3 \u00b7 Classes, lifetimes and generic C++",
-    "level": "Core",
-    "syntax": "unique_ptr, raw observing pointers, nullptr, make_unique, ownership"
+    "slug": "11_binary_search",
+    "title": "Find the first qualifying index",
+    "module": "3 \u00b7 General problem-solving patterns",
+    "syntax": "half-open intervals, unsigned indices, binary search",
+    "level": "Core"
   },
   {
-    "slug": "12_generic_transform",
-    "title": "Transform data with a callable",
-    "module": "3 \u00b7 Classes, lifetimes and generic C++",
-    "level": "Stretch",
-    "syntax": "function templates, callable parameters, lambdas, decltype, type_traits"
+    "slug": "12_unique_window",
+    "title": "Longest substring without repeated bytes",
+    "module": "3 \u00b7 General problem-solving patterns",
+    "syntax": "sliding window, array, index invariants",
+    "level": "Core"
   },
   {
-    "slug": "13_grid_bfs",
-    "title": "Shortest path in an occupancy grid",
-    "module": "4 \u00b7 Robotics and scheduling algorithms",
-    "level": "Core",
-    "syntax": "queue, pair, vector of vectors, structured bindings, BFS"
+    "slug": "13_pointer_range",
+    "title": "Reverse a borrowed array range",
+    "module": "4 \u00b7 Pointers, ownership and recursion",
+    "syntax": "raw observing pointers, pointer arithmetic, nullptr",
+    "level": "Intermediate"
   },
   {
-    "slug": "14_weighted_path",
-    "title": "Minimum-cost route through a robot graph",
-    "module": "4 \u00b7 Robotics and scheduling algorithms",
-    "level": "Stretch",
-    "syntax": "priority_queue, greater, adjacency lists, int64_t distances"
+    "slug": "14_owned_list",
+    "title": "Insert into a uniquely owned linked list",
+    "module": "4 \u00b7 Pointers, ownership and recursion",
+    "syntax": "unique_ptr, move, pointer-to-owner, make_unique",
+    "level": "Intermediate"
   },
   {
-    "slug": "15_task_order",
-    "title": "Dependency order for automation tasks",
-    "module": "4 \u00b7 Robotics and scheduling algorithms",
-    "level": "Stretch",
-    "syntax": "indegree counts, topological sorting, optional, min-heap"
+    "slug": "15_subsets",
+    "title": "Generate a power set recursively",
+    "module": "4 \u00b7 Pointers, ownership and recursion",
+    "syntax": "recursion, backtracking, vector copying versus references",
+    "level": "Intermediate"
   },
   {
-    "slug": "16_pid_step",
-    "title": "A bounded discrete PID controller",
-    "module": "4 \u00b7 Robotics and scheduling algorithms",
-    "level": "Stretch",
-    "syntax": "stateful classes, floating point, constructor validation, clamp"
+    "slug": "16_borrowed_result",
+    "title": "Return a pointer to the first maximum",
+    "module": "4 \u00b7 Pointers, ownership and recursion",
+    "syntax": "const and mutable overloads, pointer return, lifetime",
+    "level": "Intermediate"
   },
   {
-    "slug": "17_image_crop",
-    "title": "Crop a flattened grayscale image",
-    "module": "5 \u00b7 Computer vision foundations",
-    "level": "Core",
-    "syntax": "row-major storage, nested loops, bounds checking"
+    "slug": "17_value_class",
+    "title": "A normalized fraction value class",
+    "module": "5 \u00b7 Classes, value semantics and polymorphism",
+    "syntax": "constructors, private invariants, const methods, operator overloading",
+    "level": "Intermediate"
   },
   {
-    "slug": "18_box_blur",
-    "title": "3x3 box blur with explicit border behavior",
-    "module": "5 \u00b7 Computer vision foundations",
-    "level": "Core",
-    "syntax": "nested loops, accumulation, casts, numeric output"
+    "slug": "18_inventory",
+    "title": "An inventory with checked updates",
+    "module": "5 \u00b7 Classes, value semantics and polymorphism",
+    "syntax": "encapsulation, map, exceptions, transactional updates",
+    "level": "Intermediate"
   },
   {
-    "slug": "19_iou",
-    "title": "Intersection over union of boxes",
-    "module": "5 \u00b7 Computer vision foundations",
-    "level": "Core",
-    "syntax": "struct, const reference, geometry, floating point"
+    "slug": "19_polymorphic_copy",
+    "title": "Clone polymorphic objects",
+    "module": "5 \u00b7 Classes, value semantics and polymorphism",
+    "syntax": "abstract base, virtual destructor, override, unique_ptr, dynamic dispatch",
+    "level": "Intermediate"
   },
   {
-    "slug": "20_nms",
-    "title": "Greedy non-maximum suppression",
-    "module": "5 \u00b7 Computer vision foundations",
-    "level": "Stretch",
-    "syntax": "sorting index vectors, tie-breaking, nested comparisons, reuse of helpers"
+    "slug": "20_move_only_buffer",
+    "title": "Implement move-only resource ownership",
+    "module": "5 \u00b7 Classes, value semantics and polymorphism",
+    "syntax": "RAII, unique_ptr<T[]>, deleted copy, noexcept move, self-move",
+    "level": "Intermediate"
   },
   {
-    "slug": "21_stable_softmax",
-    "title": "Stable softmax for classifier logits",
-    "module": "6 \u00b7 Edge AI and numerical thinking",
-    "level": "Core",
-    "syntax": "exp, max_element, accumulate, floating point stability"
+    "slug": "21_generic_transform",
+    "title": "Map values using any callable",
+    "module": "6 \u00b7 STL, callables, templates and iterators",
+    "syntax": "function templates, callable parameters, lambdas, decltype, type_traits",
+    "level": "Intermediate"
   },
   {
-    "slug": "22_quantize",
-    "title": "Quantize floating-point samples to int8",
-    "module": "6 \u00b7 Edge AI and numerical thinking",
-    "level": "Core",
-    "syntax": "round, clamp, int8_t, numeric limits, narrowing conversions"
+    "slug": "22_group_anagrams",
+    "title": "Group words by a canonical key",
+    "module": "6 \u00b7 STL, callables, templates and iterators",
+    "syntax": "unordered_map, sorting, map key/value separation",
+    "level": "Intermediate"
   },
   {
-    "slug": "23_matrix_multiply",
-    "title": "Multiply row-major matrices",
-    "module": "6 \u00b7 Edge AI and numerical thinking",
-    "level": "Stretch",
-    "syntax": "flat tensors, triple loops, index arithmetic, shape contracts"
+    "slug": "23_stable_ranking",
+    "title": "Rank records without losing tie order",
+    "module": "6 \u00b7 STL, callables, templates and iterators",
+    "syntax": "struct, stable_sort, strict weak ordering, iterators",
+    "level": "Intermediate"
   },
   {
-    "slug": "24_tensor_layout",
-    "title": "Convert HWC pixels to normalized CHW tensor",
-    "module": "6 \u00b7 Edge AI and numerical thinking",
-    "level": "Stretch",
-    "syntax": "uint8_t, float, tensor indexing, explicit casts, layout conversion"
+    "slug": "24_generic_frequencies",
+    "title": "Count generic values from iterators",
+    "module": "6 \u00b7 STL, callables, templates and iterators",
+    "syntax": "function templates, iterator_traits, map, iterator ranges",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "25_checked_parsing",
+    "title": "Parse whitespace-separated integers strictly",
+    "module": "7 \u00b7 Parsing, streams, errors and RAII",
+    "syntax": "istream, string tokens, from_chars, exception reporting",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "26_line_statistics",
+    "title": "Summarize text through stream interfaces",
+    "module": "7 \u00b7 Parsing, streams, errors and RAII",
+    "syntax": "getline, istream/ostream, EOF, reusable I/O",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "27_variant_value",
+    "title": "Parse a typed configuration value",
+    "module": "7 \u00b7 Parsing, streams, errors and RAII",
+    "syntax": "variant, optional, string_view, get, holds_alternative",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "28_scope_guard",
+    "title": "Restore stream formatting with RAII",
+    "module": "7 \u00b7 Parsing, streams, errors and RAII",
+    "syntax": "destructor, references, deleted special members, exception unwinding",
+    "level": "Intermediate"
   }
 ]

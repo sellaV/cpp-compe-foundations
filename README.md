@@ -1,84 +1,79 @@
-# C++ CompE Foundations
+# C++ Foundations: learn the language through problems
 
-**24 original, LeetCode-style challenges for a Computer Engineering student interested in automation, robotics, computer vision and edge AI.**
+**28 general C++ challenges**, organized around language concepts and useful problem-solving patterns. For someone who knows basic programming in another language and wants a solid start in C++ for college and later projects.
 
-Start with filtering noisy measurements and parsing commands. Work toward robot path planning, stateful controllers, image processing and tensor operations. You will learn C++ syntax through useful logic problems instead of print-and-arithmetic drills.
+You do not need robotics, computer vision, controls, or AI knowledge. There are no print-and-arithmetic drills. The first task already involves duplicates, edge cases and optional results; later tasks teach ownership, classes, templates, streams and RAII.
 
-This is a foundation track, not a complete replacement for college courses or production robotics training. It uses standard **C++17**, with no OpenCV, ROS, GPU, or external C++ libraries required.
+The earlier 24 engineering-themed challenges now live in **[applied/](applied/)** as optional follow-up practice. Start with the general track below.
 
-## Start here
+## Learn two things together
 
-You should recognize variables, `if`, loops, and functions in at least one language. A short [C++ bridge from Python](docs/CPP_BRIDGE.md) supplies the syntax you need for the first challenge.
+1. **Reasoning:** contracts, invariants, edge cases, data structures and complexity.
+2. **C++:** types, references, lifetime, ownership, class design, standard-library interfaces and resource management.
 
-1. Follow [setup instructions](docs/SETUP.md) for Windows, Linux or macOS.
-2. Read [problem 01](problems/01_stable_compaction/README.md).
-3. Implement its function in `problems/01_stable_compaction/starter.hpp`.
-4. Run the tests from the repo root:
+Solving an algorithm without understanding how values are copied or borrowed is only half the task. Each exercise also asks you to explain the language choices.
+
+## Start
+
+Follow [SETUP.md](docs/SETUP.md) for a GCC/Clang C++17 compiler and Python 3.9+. No external C++ libraries or Python packages are needed.
+
+1. Read the [Python-to-C++ bridge](docs/CPP_BRIDGE.md) and Stage 1 in [CONCEPTS.md](docs/CONCEPTS.md).
+2. Open [01 — Second distinct largest value](problems/01_second_largest/README.md).
+3. Implement its function in `starter.hpp`.
+4. Run from the repository root:
 
 ```bash
-python tools/run.py 01
+python3 tools/run.py 01
 ```
 
-On Linux/macOS use `python3` if `python` is unavailable. No Python packages are required.
-
-The first run intentionally fails with a `TODO` message until you implement the function. Every starter compiles. Each problem provides its contract, example, hints, tests, and a separate explained reference solution. A failed assertion reports the expression and line. Unexpected exceptions are reported rather than silently ignored.
+On Windows, `python` may be the command instead of `python3`. Unfinished starters intentionally report TODO and fail when run. Each challenge supplies a complete contract, tests, expandable hints, an explained reference solution and a C++ reasoning question.
 
 ```bash
-python tools/run.py --list                 # List challenges
-python tools/run.py 05                     # Test YOUR moving average
-python tools/run.py 05 --reference         # Compare with the reference (doesn't edit your work)
-python tools/run.py all --reference        # Check the reference suite
-python tools/run.py 05 --sanitize          # Optional memory/undefined-behavior check
+python3 tools/run.py --list
+python3 tools/run.py 01                     # Your implementation
+python3 tools/run.py 01 --reference         # Reference implementation
+python3 tools/run.py all --reference        # General reference suite
+python3 tools/run.py 14 --sanitize          # Optional memory/undefined-behavior checks
+python3 applied/tools/run.py 13             # Optional engineering track
 ```
 
-## Curriculum
+Reference mode never overwrites your work. General problems compile independently; you do not need to solve an earlier starter to run a later task.
 
-| Stage | Problems | What you learn | Engineering connection |
+## General curriculum
+
+| Stage | Tasks | C++ focus | Representative problems |
 | --- | --- | --- | --- |
-| 1. Core logic | 01–04 | Loops, const references, vectors, hash maps, optional, string parsing | Sensor filtering and telemetry |
-| 2. Algorithms and bits | 05–08 | Sliding windows, binary search, sorting, structs, bit masks | Signal windows, reservations, registers |
-| 3. C++ design | 09–12 | Classes, templates, encapsulation, unique ownership, callables | Buffers, controller state and resource lifetimes |
-| 4. Robot algorithms | 13–16 | BFS, Dijkstra, dependencies, persistent numerical state | Route planning, task execution, PID |
-| 5. Vision | 17–20 | Row-major images, borders, geometry, greedy suppression | Cropping, blur, IoU and NMS |
-| 6. Edge AI | 21–24 | Numerical stability, narrowing, matrix shapes, tensor layout | Softmax, int8 quantization and preprocessing |
+| 1 | 01–04 | Types, functions, references, structs, optional | Second largest, fraction normalization, reference mutation, run encoding |
+| 2 | 05–08 | Strings, vectors, views, iterators, bounds | Whitespace normalization, rotation, merge, nested brackets |
+| 3 | 09–12 | Containers and algorithmic reasoning | Two sum, first unique byte, binary search, unique substring |
+| 4 | 13–16 | Pointers, lifetime, ownership, recursion | Borrowed arrays, owned lists, subsets, borrowed results |
+| 5 | 17–20 | Classes, operators, value semantics, polymorphism, moves | Fraction class, inventory, virtual cloning, move-only buffer |
+| 6 | 21–24 | Callables, STL algorithms, templates, iterators | Generic map, anagram groups, stable ranking, frequencies |
+| 7 | 25–28 | Streams, validation, exceptions, variant, RAII | Strict parsing, line statistics, typed values, formatting guard |
 
-See the [full roadmap](docs/ROADMAP.md) for links, prerequisites and pacing. Warm-ups still require real logic; Core tasks build reusable patterns; Stretch tasks need more design or algorithmic reasoning. Difficulty labels are local to this track, not official LeetCode ratings.
+The [full roadmap](docs/ROADMAP.md) links every task. [CONCEPTS.md](docs/CONCEPTS.md) explains what to learn before each stage and what to demonstrate afterward.
 
-**Dependency:** problem 20's starter includes problem 19's starter. Finish IoU before NMS. Reference mode uses only reference files, so you can verify the package even before solving anything.
+## Practice routine
 
-## How to practice
+- Read concept notes; attempt a problem for 25–45 minutes before using a hint.
+- Trace a small input and state the invariant.
+- Add a test of your own, including a failure case where applicable.
+- Explain what is owned, borrowed, copied, moved and mutated. For classes, state the invariant.
+- After reading a solution, close it and rewrite it later without looking.
+- Record both algorithmic complexity and a C++ lesson in [PROGRESS.md](PROGRESS.md).
 
-- Spend 25–45 minutes on a serious attempt before opening Hint 1.
-- Write a tiny input by hand and trace your variables. Explain your invariant.
-- Read compiler errors from the first error downward. Fix one cause at a time.
-- Try Hint 2 before the solution. After reading a solution, close it and rewrite it yourself later.
-- Add a test for an empty input, a boundary, and a case your first approach mishandled.
-- Record your time/space complexity and what C++ concept you learned in [PROGRESS.md](PROGRESS.md).
+These are visible tests, not a hidden online judge. Passing tests does not prove every contract or constraints such as “use recursion.” Review your reasoning and code as well.
 
-Passing provided tests is a useful check, not a proof. Check the full contract and complexity; tests cannot distinguish every inefficient or hard-coded implementation.
+## Beyond challenges
 
-## Layout
+After the relevant stages, build one of the general [projects](docs/CAPSTONES.md): a text-analysis command-line tool, library catalog or expression evaluator. The guide introduces multiple translation units and build commands.
 
-```text
-problems/01_stable_compaction/
-    README.md       problem + expandable hints + solution explanation
-    starter.hpp     your implementation
-    test.cpp        runnable checks you can extend
-    solution.hpp    reference implementation
-tests/check.hpp     tiny test helpers (no dependencies)
-tools/run.py        selects, compiles and runs challenges
-docs/               setup, C++ bridge, roadmap, debugging, capstones
-PROGRESS.md         learning log
-```
+This is a foundation, not the entire language or a replacement for college courses. Later study includes deeper exception guarantees, CMake, testing frameworks, concurrency, networking, profiling and platform APIs. Domain-specific libraries come after the general foundation.
 
-The headers include a shared set of standard headers for convenience. After solving, remove unnecessary includes as a cleanup exercise. Prefer specific headers in real projects. Starter placeholders can produce unused-parameter warnings; these disappear when you implement the parameters' logic.
+## Layout and automated checks
 
-## After the challenges
+`problems/` contains the 28 general tasks. `applied/` preserves the earlier optional track with its own runner. `docs/` contains general notes and projects. `tests/check.hpp` supplies checks independent of NDEBUG.
 
-Build one of the [three capstone projects](docs/CAPSTONES.md). These require integrating modules and making design choices, so they complement algorithm drills. Then extend your learning toward concurrency, build systems, numerical methods, controls, ROS, OpenCV and hardware integration as your courses and projects require.
+GitHub Actions tests references and compiles learner interfaces in both tracks. Unfinished learner implementations do not have to pass runtime tests. Headers include a broad set of standard headers for convenience; remove unused includes as a cleanup exercise.
 
-## GitHub checks
-
-The included GitHub Actions workflow tests all references, compiles learner interfaces, and runs references with sanitizers. It does **not** require every unfinished learner task to pass. Run a specific learner test locally while solving it. Sanitizer support depends on compiler/platform; Linux GCC/Clang is the intended environment.
-
-All exercises and implementations in this repository are original. No paid problem statements or solutions were copied.
+All challenges are original; no paid problem statements or solutions were copied.

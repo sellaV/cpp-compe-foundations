@@ -1,30 +1,22 @@
 # Debugging routine
 
-1. Copy the smallest failing test into your notes.
-2. Trace each iteration: index, current state, and output so far.
-3. State an invariant: what must remain true after every iteration?
-4. Check inclusive versus exclusive boundaries and empty inputs.
-5. Check numeric types before blaming the algorithm.
-6. Add the failing case to `test.cpp` and rerun that problem.
+1. Start with the smallest failing case.
+2. Trace each loop/call and state what should remain true.
+3. Check bounds, empty states and object lifetimes before indexing or dereferencing.
+4. Check types: integer division, unsigned underflow, signed overflow and byte indexing.
+5. For classes, inspect the invariant before and after a failed operation.
+6. Add the case to test.cpp and rerun that task.
 
-Common traps:
+A compile error means the language cannot form a program; a failed check means the program ran but violated tested behavior. Read the first compiler error before later cascading errors. Starter unused-parameter warnings are expected while unfinished.
 
-| Symptom | Likely cause |
+| Symptom | Check |
 | --- | --- |
-| Average is truncated | Integer division or integer accumulator |
-| Loop never ends | Binary-search interval fails to shrink |
-| Queue returns the wrong oldest item | Ring-buffer head/count invariant broken |
-| Image looks scrambled | HWC/CHW or row/column indexing mixed |
-| Pair uses the same element twice | Two-sum insertion happens before lookup |
-| Huge probability or NaN | Raw exponentials overflow; nonfinite input |
-| Unpredictable memory error | Index out of bounds or borrowed pointer outlives owner |
+| Caller value unchanged | Was the parameter passed by value instead of reference? |
+| Invalid access after push_back | Was a pointer/iterator kept across reallocation? |
+| Dangling return | Did a pointer/reference/view refer to a local object? |
+| Wrong tied ranking | Is the comparator strict, and is stability required? |
+| Moved-from object inconsistent | Was a separate size field reset? |
+| Extra final line | Was eof tested before trying extraction? |
+| State not restored on exception | Does cleanup happen in a destructor? |
 
-Compile with warnings enabled. Treat warnings as clues; an unused starter parameter is expected before implementation. For memory/index errors on Linux/WSL run:
-
-```bash
-python3 tools/run.py 09 --sanitize
-```
-
-In a debugger, put a breakpoint before the failing check, then step through the function. Inspect vector sizes before accessing elements and optional engagement before dereferencing.
-
-The provided `CHECK` helper remains active regardless of `NDEBUG`, unlike `assert`. `THROWS` verifies the specified exception type, though a subtype also matches. Tests report checks and failures; the count is not a score for your coding ability.
+On supported GCC/Clang platforms run `python3 tools/run.py 14 --sanitize` for address and undefined-behavior checks. The active CHECK macro does not disappear under NDEBUG. Passing tests is useful evidence, not a proof for all inputs or the required algorithm.

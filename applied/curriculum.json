@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "01_stable_compaction",
+    "title": "Filter valid sensor samples",
+    "module": "1 \u00b7 Core logic and C++ syntax",
+    "level": "Warm-up",
+    "syntax": "const references, range-based loops, vector, return by value"
+  },
+  {
+    "slug": "02_longest_alarm",
+    "title": "Longest consecutive alarm",
+    "module": "1 \u00b7 Core logic and C++ syntax",
+    "level": "Warm-up",
+    "syntax": "size_t, counters, loop invariants"
+  },
+  {
+    "slug": "03_two_sum",
+    "title": "Pair of complementary measurements",
+    "module": "1 \u00b7 Core logic and C++ syntax",
+    "level": "Core",
+    "syntax": "unordered_map, optional, pair, iterators, int64_t"
+  },
+  {
+    "slug": "04_packet_parser",
+    "title": "Parse a telemetry command",
+    "module": "1 \u00b7 Core logic and C++ syntax",
+    "level": "Core",
+    "syntax": "string_view, from_chars, optional, error codes"
+  },
+  {
+    "slug": "05_moving_average",
+    "title": "Moving average without repeated sums",
+    "module": "2 \u00b7 Arrays, algorithms and bit logic",
+    "level": "Core",
+    "syntax": "indexing, vector<double>, explicit casts, exceptions"
+  },
+  {
+    "slug": "06_lower_bound",
+    "title": "First sample at or above a target",
+    "module": "2 \u00b7 Arrays, algorithms and bit logic",
+    "level": "Core",
+    "syntax": "half-open intervals, unsigned indices, binary search"
+  },
+  {
+    "slug": "07_merge_intervals",
+    "title": "Merge motor reservation intervals",
+    "module": "2 \u00b7 Arrays, algorithms and bit logic",
+    "level": "Core",
+    "syntax": "struct, sort comparator, value parameters, back()"
+  },
+  {
+    "slug": "08_register_bits",
+    "title": "Modify a hardware status register",
+    "module": "2 \u00b7 Arrays, algorithms and bit logic",
+    "level": "Core",
+    "syntax": "uint32_t, bitwise OR/AND/NOT, shifts, unsigned literals"
+  },
+  {
+    "slug": "09_ring_buffer",
+    "title": "Fixed-capacity telemetry buffer",
+    "module": "3 \u00b7 Classes, lifetimes and generic C++",
+    "level": "Stretch",
+    "syntax": "class, constructor, private state, template, optional, circular indexing"
+  },
+  {
+    "slug": "10_robot_state",
+    "title": "Latched emergency-stop state machine",
+    "module": "3 \u00b7 Classes, lifetimes and generic C++",
+    "level": "Core",
+    "syntax": "enum class, class encapsulation, switch, methods"
+  },
+  {
+    "slug": "11_owned_chain",
+    "title": "Traverse an owned command chain",
+    "module": "3 \u00b7 Classes, lifetimes and generic C++",
+    "level": "Core",
+    "syntax": "unique_ptr, raw observing pointers, nullptr, make_unique, ownership"
+  },
+  {
+    "slug": "12_generic_transform",
+    "title": "Transform data with a callable",
+    "module": "3 \u00b7 Classes, lifetimes and generic C++",
+    "level": "Stretch",
+    "syntax": "function templates, callable parameters, lambdas, decltype, type_traits"
+  },
+  {
+    "slug": "13_grid_bfs",
+    "title": "Shortest path in an occupancy grid",
+    "module": "4 \u00b7 Robotics and scheduling algorithms",
+    "level": "Core",
+    "syntax": "queue, pair, vector of vectors, structured bindings, BFS"
+  },
+  {
+    "slug": "14_weighted_path",
+    "title": "Minimum-cost route through a robot graph",
+    "module": "4 \u00b7 Robotics and scheduling algorithms",
+    "level": "Stretch",
+    "syntax": "priority_queue, greater, adjacency lists, int64_t distances"
+  },
+  {
+    "slug": "15_task_order",
+    "title": "Dependency order for automation tasks",
+    "module": "4 \u00b7 Robotics and scheduling algorithms",
+    "level": "Stretch",
+    "syntax": "indegree counts, topological sorting, optional, min-heap"
+  },
+  {
+    "slug": "16_pid_step",
+    "title": "A bounded discrete PID controller",
+    "module": "4 \u00b7 Robotics and scheduling algorithms",
+    "level": "Stretch",
+    "syntax": "stateful classes, floating point, constructor validation, clamp"
+  },
+  {
+    "slug": "17_image_crop",
+    "title": "Crop a flattened grayscale image",
+    "module": "5 \u00b7 Computer vision foundations",
+    "level": "Core",
+    "syntax": "row-major storage, nested loops, bounds checking"
+  },
+  {
+    "slug": "18_box_blur",
+    "title": "3x3 box blur with explicit border behavior",
+    "module": "5 \u00b7 Computer vision foundations",
+    "level": "Core",
+    "syntax": "nested loops, accumulation, casts, numeric output"
+  },
+  {
+    "slug": "19_iou",
+    "title": "Intersection over union of boxes",
+    "module": "5 \u00b7 Computer vision foundations",
+    "level": "Core",
+    "syntax": "struct, const reference, geometry, floating point"
+  },
+  {
+    "slug": "20_nms",
+    "title": "Greedy non-maximum suppression",
+    "module": "5 \u00b7 Computer vision foundations",
+    "level": "Stretch",
+    "syntax": "sorting index vectors, tie-breaking, nested comparisons, reuse of helpers"
+  },
+  {
+    "slug": "21_stable_softmax",
+    "title": "Stable softmax for classifier logits",
+    "module": "6 \u00b7 Edge AI and numerical thinking",
+    "level": "Core",
+    "syntax": "exp, max_element, accumulate, floating point stability"
+  },
+  {
+    "slug": "22_quantize",
+    "title": "Quantize floating-point samples to int8",
+    "module": "6 \u00b7 Edge AI and numerical thinking",
+    "level": "Core",
+    "syntax": "round, clamp, int8_t, numeric limits, narrowing conversions"
+  },
+  {
+    "slug": "23_matrix_multiply",
+    "title": "Multiply row-major matrices",
+    "module": "6 \u00b7 Edge AI and numerical thinking",
+    "level": "Stretch",
+    "syntax": "flat tensors, triple loops, index arithmetic, shape contracts"
+  },
+  {
+    "slug": "24_tensor_layout",
+    "title": "Convert HWC pixels to normalized CHW tensor",
+    "module": "6 \u00b7 Edge AI and numerical thinking",
+    "level": "Stretch",
+    "syntax": "uint8_t, float, tensor indexing, explicit casts, layout conversion"
+  }
+]

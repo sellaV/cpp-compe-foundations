@@ -5,6 +5,12 @@ permissions:
 jobs:
   reference:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        track: ['.', 'applied']
+    defaults:
+      run:
+        working-directory: ${{ matrix.track }}
     steps:
       - uses: actions/checkout@v4
       - name: Test all reference solutions

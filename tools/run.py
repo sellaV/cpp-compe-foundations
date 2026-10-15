@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('problem', nargs='?', help='ID (01..24), full slug, or all')
+    parser.add_argument('problem', nargs='?', help='Two-digit ID, full slug, or all')
     parser.add_argument('--list', action='store_true', help='List curriculum')
     parser.add_argument('--reference', action='store_true', help='Test solutions rather than your work')
     parser.add_argument('--sanitize', action='store_true', help='Enable AddressSanitizer + UndefinedBehaviorSanitizer')

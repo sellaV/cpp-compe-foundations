@@ -40,26 +40,9 @@ Install Python 3 if necessary. Verify `clang++ --version` and `python3 --version
 From the repo root:
 
 ```bash
-g++ -std=c++17 -Wall -Wextra -Wpedantic -g problems/01_stable_compaction/test.cpp -o challenge
+g++ -std=c++17 -Wall -Wextra -Wpedantic -g problems/01_second_largest/test.cpp -o challenge
 ./challenge
 ```
 
 Use `clang++` in place of `g++` if desired. On Windows the executable is normally `challenge.exe`. To compile the reference add `-DREFERENCE=1`. Delete manually built executables before committing.
 
-## Publishing this prepared repo
-
-Create an empty GitHub repository named `cpp-compe-foundations` with your preferred visibility. Avoid initializing a README if uploading this entire package with Git.
-
-If ChatGPT is uploading the files through the plugin, send the new repository URL and ensure the GitHub app can access it. The plugin available during preparation can write repository contents but cannot create the repository itself.
-
-For manual upload, extract the package and run these commands **inside the extracted repo folder**, replacing the URL with your own:
-
-```bash
-git init -b main
-git add .
-git commit -m "Add C++ CompE learning curriculum"
-git remote add origin https://github.com/YOUR_USERNAME/cpp-compe-foundations.git
-git push -u origin main
-```
-
-GitHub authentication is handled by your usual Git setup. Do not put tokens into source files.
