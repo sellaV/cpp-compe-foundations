@@ -1,43 +1,34 @@
-# General C++ learning log
+# Core learning log
 
-Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Add a revisit date after consulting a solution.
+Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Keep a copy of earlier solutions when adapting changed interfaces.
 
-| Status | ID | Challenge | Date | C++ concept learned | Complexity | Revisit |
+| Status | ID | Exercise | Date | Logic / invariant | C++ concept | Revisit |
 | --- | --- | --- | --- | --- | --- | --- |
-| [ ] | 01 | Second distinct largest value | | | | |
-| [ ] | 02 | Normalize fraction data | | | | |
+| [ ] | 01 | Second distinct largest using state flags | | | | |
+| [ ] | 02 | Normalize a fraction with your own GCD loop | | | | |
 | [ ] | 03 | Rotate three caller-owned values | | | | |
 | [ ] | 04 | Encode consecutive character runs | | | | |
 | [ ] | 05 | Normalize whitespace between words | | | | |
-| [ ] | 06 | Rotate a vector in place | | | | |
+| [ ] | 06 | Rotate in place using manual reversals | | | | |
 | [ ] | 07 | Merge two sorted sequences | | | | |
 | [ ] | 08 | Validate nested brackets | | | | |
-| [ ] | 09 | Two sum with deterministic indices | | | | |
-| [ ] | 10 | First nonrepeating byte | | | | |
-| [ ] | 11 | Find the first qualifying index | | | | |
-| [ ] | 12 | Longest substring without repeated bytes | | | | |
+| [ ] | 09 | First nonrepeating byte using a plain array | | | | |
+| [ ] | 10 | Find the first qualifying index | | | | |
+| [ ] | 11 | Find a pair by checking candidates yourself | | | | |
+| [ ] | 12 | Remove duplicates while preserving order | | | | |
 | [ ] | 13 | Reverse a borrowed array range | | | | |
-| [ ] | 14 | Insert into a uniquely owned linked list | | | | |
-| [ ] | 15 | Generate a power set recursively | | | | |
-| [ ] | 16 | Return a pointer to the first maximum | | | | |
-| [ ] | 17 | A normalized fraction value class | | | | |
-| [ ] | 18 | An inventory with checked updates | | | | |
-| [ ] | 19 | Clone polymorphic objects | | | | |
-| [ ] | 20 | Implement move-only resource ownership | | | | |
-| [ ] | 21 | Map values using any callable | | | | |
-| [ ] | 22 | Group words by a canonical key | | | | |
-| [ ] | 23 | Rank records without losing tie order | | | | |
-| [ ] | 24 | Count generic values from iterators | | | | |
-| [ ] | 25 | Parse whitespace-separated integers strictly | | | | |
-| [ ] | 26 | Summarize text through stream interfaces | | | | |
-| [ ] | 27 | Parse a typed configuration value | | | | |
-| [ ] | 28 | Restore stream formatting with RAII | | | | |
+| [ ] | 14 | Return the address of the first maximum | | | | |
+| [ ] | 15 | Search a sorted range recursively | | | | |
+| [ ] | 16 | Backtracking with an ordinary helper function | | | | |
+| [ ] | 17 | A fraction class with manual normalization | | | | |
+| [ ] | 18 | Inventory using a vector of records | | | | |
+| [ ] | 19 | Virtual methods without dynamic allocation | | | | |
+| [ ] | 20 | Build a fixed-capacity queue class | | | | |
 
-## Reflection per task
+## Reflection
 
-- My approach and invariant:
-- A boundary/failure case I initially missed:
-- What is owned, borrowed, copied, moved or mutated:
-- One C++ syntax/API choice I can explain:
-- A test I added:
-- What changed when I rewrote the solution without looking:
+- What is each variable responsible for?
+- What is always true after each loop/call?
+- Which input made my first version fail?
+- What is copied, borrowed or modified?
+- Which library would I compare with this manual implementation later?

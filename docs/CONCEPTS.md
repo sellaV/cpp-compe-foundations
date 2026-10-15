@@ -1,10 +1,10 @@
-# Understanding C++ through what you already know in Python
+# Core C++ concepts for someone coming from Python
 
-You do not need to finish this page before exercise 01. **For now, read only Stage 1 and try its examples.** Read later stages when you reach their exercises.
+**Read Stage 1 before exercise 01. Read other stages only when you reach them.** Libraries such as optional, hash maps and smart pointers now belong to the [later guide](LIBRARIES.md).
 
-Each section follows this order: a familiar Python idea → its C++ form → what the symbols mean → what you need for the exercises. The examples demonstrate concepts without giving away exercise solutions.
+The goal is to understand what your code does before learning convenient APIs for doing it. vector/string remain simple storage tools; you are not expected to implement a memory allocator first.
 
-## First: how do you read a line of C++?
+## First: reading a C++ line
 
 Python:
 
@@ -20,103 +20,71 @@ std::vector<int> numbers{4, 7, 2};
 numbers.push_back(9);
 ```
 
-Break the C++ into pieces:
-
-| Syntax | Meaning here |
+| Piece | Meaning |
 | --- | --- |
-| `std::` | The following name belongs to the C++ standard library |
-| `vector` | A sequence that can grow and shrink, somewhat like a list |
-| `<int>` | This sequence contains int elements |
-| `numbers` | The variable name |
-| `{4, 7, 2}` | The initial values |
-| `;` | The end of a statement |
-| `.push_back(9)` | Add 9 to the end |
+| std:: | The following name comes from the standard library |
+| vector<int> | A sequence of int elements |
+| numbers | The variable name |
+| {4, 7, 2} | Initial values |
+| push_back(9) | Add 9 at the end |
+| ; | End of a statement |
 
-A vector is not identical to a Python list: its elements have one type, and it has memory rules you will learn later. To start, use vector<int> as a sequence of integers.
+A vector is not identical to a Python list. For now, treat it as a sequence of same-type elements. Its advanced memory behavior can wait until the later track.
 
-Most short snippets below are **pieces of code inside a function**, not complete programs. See [CPP_BRIDGE.md](CPP_BRIDGE.md) for a complete program you can run. Do not add main to an exercise starter: the tests already provide it.
+Snippets below are usually pieces of a function. [CPP_BRIDGE.md](CPP_BRIDGE.md) explains how to run the supplied complete example. Exercise starters do not need a main: the tests provide it.
 
-## Stage 1 — Enough to start exercises 01–04
+## Stage 1 — Values, state, loops and functions (01–04)
 
-### 1. Types: C++ wants to know what a variable holds
+### Types and conditions
 
 Python:
 
 ```python
 count = 3
-average = 2.5
+has_result = False
 ```
 
 C++:
 
 ```cpp
 int count = 3;
-double average = 2.5;
+bool has_result = false;
 ```
 
-- `int`: a whole number, which can be negative.
-- `double`: a floating-point number.
-- `bool`: true or false.
-- `std::string`: a string.
+int holds signed integers, double holds floating-point numbers, bool is true/false, and string holds text. A C++ variable has a fixed type. auto can ask the compiler to infer that type, but you can write the type explicitly while learning.
 
-In Python, you can reassign a name to an object of a different type. In C++, a variable's type is determined when it is declared.
+| Python | C++ |
+| --- | --- |
+| and | && |
+| or | \|\| |
+| not | ! |
+| True / False | true / false |
+| len(numbers) | numbers.size() |
 
-```cpp
-auto count = 3;  // The compiler infers that count is an int.
-```
+Integer division differs from Python's ordinary /: C++ 5/2 is 2, while 5.0/2 is 2.5. Ordinary C++ integer types also have finite ranges; a wider long long is useful when the problem's bounds require it.
 
-`auto` saves you from spelling out the type. count is still an int; it does not become dynamically typed.
-
-Another important difference:
-
-```cpp
-int a = 5 / 2;        // 2: both operands are integers.
-double b = 5.0 / 2;   // 2.5: one operand is floating-point.
-```
-
-Use `numbers.size()` to get a vector's length. It returns `std::size_t`, an unsigned integer type used for sizes. It cannot represent a negative number. You do not need all its arithmetic rules yet; for now, do not subtract 1 from a size of 0 and use the result as an index.
-
-### 2. Looping over a vector is similar to Python for
-
-Python:
-
-```python
-for number in numbers:
-    if number > 5:
-        print(number)
-```
-
-C++:
+### A loop reads one value at a time
 
 ```cpp
 for (int number : numbers) {
     if (number > 5) {
-        std::cout << number << '\n';
+        ++count;
     }
 }
 ```
 
-`int number : numbers` takes each element in turn and puts a copy in number. Braces group the statements belonging to the loop or if, doing the grouping that indentation does in Python. You should still indent for readability.
+Read it as “for each number in numbers.” ++count adds one. Braces group the loop and if bodies; indentation is for readability. An index loop is useful when you need positions:
 
-| Python | C++ |
-| --- | --- |
-| `and` | `&&` |
-| `or` | `||` |
-| `not` | `!` |
-| `True`, `False` | `true`, `false` |
-| `len(numbers)` | `numbers.size()` |
-| `numbers.append(x)` | `numbers.push_back(x)` |
-
-### 3. Function signatures: the return type comes first
-
-Python:
-
-```python
-def is_positive(number):
-    return number > 0
+```cpp
+for (std::size_t i = 0; i < numbers.size(); ++i) {
+    int number = numbers[i];
+    // Use number here.
+}
 ```
 
-C++:
+size_t is an unsigned size/index type: it cannot represent a negative number. In particular, do not compute size()-1 before checking that a sequence is nonempty.
+
+### Function signatures
 
 ```cpp
 bool is_positive(int number) {
@@ -124,31 +92,29 @@ bool is_positive(int number) {
 }
 ```
 
-Read it left to right: the function returns bool, is named is_positive, and receives an int named number. A return type of void means the function does not return a value.
+The function returns bool, is named is_positive and receives an int named number. void means no return value. A function can call another ordinary helper function; no lambda or template is needed.
 
-### 4. Do you pass a copy or change the caller's object?
+### Copies and references
 
-This difference matters. Avoid reducing Python's behavior to “everything is passed by reference.” A Python parameter is bound to the supplied object: modifying a mutable object and rebinding the parameter name are different operations.
-
-Python:
+Python names can refer to the same list:
 
 ```python
 a = [1, 2]
 b = a
 b.append(3)
-# a is also [1, 2, 3]: both names refer to the same list.
+# a is also [1, 2, 3].
 ```
 
-C++ with a vector:
+C++ vector assignment normally copies an existing vector:
 
 ```cpp
 std::vector<int> a{1, 2};
-std::vector<int> b = a;  // Create a separate vector by copying the elements.
+std::vector<int> b = a;
 b.push_back(3);
 // a is still {1, 2}.
 ```
 
-To give the same vector another name, use a reference:
+A reference gives an existing object another name:
 
 ```cpp
 std::vector<int>& b = a;
@@ -156,186 +122,111 @@ b.push_back(3);
 // a is now {1, 2, 3}.
 ```
 
-In this declaration, `&` makes b **another name for a**, rather than a new vector. Once a reference is bound to an object, it cannot be rebound to a different object.
-
-Now look at function parameters:
+Likewise, compare function parameters:
 
 ```cpp
-void change_copy(int x) {
-    x = 99;
-}
-
-void change_original(int& x) {
-    x = 99;
-}
-
-int value = 5;
-change_copy(value);      // value is still 5.
-change_original(value);  // value becomes 99.
+void change_copy(int x) { x = 99; }
+void change_original(int& x) { x = 99; }
 ```
 
-| Parameter | How to understand it |
-| --- | --- |
-| `int x` | The function gets a copy of the supplied integer |
-| `int& x` | x gives the function direct access to the caller's integer |
-| `std::vector<int> values` | A vector passed by value; passing an existing vector variable normally copies it |
-| `std::vector<int>& values` | The function can modify the caller's vector |
-| `const std::vector<int>& values` | Use the existing vector without copying it into the parameter, and do not modify it through values |
+Calling the first with an int changes only a copy. Calling the second changes the caller's int. const int& would allow reading through the reference without writing through it.
 
-Split `const std::vector<int>& values` into three ideas:
+Split **const std::vector<int>& values** into three ideas: vector<int> is the type, & uses the existing object, and const makes access through this parameter read-only. It does not permanently freeze the caller's vector.
 
-1. `std::vector<int>`: a sequence of integers.
-2. `&`: use the supplied object directly.
-3. `const`: read-only access through this name.
+### Missing data: use a bool separately from the number
 
-const here does not permanently freeze the caller's object. The caller can still modify a non-const vector after the function returns.
-
-### 5. optional: roughly “an int or None”
-
-Suppose a function searches for a number. Sometimes it finds nothing. Python can return None, but a C++ function returning int cannot use None that way.
+In Python you might use None. For the first exercises, represent that idea explicitly:
 
 ```cpp
-std::optional<int> answer;   // No value yet.
-answer = 12;                 // Now contains the value 12.
-answer = std::nullopt;        // Back to having no value.
+int result = 0;
+bool found = false;
+
+// Later, when a value is found:
+result = 0;
+found = true;
 ```
 
-An optional<int> has **two states**: it contains an int, or it does not. It is not an int with a special default number.
+The value 0 and “no result” are different because found records the state independently. Only use result as an answer when found is true. A negative number is also a valid value; do not use it as a missing-value marker unless the contract excludes it.
 
-| C++ | Similar Python meaning |
-| --- | --- |
-| `std::optional<int> answer;` | `answer = None` |
-| `answer = 0;` | `answer = 0`: a value exists, even though it is zero |
-| `answer = std::nullopt;` | `answer = None` |
-| `if (answer)` | Similar to `if answer is not None`, not Python's `if answer` |
-| `*answer` | Retrieve the contained int after checking that it exists |
+Exercise 01 uses a small struct to return both pieces:
 
 ```cpp
-std::optional<int> answer = 0;
-if (answer) {
-    std::cout << *answer << '\n';  // Prints 0: this branch still runs.
-}
-```
-
-**Do not use 0 to mean “not found yet” when 0 is valid input.** Negative numbers can be valid input too. This is why exercise 01 uses optional.
-
-Only use `*answer` when it contains a value. Here, `*` accesses the value inside an optional. In Stage 4, you will meet the same symbol used with pointers.
-
-### 6. struct: name the parts of a result
-
-In Python, you might use a tuple, dict or dataclass to group related data. A simple C++ struct gives fields names:
-
-```cpp
-struct Point {
-    int x;
-    int y;
+struct SearchResult {
+    bool found;
+    int value;
 };
 
-Point p{2, 5};
-std::cout << p.x << '\n';  // 2
+SearchResult absent{false, 0};
+SearchResult zero_found{true, 0};
 ```
 
-Point is a new type, p is an object of that type, and x and y are its fields. You do not need inheritance or complicated constructors for exercises 02 and 04.
+A struct groups named fields. Read zero_found.found to check whether there is a result, then zero_found.value to read it. optional is a useful later way to package the same idea, but is not required here.
 
-### Before attempting exercise 01
+### Explain your state before writing conditions
 
-You only need to explain:
+A contract is the input/output requirements. An invariant is something you keep true after each step, such as “count equals the number of matches among elements already examined.”
 
-- What does a vector contain, and how do you loop over it?
-- What does `const ...&` mean in a parameter?
-- How is “no value yet” different from zero?
-- What different jobs do `if (answer)` and `*answer` perform?
+For exercise 01, decide what each stored number means and which bool says it exists. You do not need to use a numeric sentinel. For exercise 02, build the GCD loop from arithmetic rather than calling a library function.
 
-You do not need pointers, advanced templates or RAII yet. A **contract** is the exercise's input/output requirements. An **invariant** is something you keep true after each step, such as “count is the number of matching elements in the part examined so far.”
+**Checkpoint:** Can you explain the difference between a missing result and a result of 0? Can you tell which parameter can modify its caller? Can you trace one loop on paper?
 
-## Stage 2 — Strings and vectors (05–08)
+## Stage 2 — Sequence operations with loops (05–08)
 
-### string owns its data; string_view looks at existing data
+### Basic vector/string operations are enough
 
-```cpp
-std::string text = "hello";
-std::string_view view = text;
-```
-
-text manages its characters. view refers to those characters without creating an independent string.
-
-**Borrowing** means using existing data without taking responsibility for keeping it alive. **Ownership** means managing data or a resource and its cleanup. These are descriptions of behavior, not C++ keywords.
-
-If text is destroyed or its character storage is replaced, view may no longer be valid. Return a string when you need an independent result. You do not need to force string_view into every exercise to avoid copies.
-
-### Size and capacity are different
-
-```cpp
-std::vector<int> values;
-values.reserve(10);
-// values.size() is still 0: no elements exist yet.
-values.push_back(7);
-// Now size is 1, and values[0] is 7.
-```
-
-reserve prepares storage; it does not add elements. `values.at(i)` checks the index and throws an exception if it is outside the vector. `values[i]` requires you to ensure the index is valid; an invalid index is not guaranteed to produce a readable error.
-
-### An iterator is a position used to traverse a container
-
-Python usually hides this inside for. C++ lets you pass start/end positions to an algorithm:
-
-```cpp
-std::reverse(values.begin(), values.end());
-```
-
-begin is the first position; end is **just after the last element**. The algorithm processes begin up to, but not including, end. This is the range `[begin, end)`. Do not read `*values.end()`.
-
-If push_back makes a vector allocate new storage, pointers, references and iterators into the old storage become invalid. To start, avoid keeping them across operations that may add elements.
-
-**Check yourself:** Does reserve add elements? Is end the last element? Does a returned string remain usable after its input is destroyed?
-
-## Stage 3 — Using containers to solve problems (09–12)
-
-### unordered_map is similar to dict
-
-Python:
-
-```python
-positions = {"cat": 2}
-if "cat" in positions:
-    index = positions["cat"]
-```
-
-C++:
-
-```cpp
-std::unordered_map<std::string, int> positions{{"cat", 2}};
-auto it = positions.find("cat");
-if (it != positions.end()) {
-    int index = it->second;
-    (void)index;
-}
-```
-
-- find returns the position of the entry, or end if it is absent.
-- `it->first` is the key; `it->second` is the value.
-- C++ `positions["missing"]` can **insert** a new key with an int value of 0. Reading a missing key from an ordinary Python dict raises KeyError. Use find for lookup without insertion.
-- `(void)index;` only suppresses an unused-variable warning in this short example.
-
-### Understand complexity as the amount of work
-
-| Notation | A way to picture it |
+| Operation | Meaning |
 | --- | --- |
-| O(n) | Visit n elements with a fixed amount of work at each step |
-| O(n²) | For example, try every pair of elements |
-| O(log n) | For example, discard about half the remaining search area each step |
+| values.size() | Number of elements |
+| values.empty() | Whether size is zero |
+| values[i] | Element at a valid index |
+| values.push_back(x) | Append an element |
+| values.back() | Last element, only when nonempty |
+| values.pop_back() | Remove the last element, only when nonempty |
+| values.resize(n) | Change the number of elements |
 
-unordered_map normally has average O(1) lookup, but this is not guaranteed for every case. Exercise 09 compares trying every pair against remembering previously seen values.
+string supports similar indexing/appending operations for characters. A const string& parameter reads an existing string without copying it into the parameter.
 
-Binary search needs ordered input. A sliding window tracks a contiguous section rather than recalculating everything for every section. Read the contract and trace an example before choosing a pattern.
+Use loops to scan characters, swap elements, merge sequences and match brackets. A helper can handle a smaller part of a problem. You will later compare your reversal helper with std::reverse.
 
-For exercises 10/12, char may be signed on some systems. Use `static_cast<unsigned char>(c)` when using a byte to index a 256-entry table. These exercises process bytes, not complete Unicode characters.
+### Bounds and short-circuit conditions
 
-**Check yourself:** What does find return when absent? Why might [] modify a map? Where does each binary-search iteration shrink the search area?
+For a sequence of size n, valid indices are 0 through n-1. Empty sequences have no valid index. In C++, invalid [] access is not guaranteed to raise a readable exception as Python would.
 
-## Stage 4 — Pointers, lifetime, ownership and recursion (13–16)
+In `i < values.size() && values[i] > 0`, the right side is evaluated only if the left side is true. Ordering checks this way keeps the index access safe.
 
-### A pointer holds an address; a reference is another name for an object
+### Size and capacity
+
+One reference solution uses reserve to prepare storage. reserve does not add elements. A vector with size 0 still has no values[0], even after reserve(100). You may simply omit reserve in your own solution unless a contract requires it.
+
+**Checkpoint:** Can you reverse a segment without calling reverse? Can you explain why an empty input is safe? Which values must you save before overwriting a slot?
+
+## Stage 3 — Plain arrays and search logic (09–12)
+
+A built-in fixed array looks like this:
+
+```cpp
+unsigned counts[256]{};
+```
+
+This creates 256 counters initialized to zero. Its size is fixed; it has no push_back method. Exercise 09 uses it as a byte-frequency table. char can be signed, so use static_cast<unsigned char>(c) when converting a byte to a 0–255 index.
+
+You will implement binary search manually, try candidate pairs with nested loops, and compact a vector in place. There is no need for a hash map yet.
+
+| Complexity | A practical interpretation |
+| --- | --- |
+| O(n) | A scan with bounded work per element |
+| O(n²) | For example, checking every pair |
+| O(log n) | For example, repeatedly halving a search interval |
+
+A simple quadratic baseline can be correct and useful within the stated bounds. Later, compare pair search with a hash-table implementation. You need to understand what work changes, not memorize a large collection of puzzle tricks.
+
+A half-open range [begin,end) includes begin but excludes end. An empty range has begin==end. Binary search should make this range smaller on every iteration.
+
+**Checkpoint:** Can you find the first qualifying index with a loop before optimizing it? Can you explain when an O(n²) approach would become expensive?
+
+## Stage 4 — Borrowed pointers, lifetime and recursion (13–16)
+
+### Reading pointer syntax
 
 ```cpp
 int value = 10;
@@ -344,56 +235,27 @@ int* pointer = &value;
 // value is now 25.
 ```
 
-Read it line by line:
+int* declares a pointer to int. &value obtains its address. *pointer accesses the int at that address. This use of & in an expression differs from & in a reference declaration such as int& alias=value.
 
-1. Create an integer named value containing 10.
-2. `int*` means pointer to int; `&value` obtains value's address.
-3. `*pointer` accesses the object at that address; assigning 25 changes value.
+nullptr means no object is pointed to. Do not dereference it. A pointer also does not store an array's length, so functions commonly take a separate length.
 
-The meaning of & depends on its position: `int& alias = value` declares a reference; the expression `&value` obtains an address. Likewise, `int*` names a pointer type, while `*pointer` accesses an object through a pointer.
+const int* permits reading through the pointer but not changing the int through it. Two overloads can preserve mutable versus read-only access, as exercise 14 demonstrates.
 
-A pointer can be nullptr, meaning it points to no object. Do not use `*pointer` when it is nullptr. A pointer does not carry an array's length, so exercise 13 takes both data and n.
+### Lifetime means how long an object exists
 
-`const int*` allows reading the int but not changing it **through this pointer**. Exercise 16 has two overloads: functions with the same name but different parameter types. One accepts int* for mutable access; one accepts const int* for read-only access.
+Returning the address of a local variable does not keep it alive. A pointer/reference that refers to a destroyed object is dangling, even if its address is not null.
 
-### Lifetime: how long does the object exist?
+In these exercises, pointers **borrow** existing objects: the caller keeps the storage alive, and your function does not allocate or delete it. This is enough to learn pointer behavior before smart pointers and allocation.
 
-```cpp
-int* bad_example() {
-    int local = 5;
-    return &local;  // Wrong: local is destroyed when the function returns.
-}
-```
+### Recursion uses ordinary functions
 
-This is an intentionally incorrect example: do not run or copy it as a solution. Returning an address does not keep local alive. A **dangling pointer/reference/view** refers to an object or storage that is no longer valid. A non-null address can still be dangling.
+A recursive function calls itself with a smaller problem. It needs a base case that stops the calls. Backtracking adds a choice, recurses, then removes the choice before exploring another branch.
 
-### unique_ptr gives one owner responsibility for cleanup
+Use a named helper with explicit parameters in exercise 16; no std::function or lambda is necessary. Passing the working vector by reference lets recursive calls update one working sequence. Pushing that vector into vector<vector<int>> copies a snapshot, unlike Python append(current), which retains the same list object.
 
-```cpp
-auto owner = std::make_unique<int>(7);
-int* observer = owner.get();
-auto new_owner = std::move(owner);
-```
+**Checkpoint:** Which object owns the array? When does a returned pointer become invalid? What shrinks on every recursive call? What change must be undone after a branch?
 
-- make_unique creates an object and returns a unique_ptr managing it.
-- get provides an observing pointer; observer does not manage cleanup.
-- The last line transfers ownership to new_owner. For unique_ptr, the old owner becomes empty.
-- The int object stays in the same place, so observer remains valid **while that object exists**.
-- When the remaining owner is destroyed or reset, the object is released. Do not use observer afterward.
-
-unique_ptr prohibits copying because ownership is exclusive. std::move enables move operations; it does not mean every type is erased or emptied after a move. The behavior depends on the type. Exercise 20 asks you to define your class's moved-from state.
-
-### Recursion and backtracking
-
-Recursion means a function calls itself, with a stopping condition. Backtracking often follows three steps: add a choice → explore it recursively → undo the choice before another branch.
-
-Python `result.append(current)` keeps a reference to the same list, so you often need `current.copy()`. With a C++ vector<vector<int>>, `result.push_back(current)` copies the current vector into an independent element. This difference matters in exercise 15.
-
-**Check yourself:** Who owns each node in exercise 14? How long must the input stay alive for exercise 16's returned pointer? Why undo a choice after a recursive branch?
-
-## Stage 5 — Classes, copy/move and polymorphism (17–20)
-
-### How does a simple class compare with Python?
+## Stage 5 — Classes before advanced library design (17–20)
 
 Python:
 
@@ -401,9 +263,6 @@ Python:
 class Counter:
     def __init__(self, start):
         self.value = start
-
-    def increment(self):
-        self.value += 1
 ```
 
 C++:
@@ -413,149 +272,28 @@ class Counter {
     int value_;
 public:
     explicit Counter(int start) : value_(start) {}
-    void increment() { ++value_; }
     int value() const { return value_; }
 };
 ```
 
-- Counter(int start) is a constructor, with an initialization role similar to __init__.
-- `: value_(start)` initializes the member value_ using start.
-- Members before public are private by default: outside code cannot access them directly.
-- Inside a member function, use value_ directly; you do not need self.value.
-- const after value() says this method does not modify the object's ordinary state.
-- explicit prevents some unintended implicit conversions. You do not need its full rules to read this example.
+The constructor initializes the object. The part after : initializes the member. Members before public are private in a class. The const after value() means this method does not modify the object's ordinary state. Inside methods, value_ refers to the member without writing self.value.
 
-A **class invariant** is something the class must maintain, such as “stock is never negative.” The constructor establishes it; methods must preserve it after valid operations.
+### Preserve an invariant
 
-### Copying differs from Python assignment
+A fraction keeps a positive denominator and reduced values. An inventory keeps nonnegative stock. A fixed queue keeps its count in [0,8]. Constructors and methods should preserve these rules.
 
-For a typical class containing vector/map/string values, `auto b = a` copies those members, giving b separate data. Python `b = a` binds another name to the same instance.
+In early APIs, a failed update returns false and leaves state unchanged when specified. A precondition is different: it is a promise the caller must satisfy, such as a nonzero denominator. Do not confuse these two kinds of contract.
 
-Some classes intentionally forbid copying, for example when they own a resource exclusively. Exercise 20 teaches a move-only class. Distinguish these operations:
+### Copying and virtual methods
 
-| C++ | What is happening? |
-| --- | --- |
-| `Thing b = a;` | Create b from a: copy construction |
-| `b = a;` when b already exists | Replace b's value: copy assignment |
-| `Thing b = std::move(a);` | Create b using a suitable move constructor if available |
-| `b = std::move(a);` | Use a suitable move-assignment overload if available |
+For our classes with ordinary arrays/vector/string/value members, a copy has independent value data. Copying classes with borrowed pointers would require more careful lifetime reasoning; do not assume every arbitrary class has independent owned data.
 
-The **Rule of Zero** is a design guideline: when containers/smart pointers already manage resources, avoid custom destruction/copy/move operations unless needed. Exercise 20 has an extra moved-from-state requirement, so it needs additional handling.
+A base interface can declare a virtual method, and derived classes provide override implementations. A reference to the base can refer to a local derived object: dynamic dispatch does not require heap allocation. Exercise 19 uses local Rectangle/Square objects and Shape references, postponing smart pointers and cloning.
 
-### virtual and override
+Exercise 20 builds a queue using int data_[8] and two indices. Learn the FIFO invariant and circular indexing before using queue/deque abstractions later.
 
-Python commonly chooses methods from the actual object at runtime. In C++, declare a method virtual when calling through a base pointer/reference should use derived behavior.
+**Checkpoint:** Can you state the class invariant? Does a failed operation leave it intact? Does copying your class change the original? Can you call a derived method through a base reference?
 
-Exercise 19 supplies the Shape interface. area is virtual; Rectangle and Square use override. clone creates a new object of the same actual type. Copying a derived object into a base object by value can lose the derived part: this is **slicing**. Destroying a derived object through a base pointer requires a virtual base destructor; the supplied interface includes one.
+## After the core track
 
-**Check yourself:** What must always be true about Fraction? Are Inventory copies independent? What must happen to size after moving from exercise 20's buffer?
-
-## Stage 6 — STL, lambdas, templates and iterators (21–24)
-
-### A lambda is a small function written where you need it
-
-Python:
-
-```python
-twice = lambda x: x * 2
-```
-
-C++:
-
-```cpp
-auto twice = [](int x) { return x * 2; };
-int result = twice(5);  // 10
-```
-
-The brackets describe captures: `[offset]` keeps a copy of an outside variable; `[&offset]` refers to the outside variable itself. Reference capture does not extend that variable's lifetime.
-
-### A template lets one implementation work with multiple types
-
-```cpp
-template<class T>
-T identity(T value) {
-    return value;
-}
-```
-
-Call it with an int and T is inferred as int; with a string, T is string. The compiler instantiates a suitable version. Types are still checked during compilation, unlike Python's runtime typing.
-
-Exercise 21 determines its output element type from a callable. Only when you reach it, learn these pieces:
-
-| Syntax | How to understand it for the exercise |
-| --- | --- |
-| `decltype(expression)` | Ask the compiler for an expression's type without executing it |
-| `std::declval<const T&>()` | Describe a const T& input in an unevaluated type query; do not call it at runtime |
-| `std::decay_t<...>` | Remove references and relevant const qualifications to obtain a value type that can be stored in a vector |
-| `typename std::iterator_traits<It>::value_type` | The type of element accessed by iterator It; typename identifies this as a type name |
-
-You do not need to memorize these long names before exercise 01. When you reach them, read the pieces separately.
-
-### Standard algorithms and comparators
-
-```cpp
-std::sort(values.begin(), values.end(), [](int a, int b) {
-    return a > b;
-});
-```
-
-The comparator returns true when a should come before b. Use > for descending order, not >=: equal elements must not both be considered strictly before each other. stable_sort preserves input order for elements equivalent according to the comparator.
-
-Exercise 24 uses iterators to work with both vector and list. Do not assume every iterator supports subtraction or indexing; list iterators can advance with ++ for this exercise.
-
-**Check yourself:** How is a template different from Python's dynamic typing? Why is >= wrong in a sorting comparator? Why does testing with list reveal interface mistakes?
-
-## Stage 7 — Parsing, streams, exceptions and RAII (25–28)
-
-### Streams let one algorithm read from strings or files
-
-```cpp
-std::istringstream input("12 34");
-int number;
-while (input >> number) {
-    std::cout << number << '\n';
-}
-```
-
-`input >> number` tries to read and convert data into number. The loop continues only when extraction succeeds. istringstream reads a string; ifstream reads a file. A function taking istream& can work with both.
-
-```cpp
-std::ifstream input("numbers.txt");
-if (!input) {
-    throw std::runtime_error("Cannot open numbers.txt");
-}
-```
-
-Include <fstream> for file streams. Do not use `while (!input.eof())` to predict whether another read will succeed. Try the read and check its result.
-
-Simple integer extraction is not enough for exercise 25: "3x" can be partially read as 3. The exercise requires checking an entire token, so use from_chars and check both its error code and stopping position.
-
-### optional or an exception?
-
-- optional: the API allows “no result” as an ordinary outcome.
-- exception: the API reports that the operation could not be completed as requested.
-
-Python uses raise; C++ uses throw. Python uses try/except; C++ uses try/catch. Follow the error behavior specified in each exercise rather than switching between these mechanisms yourself.
-
-variant<int,bool,string> holds one of those three types. holds_alternative checks the active type; get retrieves the corresponding value. optional<variant<...>> adds parse failure as a separate state, different from int 0, bool false or an empty string.
-
-### RAII: an object cleans up when it leaves scope
-
-Python often uses `with open(...) as file:` to close a file even when an exception occurs. C++ uses objects whose destructors perform cleanup when their lifetime ends.
-
-```cpp
-{
-    std::ifstream file("notes.txt");
-    // Use file here.
-} // file is destroyed, closing its file resource automatically.
-```
-
-A destructor is written ~ClassName(). It also runs when an exception causes execution to leave that object's scope. RAII names the practice of tying resource cleanup or state restoration to object lifetime.
-
-Exercise 28 applies this idea to saving/restoring stream formatting. The guard borrows the stream: the stream must remain alive until the guard's destructor finishes. Cleanup destructors should not throw exceptions.
-
-**Check yourself:** Which function can accept both file and string input? How is invalid content different from EOF? Why does a guard restore state even when an exception occurs?
-
-## If a line is still hard to read
-
-Do not memorize every term at once. For the line you are reading, identify the types, variable names and function calls. Then ask whether data is copied or accessed directly, and which objects must stay alive. Work through that line before moving to the next topic.
+Build a small project or begin [LIBRARIES.md](LIBRARIES.md). Standard-library tools matter: the purpose of postponing them is to make their behavior easier to understand, not to avoid them in real code.

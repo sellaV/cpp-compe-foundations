@@ -24,7 +24,7 @@ In Python, you normally run a .py file with Python. In C++, first compile the so
 
 ## 2. Try the example supplied in this repo
 
-Open [python_bridge.cpp](examples/python_bridge.cpp). It demonstrates copies, references and optional; it is not the solution to exercise 01.
+Open [python_bridge.cpp](examples/python_bridge.cpp). It demonstrates copies, references and a simple bool/value result struct; it is not the solution to exercise 01.
 
 From the repository root, in your WSL terminal:
 
@@ -40,14 +40,14 @@ Expected output:
 After copy: 5
 After reference: 6
 First negative: -2
-Optional contains: 0
+Result contains: 0
 ```
 
 Read it alongside Stage 1 of CONCEPTS.md, then try changing the inputs:
 
 - Change the vector to {4, 2, 0}. Which branch runs when there is no negative number?
 - Change the initial number to 10. What will the first two lines print?
-- Why does an optional containing zero still enter the if branch?
+- Why does a SearchResult with found=true and value=0 enter the if branch?
 
 After editing C++ source, compile again before running so the executable includes your changes.
 
@@ -83,4 +83,4 @@ If a long function signature is difficult, split it into return type → functio
 
 ## Next
 
-Once you understand copies, references and optional in Stage 1, attempt exercise 01. Read string_view and iterators at Stage 2, then pointers/ownership at Stage 4. You do not need to memorize all C++ terminology before solving your first problem.
+Once you understand copies, references and a simple bool/value result struct in Stage 1, attempt exercise 01. Read string_view and iterators at Stage 2, then pointers/ownership at Stage 4. You do not need to memorize all C++ terminology before solving your first problem.

@@ -1,79 +1,87 @@
-# C++ Foundations: learn the language through problems
+# C++ Foundations: logic first, libraries later
 
-**28 general C++ challenges**, organized around language concepts and useful problem-solving patterns. For someone who knows basic programming in another language and wants a solid start in C++ for college and later projects.
+**20 core exercises → 18 later library exercises → 24 optional applied exercises.**
 
-You do not need robotics, computer vision, controls, or AI knowledge. There are no print-and-arithmetic drills. The first task already involves duplicates, edge cases and optional results; later tasks teach ownership, classes, templates, streams and RAII.
+Learn C++ through problems that require reasoning, without learning several unfamiliar APIs at once. The core track uses ordinary types, conditions, loops, functions, arrays, references, pointers and classes. It allows basic vector/string operations as practical storage tools, but postpones standard algorithms, associative containers, optional, smart pointers and templates.
 
-The earlier 24 engineering-themed challenges now live in **[applied/](applied/)** as optional follow-up practice. Start with the general track below.
+You do not need robotics, AI or computer-vision knowledge. No print-and-arithmetic drills are assigned.
 
-## Learn two things together
+## Start here
 
-1. **Reasoning:** contracts, invariants, edge cases, data structures and complexity.
-2. **C++:** types, references, lifetime, ownership, class design, standard-library interfaces and resource management.
-
-Solving an algorithm without understanding how values are copied or borrowed is only half the task. Each exercise also asks you to explain the language choices.
-
-## Start
-
-Follow [SETUP.md](docs/SETUP.md) for a GCC/Clang C++17 compiler and Python 3.9+. No external C++ libraries or Python packages are needed.
-
-1. Read the [Python-to-C++ bridge](docs/CPP_BRIDGE.md) and Stage 1 in [CONCEPTS.md](docs/CONCEPTS.md). These beginner notes explain each symbol with Python/C++ comparisons; read later stages only when needed.
-2. Open [01 — Second distinct largest value](problems/01_second_largest/README.md).
-3. Implement its function in `starter.hpp`.
-4. Run from the repository root:
+1. Follow [SETUP.md](docs/SETUP.md) for GCC/Clang with C++17 and Python 3.9+.
+2. Read [CPP_BRIDGE.md](docs/CPP_BRIDGE.md) and only Stage 1 of [CONCEPTS.md](docs/CONCEPTS.md).
+3. Open [01 — Second distinct largest using state flags](problems/01_second_largest/README.md).
+4. Implement starter.hpp and run:
 
 ```bash
 python3 tools/run.py 01
 ```
 
-On Windows, `python` may be the command instead of `python3`. Unfinished starters intentionally report TODO and fail when run. Each challenge supplies a complete contract, tests, expandable hints, an explained reference solution and a C++ reasoning question.
+Reference mode does not change your work:
 
 ```bash
 python3 tools/run.py --list
-python3 tools/run.py 01                     # Your implementation
-python3 tools/run.py 01 --reference         # Reference implementation
-python3 tools/run.py all --reference        # General reference suite
-python3 tools/run.py 14 --sanitize          # Optional memory/undefined-behavior checks
-python3 applied/tools/run.py 13             # Optional engineering track
+python3 tools/run.py 01 --reference
+python3 tools/run.py all --reference
 ```
 
-Reference mode never overwrites your work. General problems compile independently; you do not need to solve an earlier starter to run a later task.
+On Windows, python may be the command instead of python3. The runner compiles your C++; Python is only the test launcher.
 
-## General curriculum
+## Track 1: core language and manual logic
 
-| Stage | Tasks | C++ focus | Representative problems |
-| --- | --- | --- | --- |
-| 1 | 01–04 | Types, functions, references, structs, optional | Second largest, fraction normalization, reference mutation, run encoding |
-| 2 | 05–08 | Strings, vectors, views, iterators, bounds | Whitespace normalization, rotation, merge, nested brackets |
-| 3 | 09–12 | Containers and algorithmic reasoning | Two sum, first unique byte, binary search, unique substring |
-| 4 | 13–16 | Pointers, lifetime, ownership, recursion | Borrowed arrays, owned lists, subsets, borrowed results |
-| 5 | 17–20 | Classes, operators, value semantics, polymorphism, moves | Fraction class, inventory, virtual cloning, move-only buffer |
-| 6 | 21–24 | Callables, STL algorithms, templates, iterators | Generic map, anagram groups, stable ranking, frequencies |
-| 7 | 25–28 | Streams, validation, exceptions, variant, RAII | Strict parsing, line statistics, typed values, formatting guard |
+| Stage | Exercises | What you practice |
+| --- | --- | --- |
+| 1 | 01–04 | State flags, conditions, loops, functions, references, simple structs |
+| 2 | 05–08 | Character scans, index-based reversal/rotation, merging, bracket matching |
+| 3 | 09–12 | Built-in arrays, manual binary search, pair search, in-place compaction |
+| 4 | 13–16 | Borrowed pointers, lifetime, const overloads, recursive search, backtracking |
+| 5 | 17–20 | Constructors, private invariants, value semantics, virtual methods, fixed queue |
 
-The [full roadmap](docs/ROADMAP.md) links every task. [CONCEPTS.md](docs/CONCEPTS.md) explains what to learn before each stage and what to demonstrate afterward.
+See the [linked roadmap](docs/ROADMAP.md). Every core exercise compiles independently. Core solutions include only headers they actually use.
 
-## Practice routine
+### Library boundary in the core track
 
-- Read concept notes; attempt a problem for 25–45 minutes before using a hint.
-- Trace a small input and state the invariant.
-- Add a test of your own, including a failure case where applicable.
-- Explain what is owned, borrowed, copied, moved and mutated. For classes, state the invariant.
-- After reading a solution, close it and rewrite it later without looking.
-- Record both algorithmic complexity and a C++ lesson in [PROGRESS.md](PROGRESS.md).
+vector and string are standard-library types too. They remain here to let you focus on reasoning without first building a dynamic array or string class. Use basic operations such as size, indexing, push_back, pop_back, empty, back and resize. A few exercises use reserve only to prepare output capacity.
 
-These are visible tests, not a hidden online judge. Passing tests does not prove every contract or constraints such as “use recursion.” Review your reasoning and code as well.
+Core implementations do not require optional, map/unordered_map, std::array, standard search/sort/reverse algorithms, lambdas, smart pointers, type-traits or parsing libraries. Read each contract for its restrictions. The test harness and unfinished TODO mechanism use some supporting library features; understanding those internals is not a prerequisite for solving the exercise.
 
-## Beyond challenges
+For missing results, early tasks use a simple struct with a bool flag and a value. Invalid operations return status where specified. Some later core contracts instead state caller preconditions: a precondition is something the caller must guarantee, not something you should silently assume in every real application.
 
-After the relevant stages, build one of the general [projects](docs/CAPSTONES.md): a text-analysis command-line tool, library catalog or expression evaluator. The guide introduces multiple translation units and build commands.
+### Migration from the previous version
 
-This is a foundation, not the entire language or a replacement for college courses. Later study includes deeper exception guarantees, CMake, testing frameworks, concurrency, networking, profiling and platform APIs. Domain-specific libraries come after the general foundation.
+Exercise 01 now returns NumberResult with fields found and value instead of optional<int>. The new starter and tests document the interface. If you already wrote a solution, keep a copy of it and adapt that function rather than discarding your work. Later exercise 01 retains the earlier optional version for comparison. The original engineering track remains in applied/.
 
-## Layout and automated checks
+## Track 2: learn the libraries after the ideas
 
-`problems/` contains the 28 general tasks. `applied/` preserves the earlier optional track with its own runner. `docs/` contains general notes and projects. `tests/check.hpp` supplies checks independent of NDEBUG.
+The [later track](later/) has 18 exercises. Some revisit core problems to show what a library replaces and what new rules it introduces. Follow [LIBRARIES.md](docs/LIBRARIES.md) for the sequence.
 
-GitHub Actions tests references and compiles learner interfaces in both tracks. Unfinished learner implementations do not have to pass runtime tests. Headers include a broad set of standard headers for convenience; remove unused includes as a cleanup exercise.
+```bash
+python3 later/tools/run.py --list
+python3 later/tools/run.py 01
+python3 later/tools/run.py all --reference
+```
 
-All challenges are original; no paid problem statements or solutions were copied.
+Here you learn optional, standard algorithms, hash maps, smart pointers, moves, lambdas, templates, iterators, streams, exceptions, variant and RAII. They are useful tools to learn, rather than permanent restrictions to avoid.
+
+## Track 3: optional engineering applications
+
+After the foundation, [applied/](applied/) offers 24 exercises involving sensor data, planning, control, image processing and edge-AI numerics.
+
+```bash
+python3 applied/tools/run.py --list
+python3 applied/tools/run.py 13
+```
+
+## Is knowing STL enough?
+
+No. Knowing a container's API does not by itself tell you how to design a loop, preserve state, avoid a dangling pointer, validate an index, debug a class, or manage a resource.
+
+For a practical engineering foundation, prioritize correct logic, arrays/strings, references and lifetime, class design, debugging and basic complexity. Then learn the library tools that make those tasks safer and more maintainable. You do not need to make difficult puzzle solving the center of this course. You should still be able to write and explain a linear scan, a binary search, a simple queue, and basic graph traversal when later applications require them.
+
+This course is not a complete C++ education. After core and relevant later exercises, build a [small project](docs/CAPSTONES.md) with multiple source files, real I/O and tests. Concurrency, deployment and domain libraries need further study.
+
+## Practice and verification
+
+Try each problem before opening hints. Explain the invariant, trace a boundary case, add a test and record a C++ lesson in [PROGRESS.md](PROGRESS.md). Passing visible tests is evidence, not a proof or an enforcement mechanism for every algorithm restriction.
+
+GitHub Actions checks all three tracks: reference behavior, learner interface compilation and address/undefined-behavior sanitizers. Unfinished learner tasks intentionally fail at runtime until implemented. All exercises are original.

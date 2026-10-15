@@ -1,57 +1,41 @@
-# 01. Second distinct largest value
+# 01. Second distinct largest using state flags
 
-**Stage 1: Functions, types and references**
+**Core stage 1: State, loops, functions and references**
 
-## Learn before solving
+## Learn first
 
-const reference, vector, optional, branching. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
-No engineering or machine-learning knowledge is needed.
+int, bool, conditions, loops, a simple result struct. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md). No engineering knowledge is required.
 
 ## Contract
 
-Return the second DISTINCT largest int, or nullopt if fewer than two distinct values exist. Input is unchanged; empty input valid. Handle the entire int range. Do not sort. n<=100000.
+Return NumberResult{found,value}. found is true only when a second DISTINCT largest int exists; otherwise found=false and value=0. Zero is a valid answer when found=true. Do not sort or use optional, algorithms, sets or maps. Input unchanged; n<=100000; full int range supported.
 
 ## Example
 
 ```text
-second_largest({8,8,3,5}) -> 5
+{8,8,3,5} -> {true,5}; {1,0} -> {true,0}; {7,7} -> {false,0}
 ```
 
 ## Work
 
-1. Explain the input, output, and edge cases in your own words.
-2. Sketch an approach and predict its time and space cost.
-3. Implement `starter.hpp`; keep the provided public interface. Add private helpers/state where needed.
-4. Run `python3 tools/run.py 01` from the repo root.
-5. Add a test that would reject a plausible incorrect implementation.
-6. Explain the C++ concept: what is copied, borrowed, owned, or mutated?
+Implement starter.hpp, then run `python3 tools/run.py 01` from the repository root. Write an approach, trace a small case, and add a test. Explain which data is copied, borrowed or changed.
 
-Some requirements (such as using recursion or not sorting) require reading your own code; passing tests alone cannot prove them.
-Inputs satisfy listed bounds and preconditions unless explicit validation is requested.
+The TODO exception is only an unfinished-placeholder mechanism, not a concept you must learn or use in your implementation. Implement the error/result behavior in the contract. Algorithms that the contract prohibits must not be used even if tests pass.
 
 <details>
-<summary>Hint 1 — approach</summary>
+<summary>Hint: approach</summary>
 
-Track two optional values. A duplicate maximum must not become second largest.
+Use first/second ints plus has_first/has_second bool flags. Never read a stored value before its flag says it exists.
 
 </details>
 
 <details>
-<summary>Hint 2 — C++ reasoning</summary>
+<summary>Reasoning and solution — after attempting</summary>
 
-optional represents absence without reserving a sentinel like INT_MIN. The invariant is that first and second are the largest distinct values seen so far.
+The flags represent absence independently from the data, so zero and INT_MIN remain valid values. When a new maximum appears, the old maximum becomes the second largest.
 
-</details>
+Read [solution.hpp](solution.hpp). **Complexity:** O(n) time, O(1) extra space.
 
-<details>
-<summary>Solution explanation — after attempting</summary>
-
-Read [solution.hpp](solution.hpp).
-
-optional represents absence without reserving a sentinel like INT_MIN. The invariant is that first and second are the largest distinct values seen so far.
-
-**Complexity:** O(n) time, O(1) extra space.
-
-Check it with `python3 tools/run.py 01 --reference`. Reference mode never replaces your starter.
+`python3 tools/run.py 01 --reference` tests the reference without modifying your work.
 
 </details>

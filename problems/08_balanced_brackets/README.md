@@ -1,10 +1,10 @@
 # 08. Validate nested brackets
 
-**Stage 2: Strings, vectors and invariants**
+**Core stage 2: language and manual logic**
 
 ## Learn before solving
 
-stack pattern with vector, char branching. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
+stack pattern with vector, char branching. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md).
 No engineering or machine-learning knowledge is needed.
 
 ## Contract

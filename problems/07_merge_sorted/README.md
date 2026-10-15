@@ -1,10 +1,10 @@
 # 07. Merge two sorted sequences
 
-**Stage 2: Strings, vectors and invariants**
+**Core stage 2: language and manual logic**
 
 ## Learn before solving
 
-two pointers, bounds, const references. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
+two pointers, bounds, const references. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md).
 No engineering or machine-learning knowledge is needed.
 
 ## Contract

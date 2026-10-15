@@ -1,57 +1,41 @@
-# 02. Normalize fraction data
+# 02. Normalize a fraction with your own GCD loop
 
-**Stage 1: Functions, types and references**
+**Core stage 1: State, loops, functions and references**
 
-## Learn before solving
+## Learn first
 
-struct, int64_t, gcd, exceptions, return by value. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
-No engineering or machine-learning knowledge is needed.
+long long, modulo, while loops, structs, status results. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md). No engineering knowledge is required.
 
 ## Contract
 
-Define FractionParts{int64_t numerator,denominator}. normalize_fraction(n,d) returns an equivalent fraction reduced to lowest terms with positive denominator; zero becomes 0/1. d==0 throws invalid_argument. |n|,|d|<=10^9.
+Return FractionParts{valid,numerator,denominator} reduced to lowest terms, denominator positive; zero becomes 0/1. For d==0 return {false,0,1}. Inputs |n|,|d|<=10^9. Implement Euclid GCD yourself; no gcd, abs, exceptions or optional.
 
 ## Example
 
 ```text
-normalize_fraction(6,-8) -> {-3,4}
+normalize_fraction(6,-8) -> {true,-3,4}
 ```
 
 ## Work
 
-1. Explain the input, output, and edge cases in your own words.
-2. Sketch an approach and predict its time and space cost.
-3. Implement `starter.hpp`; keep the provided public interface. Add private helpers/state where needed.
-4. Run `python3 tools/run.py 02` from the repo root.
-5. Add a test that would reject a plausible incorrect implementation.
-6. Explain the C++ concept: what is copied, borrowed, owned, or mutated?
+Implement starter.hpp, then run `python3 tools/run.py 02` from the repository root. Write an approach, trace a small case, and add a test. Explain which data is copied, borrowed or changed.
 
-Some requirements (such as using recursion or not sorting) require reading your own code; passing tests alone cannot prove them.
-Inputs satisfy listed bounds and preconditions unless explicit validation is requested.
+The TODO exception is only an unfinished-placeholder mechanism, not a concept you must learn or use in your implementation. Implement the error/result behavior in the contract. Algorithms that the contract prohibits must not be used even if tests pass.
 
 <details>
-<summary>Hint 1 — approach</summary>
+<summary>Hint: approach</summary>
 
-Move the sign to the numerator, then divide both fields by their greatest common divisor.
+Normalize the sign, then repeatedly replace (a,b) with (b,a%b) until b is zero.
 
 </details>
 
 <details>
-<summary>Hint 2 — C++ reasoning</summary>
+<summary>Reasoning and solution — after attempting</summary>
 
-The struct gives the return values names. Validating before division distinguishes a domain error from ordinary arithmetic. The constraints make negation safe in int64_t.
+A separate valid flag reports failure without special library types. long long safely contains all arithmetic under these bounds.
 
-</details>
+Read [solution.hpp](solution.hpp). **Complexity:** O(log(max(|n|,|d|))) time, O(1) space.
 
-<details>
-<summary>Solution explanation — after attempting</summary>
-
-Read [solution.hpp](solution.hpp).
-
-The struct gives the return values names. Validating before division distinguishes a domain error from ordinary arithmetic. The constraints make negation safe in int64_t.
-
-**Complexity:** O(log(max(|n|,|d|))) time, O(1) space.
-
-Check it with `python3 tools/run.py 02 --reference`. Reference mode never replaces your starter.
+`python3 tools/run.py 02 --reference` tests the reference without modifying your work.
 
 </details>

@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "01_second_largest",
+    "title": "Second distinct largest value",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "const reference, vector, optional, branching",
+    "level": "Core"
+  },
+  {
+    "slug": "02_fraction_parts",
+    "title": "Normalize fraction data",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "struct, int64_t, gcd, exceptions, return by value",
+    "level": "Core"
+  },
+  {
+    "slug": "03_rotate_vector",
+    "title": "Rotate a vector in place",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "mutable reference, iterators, reverse, modulo",
+    "level": "Core"
+  },
+  {
+    "slug": "04_two_sum",
+    "title": "Two sum with deterministic indices",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "unordered_map, optional, pair, iterators, int64_t",
+    "level": "Core"
+  },
+  {
+    "slug": "05_unique_window",
+    "title": "Longest substring without repeated bytes",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "sliding window, array, index invariants",
+    "level": "Core"
+  },
+  {
+    "slug": "06_owned_list",
+    "title": "Insert into a uniquely owned linked list",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "unique_ptr, move, pointer-to-owner, make_unique",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "07_value_class",
+    "title": "A normalized fraction value class",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "constructors, private invariants, const methods, operator overloading",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "08_inventory",
+    "title": "An inventory with checked updates",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "encapsulation, map, exceptions, transactional updates",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "09_polymorphic_copy",
+    "title": "Clone polymorphic objects",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "abstract base, virtual destructor, override, unique_ptr, dynamic dispatch",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "10_move_only_buffer",
+    "title": "Implement move-only resource ownership",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "RAII, unique_ptr<T[]>, deleted copy, noexcept move, self-move",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "11_generic_transform",
+    "title": "Map values using any callable",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "function templates, callable parameters, lambdas, decltype, type_traits",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "12_group_anagrams",
+    "title": "Group words by a canonical key",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "unordered_map, sorting, map key/value separation",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "13_stable_ranking",
+    "title": "Rank records without losing tie order",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "struct, stable_sort, strict weak ordering, iterators",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "14_generic_frequencies",
+    "title": "Count generic values from iterators",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "function templates, iterator_traits, map, iterator ranges",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "15_checked_parsing",
+    "title": "Parse whitespace-separated integers strictly",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "istream, string tokens, from_chars, exception reporting",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "16_line_statistics",
+    "title": "Summarize text through stream interfaces",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "getline, istream/ostream, EOF, reusable I/O",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "17_variant_value",
+    "title": "Parse a typed configuration value",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "variant, optional, string_view, get, holds_alternative",
+    "level": "Intermediate"
+  },
+  {
+    "slug": "18_scope_guard",
+    "title": "Restore stream formatting with RAII",
+    "module": "Later \u00b7 library and modern C++ tools",
+    "syntax": "destructor, references, deleted special members, exception unwinding",
+    "level": "Intermediate"
+  }
+]

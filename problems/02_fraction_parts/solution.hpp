@@ -1,38 +1,10 @@
 #pragma once
-#include <algorithm>
-#include <array>
-#include <charconv>
-#include <climits>
-#include <cmath>
-#include <cstddef>
-#include <cstdint>
-#include <functional>
-#include <iomanip>
-#include <ios>
-#include <istream>
-#include <iterator>
-#include <limits>
-#include <list>
-#include <map>
-#include <memory>
-#include <numeric>
-#include <optional>
-#include <ostream>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <type_traits>
-#include <unordered_map>
-#include <utility>
-#include <variant>
-#include <vector>
 
-struct FractionParts { std::int64_t numerator, denominator; };
-inline FractionParts normalize_fraction(std::int64_t n, std::int64_t d) {
-    if (d == 0) throw std::invalid_argument("zero denominator");
-    if (d < 0) { n = -n; d = -d; }
-    auto g = std::gcd(n,d);
-    return {n/g,d/g};
+struct FractionParts { bool valid; long long numerator,denominator; };
+inline FractionParts normalize_fraction(long long n,long long d) {
+if (d==0) return {false,0,1};
+if (d<0) {n=-n;d=-d;}
+long long a=n<0?-n:n,b=d;
+while (b!=0) {long long remainder=a%b;a=b;b=remainder;}
+return {true,n/a,d/a};
 }

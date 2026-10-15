@@ -1,57 +1,41 @@
-# 06. Rotate a vector in place
+# 06. Rotate in place using manual reversals
 
-**Stage 2: Strings, vectors and invariants**
+**Core stage 2: Manual sequence operations**
 
-## Learn before solving
+## Learn first
 
-mutable reference, iterators, reverse, modulo. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
-No engineering or machine-learning knowledge is needed.
+index loops, helper functions, mutable references, modulo. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md). No engineering knowledge is required.
 
 ## Contract
 
-Rotate vector<int> right by k positions in place. k is size_t and may exceed n. Empty vector is valid. Use O(1) auxiliary space; std::reverse is allowed but std::rotate is not. n<=100000.
+Rotate vector<int> right by k positions in place; k is size_t and may exceed n. Empty valid. O(1) extra space. Write the reversal loop yourself; no std::reverse, std::rotate, iterators, or temporary vector. n<=100000.
 
 ## Example
 
 ```text
-{1,2,3,4,5}, k=2 -> {4,5,1,2,3}
+{1,2,3,4,5},k=2 -> {4,5,1,2,3}
 ```
 
 ## Work
 
-1. Explain the input, output, and edge cases in your own words.
-2. Sketch an approach and predict its time and space cost.
-3. Implement `starter.hpp`; keep the provided public interface. Add private helpers/state where needed.
-4. Run `python3 tools/run.py 06` from the repo root.
-5. Add a test that would reject a plausible incorrect implementation.
-6. Explain the C++ concept: what is copied, borrowed, owned, or mutated?
+Implement starter.hpp, then run `python3 tools/run.py 06` from the repository root. Write an approach, trace a small case, and add a test. Explain which data is copied, borrowed or changed.
 
-Some requirements (such as using recursion or not sorting) require reading your own code; passing tests alone cannot prove them.
-Inputs satisfy listed bounds and preconditions unless explicit validation is requested.
+The TODO exception is only an unfinished-placeholder mechanism, not a concept you must learn or use in your implementation. Implement the error/result behavior in the contract. Algorithms that the contract prohibits must not be used even if tests pass.
 
 <details>
-<summary>Hint 1 — approach</summary>
+<summary>Hint: approach</summary>
 
-Reduce k modulo n only after checking for empty input. Three reversals suffice.
+Write a helper reversing the half-open index interval [begin,end), then reverse the whole sequence and its two resulting parts.
 
 </details>
 
 <details>
-<summary>Hint 2 — C++ reasoning</summary>
+<summary>Reasoning and solution — after attempting</summary>
 
-A mutable reference changes the caller. Reversing the whole sequence puts the desired suffix first but reverses its order; reverse each resulting segment to restore internal order.
+This practices index reasoning and function decomposition before learning the equivalent standard algorithms later.
 
-</details>
+Read [solution.hpp](solution.hpp). **Complexity:** O(n) time, O(1) space.
 
-<details>
-<summary>Solution explanation — after attempting</summary>
-
-Read [solution.hpp](solution.hpp).
-
-A mutable reference changes the caller. Reversing the whole sequence puts the desired suffix first but reverses its order; reverse each resulting segment to restore internal order.
-
-**Complexity:** O(n) time, O(1) extra space.
-
-Check it with `python3 tools/run.py 06 --reference`. Reference mode never replaces your starter.
+`python3 tools/run.py 06 --reference` tests the reference without modifying your work.
 
 </details>

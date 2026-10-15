@@ -1,21 +1,12 @@
-# Validation of the general curriculum
+# Validation: logic-first curriculum
 
-Validated on 2026-10-14 (America/Chicago), in C++17 mode on Linux.
+Validated in C++17 mode on Linux.
 
-- General track: 28/28 reference suites pass, 2880 checks total.
-- All 28 unfinished general interfaces compile. Their runtime TODO failures are intentional.
-- General reference suites pass AddressSanitizer and UndefinedBehaviorSanitizer checks with leak detection disabled. LeakSanitizer process inspection is restricted here; leaks are not locally verified.
-- Optional applied track: 24/24 reference suites pass, 3643 checks total.
-- General tests include exhaustive small-input comparisons for second distinct maximum, vector rotation and unique-substring windows, plus binary-search oracle comparisons.
-- Ownership/class tests verify caller mutation, pointer identity, independent copies, dynamic clone type, moved-from state and exception cleanup.
+- Core: 20/20 reference suites pass (3870 checks); all 20 learner interfaces compile.
+- Core reference suites pass AddressSanitizer and UndefinedBehaviorSanitizer with local leak detection disabled.
+- Later: 18 reference suites pass; all 18 learner interfaces compile; all 18 reference suites pass the same sanitizer checks.
+- The optional applied source/tests are unchanged from the previously successful GitHub run.
+- The updated Python-bridge example compiles with warnings enabled and prints the documented output.
+- Core starter/solution audit: no optional, map/unordered_map, standard algorithm calls, std::array, smart pointers, lambda-based implementations or type-trait dependencies are required.
 
-Commands:
-
-```bash
-python3 tools/run.py all --reference
-python3 tools/run.py all --compile-only
-ASAN_OPTIONS=detect_leaks=0 python3 tools/run.py all --reference --sanitize
-python3 applied/tools/run.py all --reference
-```
-
-GitHub Actions tests both tracks, including reference sanitizer runs. Passing tests does not prove all inputs or enforce every algorithm restriction; learners must check reasoning, complexity and language contracts themselves. Only Linux execution was locally validated.
+LeakSanitizer cannot inspect processes in the preparation environment, so leaks are not locally verified. GitHub Actions runs reference behavior, starter compilation and sanitizer checks for all three tracks. Provided tests do not prove all inputs or enforce every algorithm restriction.

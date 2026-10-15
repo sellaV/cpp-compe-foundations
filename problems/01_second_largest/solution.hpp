@@ -1,43 +1,17 @@
 #pragma once
-#include <algorithm>
-#include <array>
-#include <charconv>
-#include <climits>
-#include <cmath>
-#include <cstddef>
-#include <cstdint>
-#include <functional>
-#include <iomanip>
-#include <ios>
-#include <istream>
-#include <iterator>
-#include <limits>
-#include <list>
-#include <map>
-#include <memory>
-#include <numeric>
-#include <optional>
-#include <ostream>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <type_traits>
-#include <unordered_map>
-#include <utility>
-#include <variant>
 #include <vector>
 
-inline std::optional<int> second_largest(const std::vector<int>& values) {
-    std::optional<int> first, second;
-    for (int value : values) {
-        if (!first || value > *first) {
-            second = first;
-            first = value;
-        } else if (value < *first && (!second || value > *second)) {
-            second = value;
-        }
+struct NumberResult { bool found; int value; };
+inline NumberResult second_largest(const std::vector<int>& values) {
+int first=0,second=0;
+bool has_first=false,has_second=false;
+for (int x : values) {
+    if (!has_first || x>first) {
+        if (has_first) { second=first;has_second=true; }
+        first=x;has_first=true;
+    } else if (x<first && (!has_second || x>second)) {
+        second=x;has_second=true;
     }
-    return second;
+}
+return {has_second,has_second?second:0};
 }

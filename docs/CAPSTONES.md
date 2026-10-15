@@ -4,7 +4,7 @@ These are briefs, not prebuilt solutions. No engineering background or external 
 
 ## 1. Text-analysis command-line tool
 
-Read a real file; report line/word counts and ten most frequent words; optionally save a report. Define ASCII case and punctuation rules. Separate file opening, tokenization, analysis and formatting. Test missing/empty files, whitespace-only text and frequency ties. Use stringstreams for algorithm tests, ifstream/ofstream in the executable, and validate successful opens.
+Read a real file; report line/word counts and ten most frequent words; optionally save a report. Define ASCII case and punctuation rules. First implement analysis using loops, vectors and strings. Add file streams from the later track afterward. Separate file opening, tokenization, analysis and formatting. Test missing/empty files, whitespace-only text and frequency ties. Use stringstreams for algorithm tests, ifstream/ofstream in the executable, and validate successful opens.
 
 ## 2. Library catalog
 

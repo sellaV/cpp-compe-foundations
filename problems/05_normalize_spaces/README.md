@@ -1,10 +1,10 @@
 # 05. Normalize whitespace between words
 
-**Stage 2: Strings, vectors and invariants**
+**Core stage 2: language and manual logic**
 
 ## Learn before solving
 
-string_view, ASCII predicates, string building. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
+const string reference, ASCII predicates, string building. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md).
 No engineering or machine-learning knowledge is needed.
 
 ## Contract
@@ -39,7 +39,7 @@ Delay inserting a space until another non-whitespace character actually appears.
 <details>
 <summary>Hint 2 — C++ reasoning</summary>
 
-string_view borrows input, while the result owns its bytes. A pending separator avoids accidentally emitting a trailing space. Explicit ASCII rules avoid locale and signed-char pitfalls.
+const string reference borrows input, while the result owns its bytes. A pending separator avoids accidentally emitting a trailing space. Explicit ASCII rules avoid locale and signed-char pitfalls.
 
 </details>
 
@@ -48,7 +48,7 @@ string_view borrows input, while the result owns its bytes. A pending separator 
 
 Read [solution.hpp](solution.hpp).
 
-string_view borrows input, while the result owns its bytes. A pending separator avoids accidentally emitting a trailing space. Explicit ASCII rules avoid locale and signed-char pitfalls.
+const string reference borrows input, while the result owns its bytes. A pending separator avoids accidentally emitting a trailing space. Explicit ASCII rules avoid locale and signed-char pitfalls.
 
 **Complexity:** O(n) time, O(n) output.
 

@@ -1,57 +1,41 @@
-# 18. An inventory with checked updates
+# 18. Inventory using a vector of records
 
-**Stage 5: Classes, value semantics and polymorphism**
+**Core stage 5: Classes and data structure implementation**
 
-## Learn before solving
+## Learn first
 
-encapsulation, map, exceptions, transactional updates. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
-No engineering or machine-learning knowledge is needed.
+classes, vector of structs, linear lookup, checked updates. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md). No engineering knowledge is required.
 
 ## Contract
 
-Inventory: add(string name,int quantity), remove(string const&,int quantity)->bool, count(string const&) const->int. Initially empty. Empty name or quantity<=0 throws invalid_argument. add increases count; overflow beyond INT_MAX throws overflow_error without mutation. remove returns false without mutation for absent/insufficient stock, otherwise subtracts. Zero stock reads as 0. Copies must be independent.
+Inventory initially empty. add(name,quantity)->bool; remove(name,quantity)->bool; count(name) const->int. Empty name, quantity<=0, or adding beyond 1000000 total units for an item returns false without mutation. Insufficient/absent remove returns false without mutation. Successful updates return true. Copies independent. At most 1000 names. No map/unordered_map, exceptions, or library search.
 
 ## Example
 
 ```text
-add("book",3); remove("book",4) -> false, count remains 3
+add("book",3) -> true; remove("book",4) -> false; count("book") remains 3
 ```
 
 ## Work
 
-1. Explain the input, output, and edge cases in your own words.
-2. Sketch an approach and predict its time and space cost.
-3. Implement `starter.hpp`; keep the provided public interface. Add private helpers/state where needed.
-4. Run `python3 tools/run.py 18` from the repo root.
-5. Add a test that would reject a plausible incorrect implementation.
-6. Explain the C++ concept: what is copied, borrowed, owned, or mutated?
+Implement starter.hpp, then run `python3 tools/run.py 18` from the repository root. Write an approach, trace a small case, and add a test. Explain which data is copied, borrowed or changed.
 
-Some requirements (such as using recursion or not sorting) require reading your own code; passing tests alone cannot prove them.
-Inputs satisfy listed bounds and preconditions unless explicit validation is requested.
+The TODO exception is only an unfinished-placeholder mechanism, not a concept you must learn or use in your implementation. Implement the error/result behavior in the contract. Algorithms that the contract prohibits must not be used even if tests pass.
 
 <details>
-<summary>Hint 1 — approach</summary>
+<summary>Hint: approach</summary>
 
-Validate arguments and check arithmetic before changing the map. A const lookup must not insert missing keys.
+Store records in a vector and scan for a matching name. Check the requested operation before changing stock.
 
 </details>
 
 <details>
-<summary>Hint 2 — C++ reasoning</summary>
+<summary>Reasoning and solution — after attempting</summary>
 
-Encapsulation centralizes the nonnegative-stock invariant. Test state after failures, not just the exception. A std::map member naturally provides independent value semantics (Rule of Zero).
+You can learn encapsulation and error handling without learning associative containers at the same time. The later version swaps linear lookup for a map.
 
-</details>
+Read [solution.hpp](solution.hpp). **Complexity:** O(n) lookup/update; O(n) stored records.
 
-<details>
-<summary>Solution explanation — after attempting</summary>
-
-Read [solution.hpp](solution.hpp).
-
-Encapsulation centralizes the nonnegative-stock invariant. Test state after failures, not just the exception. A std::map member naturally provides independent value semantics (Rule of Zero).
-
-**Complexity:** O(log n) map operations excluding string comparison costs; O(n) stored entries.
-
-Check it with `python3 tools/run.py 18 --reference`. Reference mode never replaces your starter.
+`python3 tools/run.py 18 --reference` tests the reference without modifying your work.
 
 </details>

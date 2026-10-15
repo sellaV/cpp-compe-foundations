@@ -1,3 +1,4 @@
+#include <climits>
 #ifdef REFERENCE
 #include "solution.hpp"
 #else

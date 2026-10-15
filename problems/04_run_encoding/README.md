@@ -1,10 +1,10 @@
 # 04. Encode consecutive character runs
 
-**Stage 1: Functions, types and references**
+**Core stage 1: language and manual logic**
 
 ## Learn before solving
 
-string, struct, vector, size_t, range loops. Read the matching section in [CONCEPTS.md](../../docs/CONCEPTS.md).
+string, struct, vector, size_t, range loops. Read the matching stage in [CONCEPTS.md](../../docs/CONCEPTS.md).
 No engineering or machine-learning knowledge is needed.
 
 ## Contract

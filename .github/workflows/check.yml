@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        track: ['.', 'applied']
+        track: ['.', 'later', 'applied']
     defaults:
       run:
         working-directory: ${{ matrix.track }}

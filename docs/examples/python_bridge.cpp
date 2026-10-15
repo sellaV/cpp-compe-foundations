@@ -1,26 +1,26 @@
 #include <iostream>
-#include <optional>
 #include <vector>
 
-// x is a copy: changing it does not change the caller's int.
 void increment_copy(int x) {
     ++x;
 }
 
-// x refers to the caller's int: changing it changes that int.
 void increment_original(int& x) {
     ++x;
 }
 
-// Read an existing vector without copying it into a parameter.
-// Return an int when found, or an empty optional when absent.
-std::optional<int> first_negative(const std::vector<int>& values) {
+struct SearchResult {
+    bool found;
+    int value;
+};
+
+SearchResult first_negative(const std::vector<int>& values) {
     for (int value : values) {
         if (value < 0) {
-            return value;
+            return {true, value};
         }
     }
-    return std::nullopt;
+    return {false, 0};
 }
 
 int main() {
@@ -31,15 +31,15 @@ int main() {
     std::cout << "After reference: " << number << '\n';
 
     std::vector<int> values{4, -2, 0};
-    std::optional<int> result = first_negative(values);
-    if (result) {
-        std::cout << "First negative: " << *result << '\n';
+    SearchResult result = first_negative(values);
+    if (result.found) {
+        std::cout << "First negative: " << result.value << '\n';
     } else {
         std::cout << "No negative value\n";
     }
 
-    std::optional<int> zero = 0;
-    if (zero) {
-        std::cout << "Optional contains: " << *zero << '\n';
+    SearchResult zero{true, 0};
+    if (zero.found) {
+        std::cout << "Result contains: " << zero.value << '\n';
     }
 }
