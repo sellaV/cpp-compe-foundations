@@ -2,141 +2,127 @@
   {
     "slug": "01_second_largest",
     "title": "Second distinct largest using state flags",
-    "module": "1 \u00b7 State, loops, functions and references",
+    "module": "1 · State, loops, functions and references",
     "syntax": "int, bool, conditions, loops, a simple result struct",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "02_fraction_parts",
     "title": "Normalize a fraction with your own GCD loop",
-    "module": "1 \u00b7 State, loops, functions and references",
+    "module": "1 · State, loops, functions and references",
     "syntax": "long long, modulo, while loops, structs, status results",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "03_rotate_references",
     "title": "Rotate three caller-owned values",
-    "module": "1 \u00b7 State, loops, functions and references",
+    "module": "1 · State, loops, functions and references",
     "syntax": "reference parameters, snapshots, caller mutation",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "04_run_encoding",
     "title": "Encode consecutive character runs",
-    "module": "1 \u00b7 State, loops, functions and references",
+    "module": "1 · State, loops, functions and references",
     "syntax": "string, vector, struct, loops",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "05_normalize_spaces",
     "title": "Normalize whitespace between words",
-    "module": "2 \u00b7 Manual sequence operations",
+    "module": "2 · Manual sequence operations",
     "syntax": "const string reference, manual character checks",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "06_rotate_vector",
     "title": "Rotate in place using manual reversals",
-    "module": "2 \u00b7 Manual sequence operations",
+    "module": "2 · Manual sequence operations",
     "syntax": "index loops, helper functions, mutable references, modulo",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "07_merge_sorted",
     "title": "Merge two sorted sequences",
-    "module": "2 \u00b7 Manual sequence operations",
+    "module": "2 · Manual sequence operations",
     "syntax": "two indices, short-circuit conditions, loop invariants",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "08_balanced_brackets",
     "title": "Validate nested brackets",
-    "module": "2 \u00b7 Manual sequence operations",
+    "module": "2 · Manual sequence operations",
     "syntax": "manual stack using a vector, char conditions",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "09_first_unique",
     "title": "First nonrepeating byte using a plain array",
-    "module": "3 \u00b7 Arrays and general search logic",
+    "module": "3 · Arrays and general search logic",
     "syntax": "built-in arrays, two passes, result structs, casts",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "10_binary_search",
     "title": "Find the first qualifying index",
-    "module": "3 \u00b7 Arrays and general search logic",
+    "module": "3 · Arrays and general search logic",
     "syntax": "manual binary search, half-open index intervals",
-    "level": "Core"
-  },
-  {
-    "slug": "11_pair_search",
-    "title": "Find a pair by checking candidates yourself",
-    "module": "3 \u00b7 Arrays and general search logic",
-    "syntax": "nested loops, long long arithmetic, structs, early return",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "12_remove_duplicates",
     "title": "Remove duplicates while preserving order",
-    "module": "3 \u00b7 Arrays and general search logic",
+    "module": "3 · Arrays and general search logic",
     "syntax": "in-place compaction, nested scans, vector resizing",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "13_pointer_range",
     "title": "Reverse a borrowed array range",
-    "module": "4 \u00b7 Pointers, lifetime and recursion",
+    "module": "4 · Pointers, lifetime and recursion",
     "syntax": "raw pointers, nullptr, explicit lengths, status returns",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "14_borrowed_result",
     "title": "Return the address of the first maximum",
-    "module": "4 \u00b7 Pointers, lifetime and recursion",
+    "module": "4 · Pointers, lifetime and recursion",
     "syntax": "pointer returns, const overloads, borrowed lifetime",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "15_recursive_search",
     "title": "Search a sorted range recursively",
-    "module": "4 \u00b7 Pointers, lifetime and recursion",
+    "module": "4 · Pointers, lifetime and recursion",
     "syntax": "recursive functions, base cases, signed index bounds",
-    "level": "Core"
-  },
-  {
-    "slug": "16_subsets",
-    "title": "Backtracking with an ordinary helper function",
-    "module": "4 \u00b7 Pointers, lifetime and recursion",
-    "syntax": "recursion, reference parameters, snapshots, undoing changes",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "17_fraction_class",
     "title": "A fraction class with manual normalization",
-    "module": "5 \u00b7 Classes and data structure implementation",
+    "module": "5 · Classes and data structure implementation",
     "syntax": "private members, constructors, const methods, operators",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "18_inventory",
     "title": "Inventory using a vector of records",
-    "module": "5 \u00b7 Classes and data structure implementation",
+    "module": "5 · Classes and data structure implementation",
     "syntax": "classes, vector of structs, linear lookup, checked updates",
-    "level": "Core"
+    "level": "Foundation"
   },
   {
     "slug": "19_polymorphic_values",
     "title": "Virtual methods without dynamic allocation",
-    "module": "5 \u00b7 Classes and data structure implementation",
+    "module": "5 · Classes and data structure implementation",
     "syntax": "abstract base, override, const references, object lifetime",
-    "level": "Core"
+    "level": "Extension"
   },
   {
     "slug": "20_fixed_queue",
     "title": "Build a fixed-capacity queue class",
-    "module": "5 \u00b7 Classes and data structure implementation",
+    "module": "5 · Classes and data structure implementation",
     "syntax": "built-in member arrays, circular indices, state invariants",
-    "level": "Core"
+    "level": "Foundation"
   }
 ]

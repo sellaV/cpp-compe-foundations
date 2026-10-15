@@ -1,10 +1,14 @@
 # Roadmap and pacing
 
-Use this as an 8–12 week track alongside college, at roughly three focused sessions per week. This is a starting pace, not a deadline: repeat a problem when you cannot yet explain the invariant. Warm-ups can take 20–40 minutes; Core tasks often need 45–90 minutes; Stretch tasks may take several sessions.
+Use this as an optional application menu after the general foundation. No time targets or requirement to finish all 22 exercises. Select tasks to understand a project you are building.
 
-## Recommended order
+## Suggested selections
 
-Follow the IDs. Read the C++ bridge as concepts appear. Problems 01–04 introduce the API style; 05–08 strengthen algorithmic reasoning; 09–12 shift toward C++ design. Finish 13–16 before a robotics capstone and 17–24 before a vision/edge AI capstone.
+- Data and state: 01, 04, 05, 08, 09, 10.
+- Ownership: 11, after the later-track ownership lessons.
+- Planning: 13 first; 14 and 15 only when weighted routes or dependencies are relevant.
+- Controls: 16 after learning the necessary control concepts.
+- Images and numerics: select 17–24 to match your project; shape and numeric contracts matter more than solving speed.
 
 Problem 20 directly includes problem 19. Other problems compile independently, even though earlier concepts remain useful.
 
@@ -12,7 +16,6 @@ Problem 20 directly includes problem 19. Other problems compile independently, e
 | --- | --- | --- | --- |
 | 01 | [Filter valid sensor samples](../problems/01_stable_compaction/README.md) | Warm-up | const references, range-based loops, vector, return by value |
 | 02 | [Longest consecutive alarm](../problems/02_longest_alarm/README.md) | Warm-up | size_t, counters, loop invariants |
-| 03 | [Pair of complementary measurements](../problems/03_two_sum/README.md) | Core | unordered_map, optional, pair, iterators, int64_t |
 | 04 | [Parse a telemetry command](../problems/04_packet_parser/README.md) | Core | string_view, from_chars, optional, error codes |
 | 05 | [Moving average without repeated sums](../problems/05_moving_average/README.md) | Core | indexing, vector<double>, explicit casts, exceptions |
 | 06 | [First sample at or above a target](../problems/06_lower_bound/README.md) | Core | half-open intervals, unsigned indices, binary search |
@@ -21,7 +24,6 @@ Problem 20 directly includes problem 19. Other problems compile independently, e
 | 09 | [Fixed-capacity telemetry buffer](../problems/09_ring_buffer/README.md) | Stretch | class, constructor, private state, template, optional, circular indexing |
 | 10 | [Latched emergency-stop state machine](../problems/10_robot_state/README.md) | Core | enum class, class encapsulation, switch, methods |
 | 11 | [Traverse an owned command chain](../problems/11_owned_chain/README.md) | Core | unique_ptr, raw observing pointers, nullptr, make_unique, ownership |
-| 12 | [Transform data with a callable](../problems/12_generic_transform/README.md) | Stretch | function templates, callable parameters, lambdas, decltype, type_traits |
 | 13 | [Shortest path in an occupancy grid](../problems/13_grid_bfs/README.md) | Core | queue, pair, vector of vectors, structured bindings, BFS |
 | 14 | [Minimum-cost route through a robot graph](../problems/14_weighted_path/README.md) | Stretch | priority_queue, greater, adjacency lists, int64_t distances |
 | 15 | [Dependency order for automation tasks](../problems/15_task_order/README.md) | Stretch | indegree counts, topological sorting, optional, min-heap |
@@ -39,7 +41,7 @@ Problem 20 directly includes problem 19. Other problems compile independently, e
 
 - After 04: write a function with a precise input/output contract, explain references and optional results, and handle malformed telemetry.
 - After 08: distinguish O(n), O(log n) and O(n log n); explain a binary-search invariant and safely set register bits.
-- After 12: design a small class with private state, explain ownership versus observation, and instantiate a template with more than one type.
+- After selected class tasks: explain private state and ownership versus observation.
 - After 16: explain why BFS uses a queue, why Dijkstra needs nonnegative costs, and what state persists between PID samples.
 - After 20: trace row-major image indices, state border behavior, and explain why NMS suppresses boxes rather than merging them.
 - After 24: avoid softmax overflow, explain int8 saturation, and track matrix/tensor dimensions precisely.

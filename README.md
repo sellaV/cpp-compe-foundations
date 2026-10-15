@@ -1,87 +1,56 @@
-# C++ Foundations: logic first, libraries later
+# Practical C++ foundations
 
-**20 core exercises → 18 later library exercises → 24 optional applied exercises.**
+**Learn to write, debug, test, and build understandable C++ programs. This curriculum is not competitive-programming preparation.**
 
-Learn C++ through problems that require reasoning, without learning several unfamiliar APIs at once. The core track uses ordinary types, conditions, loops, functions, arrays, references, pointers and classes. It allows basic vector/string operations as practical storage tools, but postpones standard algorithms, associative containers, optional, smart pointers and templates.
-
-You do not need robotics, AI or computer-vision knowledge. No print-and-arithmetic drills are assigned.
+For learners coming from Python. All teaching material is in English. Start with general programming; choose engineering applications later. Basic vector/string storage is allowed early, while other library features are introduced after the ideas they express.
 
 ## Start here
 
-1. Follow [SETUP.md](docs/SETUP.md) for GCC/Clang with C++17 and Python 3.9+.
-2. Read [CPP_BRIDGE.md](docs/CPP_BRIDGE.md) and only Stage 1 of [CONCEPTS.md](docs/CONCEPTS.md).
-3. Open [01 — Second distinct largest using state flags](problems/01_second_largest/README.md).
-4. Implement starter.hpp and run:
-
-```bash
-python3 tools/run.py 01
-```
-
-Reference mode does not change your work:
+1. Follow [setup](docs/SETUP.md), then read the [Python-to-C++ bridge](docs/CPP_BRIDGE.md).
+2. Read Stage 1 of [Concepts](docs/CONCEPTS.md).
+3. Try [second distinct largest](problems/01_second_largest/README.md): implement `starter.hpp`, then run `python3 tools/run.py 01`.
+4. Follow the [practical roadmap](docs/ROADMAP.md). It interleaves exercises with Git, debugging, tests, and a project.
 
 ```bash
 python3 tools/run.py --list
+python3 tools/run.py 01
 python3 tools/run.py 01 --reference
-python3 tools/run.py all --reference
 ```
 
-On Windows, python may be the command instead of python3. The runner compiles your C++; Python is only the test launcher.
+Python launches tests; your implementation is C++. Starters intentionally fail until completed. Reference mode never edits your implementation.
 
-## Track 1: core language and manual logic
+## What is required?
 
-| Stage | Exercises | What you practice |
+| Component | Purpose | Priority |
 | --- | --- | --- |
-| 1 | 01–04 | State flags, conditions, loops, functions, references, simple structs |
-| 2 | 05–08 | Character scans, index-based reversal/rotation, merging, bracket matching |
-| 3 | 09–12 | Built-in arrays, manual binary search, pair search, in-place compaction |
-| 4 | 13–16 | Borrowed pointers, lifetime, const overloads, recursive search, backtracking |
-| 5 | 17–20 | Constructors, private invariants, value semantics, virtual methods, fixed queue |
+| Core exercises | State, functions, references, bounds, lifetime, class invariants | Ten foundation tasks; eight selectable extensions |
+| [Workflow labs](labs/README.md) | Git, compiler/linker, debugger, meaningful tests | All four labs |
+| [Later track](later/README.md) | Streams, standard algorithms, containers, ownership, RAII | Follow the practical sequence; comparison/advanced tasks are selective |
+| [Text-report project](projects/text_report/README.md) | A real command-line program with multiple files and tests | Required integration milestone |
+| [Applied exercises](applied/README.md) | Optional engineering applications | Choose by project need |
 
-See the [linked roadmap](docs/ROADMAP.md). Every core exercise compiles independently. Core solutions include only headers they actually use.
+There are 18 core, 13 later, and 22 applied exercises available. These counts are an inventory, **not a completion quota**. IDs have gaps to preserve existing file paths and learner work.
 
-### Library boundary in the core track
+## How this differs from contest training
 
-vector and string are standard-library types too. They remain here to let you focus on reasoning without first building a dynamic array or string class. Use basic operations such as size, indexing, push_back, pop_back, empty, back and resize. A few exercises use reserve only to prepare output capacity.
+There are no speed targets, rankings, daily puzzle quotas, or requirements to memorize tricks. Success means you can explain your code, handle bad input, diagnose a failure, write a useful test, and extend a working program.
 
-Core implementations do not require optional, map/unordered_map, std::array, standard search/sort/reverse algorithms, lambdas, smart pointers, type-traits or parsing libraries. Read each contract for its restrictions. The test harness and unfinished TODO mechanism use some supporting library features; understanding those internals is not a prerequisite for solving the exercise.
+Learn scans, binary search, a stack/queue, and basic time/space reasoning. Learn graph algorithms when a project needs them. Subset enumeration, pair-sum drills, longest-unique-substring puzzles, anagram grouping, and advanced generic-transform/frequency exercises have been removed. Historical versions remain in Git history.
 
-For missing results, early tasks use a simple struct with a bool flag and a value. Invalid operations return status where specified. Some later core contracts instead state caller preconditions: a precondition is something the caller must guarantee, not something you should silently assume in every real application.
+Manual implementations are temporary teaching exercises. Once you understand an operation, use appropriate standard-library facilities in projects. STL knowledge alone does not replace language semantics, ownership, debugging, or design.
 
-### Migration from the previous version
+## External resources with a specific job
 
-Exercise 01 now returns NumberResult with fields found and value instead of optional<int>. The new starter and tests document the interface. If you already wrote a solution, keep a copy of it and adapt that function rather than discarding your work. Later exercise 01 retains the earlier optional version for comparison. The original engineering track remains in applied/.
+Use [CS50x](https://cs50.harvard.edu/x/) for explanations of computing, C, memory, and data structures. Use this repo to practice C++ separately: C and C++ have different rules and idioms. Use [CS50P](https://pll.harvard.edu/course/cs50s-introduction-programming-python) selectively for Python gaps. Learn Git alongside your first exercises.
 
-## Track 2: learn the libraries after the ideas
+After the integration project, choose one appropriately scoped tutorial from [Build Your Own X](https://github.com/codecrafters-io/build-your-own-x). See [Resources](docs/RESOURCES.md) for prerequisites and how to use all six resources you supplied. Distributed-system interview preparation and Claude API courses are optional topics outside this foundation.
 
-The [later track](later/) has 18 exercises. Some revisit core problems to show what a library replaces and what new rules it introduces. Follow [LIBRARIES.md](docs/LIBRARIES.md) for the sequence.
+## Practice and checks
 
-```bash
-python3 later/tools/run.py --list
-python3 later/tools/run.py 01
-python3 later/tools/run.py all --reference
-```
+For each selected exercise, trace one example, write your own solution, inspect failures, add a useful case, and explain what is copied or borrowed. Use [PROGRESS.md](PROGRESS.md) to record evidence of learning. Hints and references are learning tools, not penalties.
 
-Here you learn optional, standard algorithms, hash maps, smart pointers, moves, lambdas, templates, iterators, streams, exceptions, variant and RAII. They are useful tools to learn, rather than permanent restrictions to avoid.
+GitHub Actions checks reference behavior, starter compilation, sanitizers, and the integration project. Passing tests is evidence, not a guarantee of correctness or career readiness. This repo is a workbook and project scaffold, not a complete degree or C++ textbook.
 
-## Track 3: optional engineering applications
+## Updating an existing clone
 
-After the foundation, [applied/](applied/) offers 24 exercises involving sensor data, planning, control, image processing and edge-AI numerics.
-
-```bash
-python3 applied/tools/run.py --list
-python3 applied/tools/run.py 13
-```
-
-## Is knowing STL enough?
-
-No. Knowing a container's API does not by itself tell you how to design a loop, preserve state, avoid a dangling pointer, validate an index, debug a class, or manage a resource.
-
-For a practical engineering foundation, prioritize correct logic, arrays/strings, references and lifetime, class design, debugging and basic complexity. Then learn the library tools that make those tasks safer and more maintainable. You do not need to make difficult puzzle solving the center of this course. You should still be able to write and explain a linear scan, a binary search, a simple queue, and basic graph traversal when later applications require them.
-
-This course is not a complete C++ education. After core and relevant later exercises, build a [small project](docs/CAPSTONES.md) with multiple source files, real I/O and tests. Concurrency, deployment and domain libraries need further study.
-
-## Practice and verification
-
-Try each problem before opening hints. Explain the invariant, trace a boundary case, add a test and record a C++ lesson in [PROGRESS.md](PROGRESS.md). Passing visible tests is evidence, not a proof or an enforcement mechanism for every algorithm restriction.
-
-GitHub Actions checks all three tracks: reference behavior, learner interface compilation and address/undefined-behavior sanitizers. Unfinished learner tasks intentionally fail at runtime until implemented. All exercises are original.
+Read [migration notes](docs/MIGRATION.md) before pulling if you have local solutions. Existing retained exercise interfaces are unchanged by this revision.

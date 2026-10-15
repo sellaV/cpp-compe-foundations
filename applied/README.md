@@ -2,7 +2,7 @@
 
 # C++ CompE Foundations
 
-**24 original, LeetCode-style challenges for a Computer Engineering student interested in automation, robotics, computer vision and edge AI.**
+**22 optional engineering exercises for a Computer Engineering student interested in automation, robotics, computer vision and edge AI.**
 
 Start with filtering noisy measurements and parsing commands. Work toward robot path planning, stateful controllers, image processing and tensor operations. You will learn C++ syntax through useful logic problems instead of print-and-arithmetic drills.
 
@@ -37,20 +37,20 @@ python tools/run.py 05 --sanitize          # Optional memory/undefined-behavior 
 
 | Stage | Problems | What you learn | Engineering connection |
 | --- | --- | --- | --- |
-| 1. Core logic | 01–04 | Loops, const references, vectors, hash maps, optional, string parsing | Sensor filtering and telemetry |
+| 1. Core logic | 01–04 | Loops, const references, vectors, optional, string parsing | Sensor filtering and telemetry |
 | 2. Algorithms and bits | 05–08 | Sliding windows, binary search, sorting, structs, bit masks | Signal windows, reservations, registers |
-| 3. C++ design | 09–12 | Classes, templates, encapsulation, unique ownership, callables | Buffers, controller state and resource lifetimes |
+| 3. C++ design | 09–12 | Classes, templates, encapsulation, unique ownership | Buffers, controller state and resource lifetimes |
 | 4. Robot algorithms | 13–16 | BFS, Dijkstra, dependencies, persistent numerical state | Route planning, task execution, PID |
 | 5. Vision | 17–20 | Row-major images, borders, geometry, greedy suppression | Cropping, blur, IoU and NMS |
 | 6. Edge AI | 21–24 | Numerical stability, narrowing, matrix shapes, tensor layout | Softmax, int8 quantization and preprocessing |
 
-See the [full roadmap](docs/ROADMAP.md) for links, prerequisites and pacing. Warm-ups still require real logic; Core tasks build reusable patterns; Stretch tasks need more design or algorithmic reasoning. Difficulty labels are local to this track, not official LeetCode ratings.
+Select tasks by project need; there is no requirement to finish this track. See the [full roadmap](docs/ROADMAP.md) for links, prerequisites and pacing. Warm-ups still require real logic; Core tasks build reusable patterns; Stretch tasks need more design or algorithmic reasoning. Difficulty labels describe local prerequisites, not competition rankings.
 
 **Dependency:** problem 20's starter includes problem 19's starter. Finish IoU before NMS. Reference mode uses only reference files, so you can verify the package even before solving anything.
 
 ## How to practice
 
-- Spend 25–45 minutes on a serious attempt before opening Hint 1.
+- Try a small example and your own implementation before opening Hint 1; there is no time target.
 - Write a tiny input by hand and trace your variables. Explain your invariant.
 - Read compiler errors from the first error downward. Fix one cause at a time.
 - Try Hint 2 before the solution. After reading a solution, close it and rewrite it yourself later.
@@ -75,7 +75,7 @@ PROGRESS.md         learning log
 
 The headers include a shared set of standard headers for convenience. After solving, remove unnecessary includes as a cleanup exercise. Prefer specific headers in real projects. Starter placeholders can produce unused-parameter warnings; these disappear when you implement the parameters' logic.
 
-## After the challenges
+## After a selected application
 
 Build one of the [three capstone projects](docs/CAPSTONES.md). These require integrating modules and making design choices, so they complement algorithm drills. Then extend your learning toward concurrency, build systems, numerical methods, controls, ROS, OpenCV and hardware integration as your courses and projects require.
 

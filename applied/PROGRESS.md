@@ -6,7 +6,6 @@ Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Replace 
 | --- | --- | --- | --- | --- | --- | --- |
 | [ ] | 01 | Filter valid sensor samples | | | | |
 | [ ] | 02 | Longest consecutive alarm | | | | |
-| [ ] | 03 | Pair of complementary measurements | | | | |
 | [ ] | 04 | Parse a telemetry command | | | | |
 | [ ] | 05 | Moving average without repeated sums | | | | |
 | [ ] | 06 | First sample at or above a target | | | | |
@@ -15,7 +14,6 @@ Use [ ] for untouched, [~] for attempted, [x] for solved and explained. Replace 
 | [ ] | 09 | Fixed-capacity telemetry buffer | | | | |
 | [ ] | 10 | Latched emergency-stop state machine | | | | |
 | [ ] | 11 | Traverse an owned command chain | | | | |
-| [ ] | 12 | Transform data with a callable | | | | |
 | [ ] | 13 | Shortest path in an occupancy grid | | | | |
 | [ ] | 14 | Minimum-cost route through a robot graph | | | | |
 | [ ] | 15 | Dependency order for automation tasks | | | | |

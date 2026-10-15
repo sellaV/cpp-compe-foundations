@@ -1,12 +1,14 @@
-# Validation: logic-first curriculum
+# Validation: practical curriculum revision
 
-Validated in C++17 mode on Linux.
+Checked locally with GCC in C++17 mode on Linux:
 
-- Core: 20/20 reference suites pass (3870 checks); all 20 learner interfaces compile.
-- Core reference suites pass AddressSanitizer and UndefinedBehaviorSanitizer with local leak detection disabled.
-- Later: 18 reference suites pass; all 18 learner interfaces compile; all 18 reference suites pass the same sanitizer checks.
-- The optional applied source/tests are unchanged from the previously successful GitHub run.
-- The updated Python-bridge example compiles with warnings enabled and prints the documented output.
-- Core starter/solution audit: no optional, map/unordered_map, standard algorithm calls, std::array, smart pointers, lambda-based implementations or type-trait dependencies are required.
+- All retained reference suites pass: 18 core, 13 later, 22 applied.
+- All 18 core learner interfaces compile; retained exercise implementations and interfaces are unchanged by this revision.
+- The text-report learner project compiles; its unfinished implementation intentionally fails runtime tests.
+- The reference project passes unit tests and actual CLI checks, including empty input, missing paths, CRLF, spaces in filenames, invalid argument counts, and stream failures.
+- The reference project passes AddressSanitizer and UndefinedBehaviorSanitizer with local leak detection disabled.
+- Local Markdown links resolve, and each curriculum manifest matches its exercise directories.
 
-LeakSanitizer cannot inspect processes in the preparation environment, so leaks are not locally verified. GitHub Actions runs reference behavior, starter compilation and sanitizer checks for all three tracks. Provided tests do not prove all inputs or enforce every algorithm restriction.
+CMake is not installed in the preparation environment. The GitHub Actions project job verifies both reference and learner CMake builds, runs reference CTest checks, and checks project sanitizers. The existing track jobs check references, starter compilation, and sanitizers for each retained track.
+
+LeakSanitizer process inspection is unavailable locally, so local checks do not establish leak freedom. Tests do not prove correctness for every possible input, enforce every teaching restriction, or certify learner mastery.

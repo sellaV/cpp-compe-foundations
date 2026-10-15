@@ -1,4 +1,4 @@
-name: C++ challenge checks
+name: Practical C++ checks
 on: [push, pull_request]
 permissions:
   contents: read
@@ -19,3 +19,21 @@ jobs:
         run: python3 tools/run.py all --compile-only
       - name: Check for undefined behavior
         run: python3 tools/run.py all --reference --sanitize
+
+  project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check reference project and CLI
+        run: python3 projects/text_report/check.py --reference
+      - name: Compile learner project
+        run: python3 projects/text_report/check.py --compile-only
+      - name: Check project memory behavior
+        run: python3 projects/text_report/check.py --reference --sanitize
+      - name: Verify optional CMake builds
+        run: |
+          cmake -S projects/text_report -B build/cmake-reference -DUSE_REFERENCE=ON
+          cmake --build build/cmake-reference
+          ctest --test-dir build/cmake-reference --output-on-failure
+          cmake -S projects/text_report -B build/cmake-learner
+          cmake --build build/cmake-learner

@@ -200,7 +200,7 @@ One reference solution uses reserve to prepare storage. reserve does not add ele
 
 **Checkpoint:** Can you reverse a segment without calling reverse? Can you explain why an empty input is safe? Which values must you save before overwriting a slot?
 
-## Stage 3 — Plain arrays and search logic (09–12)
+## Stage 3 — Plain arrays and search logic (09, 10, 12)
 
 A built-in fixed array looks like this:
 
@@ -210,7 +210,7 @@ unsigned counts[256]{};
 
 This creates 256 counters initialized to zero. Its size is fixed; it has no push_back method. Exercise 09 uses it as a byte-frequency table. char can be signed, so use static_cast<unsigned char>(c) when converting a byte to a 0–255 index.
 
-You will implement binary search manually, try candidate pairs with nested loops, and compact a vector in place. There is no need for a hash map yet.
+You will implement binary search manually and optionally compact a vector in place. There is no need for a hash map yet.
 
 | Complexity | A practical interpretation |
 | --- | --- |
@@ -218,13 +218,13 @@ You will implement binary search manually, try candidate pairs with nested loops
 | O(n²) | For example, checking every pair |
 | O(log n) | For example, repeatedly halving a search interval |
 
-A simple quadratic baseline can be correct and useful within the stated bounds. Later, compare pair search with a hash-table implementation. You need to understand what work changes, not memorize a large collection of puzzle tricks.
+A simple quadratic baseline can be correct and useful within the stated bounds. Later, compare a linear inventory lookup with a map-backed implementation. You need to understand what work changes, not memorize a large collection of puzzle tricks.
 
 A half-open range [begin,end) includes begin but excludes end. An empty range has begin==end. Binary search should make this range smaller on every iteration.
 
 **Checkpoint:** Can you find the first qualifying index with a loop before optimizing it? Can you explain when an O(n²) approach would become expensive?
 
-## Stage 4 — Borrowed pointers, lifetime and recursion (13–16)
+## Stage 4 — Borrowed pointers, lifetime and recursion (13–15)
 
 ### Reading pointer syntax
 
@@ -249,11 +249,9 @@ In these exercises, pointers **borrow** existing objects: the caller keeps the s
 
 ### Recursion uses ordinary functions
 
-A recursive function calls itself with a smaller problem. It needs a base case that stops the calls. Backtracking adds a choice, recurses, then removes the choice before exploring another branch.
+A recursive function calls itself with a smaller problem. It needs a base case that stops the calls. Optional exercise 15 shows this with a named helper and explicit parameters. Trace a few calls and identify what shrinks each time. You do not need subset enumeration or backtracking drills to learn the syntax.
 
-Use a named helper with explicit parameters in exercise 16; no std::function or lambda is necessary. Passing the working vector by reference lets recursive calls update one working sequence. Pushing that vector into vector<vector<int>> copies a snapshot, unlike Python append(current), which retains the same list object.
-
-**Checkpoint:** Which object owns the array? When does a returned pointer become invalid? What shrinks on every recursive call? What change must be undone after a branch?
+**Checkpoint:** Which object owns the array? When does a returned pointer become invalid? What shrinks on every recursive call?
 
 ## Stage 5 — Classes before advanced library design (17–20)
 

@@ -1,54 +1,46 @@
-# Libraries after the core ideas
+# Libraries that support practical programs
 
-Start this guide after the 20 core exercises, or selectively when you can already explain the relevant core concept. All commands here are run from the repository root.
+Learn one facility when you have a concrete use for it. Basic vector/string storage already appears in the core. Manual implementation restrictions apply to designated exercises, not every project.
 
-The distinction is about learning order, not a ban on libraries. vector/string are already library types used as practical storage. Now introduce algorithms, containers and ownership abstractions deliberately.
+## 1. Streams and validation: later 16, then 15
 
-## 1. Replace familiar manual operations
+`std::istream` is a source of characters. `std::ostream` is a destination. A function receiving these interfaces can operate on files or in-memory strings, making the same logic easy to test.
 
-| Later exercise | Tool | Compare with core |
+`std::ifstream` opens a file for reading. Check that opening succeeded. Read by checking the read operation, not by predicting the next read with `eof()`. Later 16 practices text processing; later 15 adds strict integer parsing, including trailing junk and out-of-range values.
+
+The [project](../projects/text_report/README.md) supplies the CLI and file-opening code. You implement the analysis. Its README explains every unfamiliar stream operation before asking you to use it.
+
+## 2. Algorithms and containers: later 03, 08, 13
+
+An iterator identifies a position. Standard algorithms commonly use `[begin,end)`, where end is after the last item and cannot be dereferenced. Compare later 03 with core 06 if you want a manual-versus-library reversal comparison.
+
+Later 08 stores inventory records in `std::map`. A map associates a key with a value, somewhat like a Python dictionary; `std::map` also maintains key order. `std::unordered_map` uses hashing and does not promise sorted iteration. Learn to explain ordering needs, average lookup cost, and storage overhead before switching containers. A separate hash-map puzzle is not required.
+
+Later 13 sorts records with a lambda comparator. `[](const Record& a, const Record& b) { return a.score > b.score; }` is an example of a small unnamed function, assuming Record has a score member. A comparator must be strict: use `>` rather than `>=`. Stable sorting preserves the input order of ties.
+
+For real projects, use `std::vector` rather than writing a resizable array from scratch. Study iterator/pointer invalidation whenever you keep an address into a container across modifications.
+
+## 3. Lifetime and resource management: later 10, 18
+
+A borrowed pointer does not keep its target alive. An owning object is responsible for cleanup. `std::unique_ptr` owns an allocation and releases it automatically; `std::make_unique` creates such an owner.
+
+`std::move` permits a move operation; it is not itself a copy loop or a guarantee that every moved-from object becomes empty. Follow the type's contract. Later 10 makes ownership transfer explicit in a small class.
+
+RAII means tying resource cleanup to an object's lifetime. A destructor runs when its object leaves scope, including during exception unwinding. Later 18 restores formatting state this way. File streams already close their files through their destructors.
+
+A custom move-only wrapper is a learning exercise. Ordinary application classes can often rely on vector/string/owning members and compiler-generated special member functions instead of writing custom copy/move code.
+
+## Selective comparisons and extensions
+
+| IDs | Topic | When useful |
 | --- | --- | --- |
-| 01 | optional<int> | A bool flag plus a stored int in core 01 |
-| 02 | std::gcd and exceptions | Euclid loop and status result in core 02 |
-| 03 | std::reverse and iterators | Manual indexed reversal in core 06 |
-| 04 | unordered_map, pair and optional | Nested candidate loops in core 11 |
-| 05 | std::array and sliding windows | Built-in frequency arrays and sequence scans |
+| 01 | optional | Compare with core 01's bool/value result; presence is different from a nonzero value |
+| 02 | gcd and exceptions | Compare with core 02; understand error-reporting choices |
+| 06 | Owned linked nodes | When reading linked ownership structures; not required for everyday storage |
+| 07 | Value operators | If making a meaningful value type |
+| 09 | Virtual cloning | When copies must preserve derived types |
+| 17 | variant | When a configuration value has a small set of possible types |
 
-optional has two states: it contains a value, or it does not. `if (answer)` checks presence, not whether the contained number is nonzero. `*answer` reads the contained value after checking presence. nullopt represents absence. This packages the state you previously maintained explicitly.
+Templates let code work with different types. Recognizing `vector<int>` and reading a simple function template is useful. Writing type-trait-heavy generic libraries is not a foundation milestone here.
 
-Standard algorithms usually accept a half-open iterator range [begin,end). end is just after the last element; do not dereference it. A hash map can improve average lookup complexity, but you still need to understand its key, ordering, memory and invalidation behavior.
-
-## 2. Ownership and class design
-
-Later 06–10 cover an owned linked list, value operators, a map-backed inventory, polymorphic cloning and a move-only buffer.
-
-A raw pointer alone says neither who owns the object nor how long it lives. unique_ptr owns one object exclusively and releases it when destroyed. make_unique creates an owner; get provides a non-owning observing pointer. std::move enables a move operation; it does not itself promise that every moved-from type becomes empty. unique_ptr does become empty after ownership transfer; a custom class needs its own stated moved-from contract.
-
-Copying into a base value can slice a derived object. A virtual clone can preserve the dynamic type. Compare that with core 19, which only borrows local objects through base references.
-
-## 3. STL algorithms and generic code
-
-Later 11–14 cover callables, lambdas, canonical-key grouping, stable sorting and iterator-based templates.
-
-A lambda is a small callable such as `[](int x) { return x*2; }`. A template parameterizes code by type. Neither requires abandoning compile-time type checking.
-
-In a sort comparator, true means the first value should come strictly before the second. Use > for descending order, not >=. Iterator interfaces should not assume random access unless their contract requires it: list iterators cannot be subtracted like vector iterators.
-
-Study decltype, decay_t and iterator_traits only when their exercises require them. They describe types for reusable code, not the core logic of an early loop.
-
-## 4. Streams, error handling and RAII
-
-Later 15–18 cover strict token parsing, text statistics, variant and a formatting guard.
-
-istream/ostream let the same algorithm work with stringstreams and file streams. Read by testing extraction success, not by predicting the next read from eof(). from_chars reports both a conversion status and where parsing stopped.
-
-Exceptions and status results are API choices; follow the specified contract. variant stores one of several known types. RAII ties cleanup to object lifetime: a destructor restores state or releases a resource on both normal scope exit and exception unwinding. This is important general C++ knowledge even when your career does not center on algorithm puzzles.
-
-## Suggested pace
-
-Do the first four comparisons, then choose one ownership task, one container/algorithm task and one stream task. Return to generic code as your needs grow. You do not need to solve every duplicate problem immediately, but do learn lifetime, error handling and resource management before relying on complex APIs.
-
-```bash
-python3 later/tools/run.py --list
-python3 later/tools/run.py 01
-```
+**Completion check:** Explain which objects own resources, handle invalid input, choose a suitable container, use a standard algorithm correctly, and test the behavior. Memorizing every STL API is unnecessary.
